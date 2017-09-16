@@ -18,7 +18,7 @@ namespace Modules\News\Models;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Task priority enum.
+ * Permision state enum.
  *
  * @category   Tasks
  * @package    Modules
