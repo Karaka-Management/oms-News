@@ -17,7 +17,8 @@
     "description": "News module.",
     "directory": "News",
     "dependencies": {
-        "Admin": "1.0.0"
+        "Admin": "1.0.0",
+        "Home": "1.0.0"
     },
     "providing": {
         "Navigation": "*"
