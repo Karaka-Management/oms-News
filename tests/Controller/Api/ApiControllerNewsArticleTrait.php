@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\News\Controller\Api;
+namespace Modules\News\tests\Controller\Api;
 
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;

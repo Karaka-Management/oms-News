@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-namespace Modules\tests\News\Models;
+namespace Modules\News\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
 use Modules\News\Models\NewsArticle;
