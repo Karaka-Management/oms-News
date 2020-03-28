@@ -14,12 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\News\tests\Controller;
 
-require_once __DIR__ . '/../../tests/../Autoloader.php';
-
 use Model\CoreSettings;
 
 use Modules\Admin\Models\AccountPermission;
-use Modules\tests\News\Controller\Api\ApiControllerNewsArticleTrait;
+use Modules\News\tests\Controller\Api\ApiControllerNewsArticleTrait;
 
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
@@ -32,7 +30,7 @@ use phpOMS\Router\WebRouter;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox Modules\tests\News\Controller\ApiControllerTest: News api controller
+ * @testdox Modules\News\tests\Controller\ApiControllerTest: News api controller
  *
  * @internal
  */

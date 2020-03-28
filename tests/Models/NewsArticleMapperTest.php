@@ -23,7 +23,7 @@ use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Utils\RnG\Text;
 
 /**
- * @testdox Modules\tests\News\Models\NewsArticleMapperTest: News article mapper
+ * @testdox Modules\News\tests\Models\NewsArticleMapperTest: News article mapper
  *
  * @internal
  */

@@ -21,7 +21,7 @@ use Modules\News\Models\NewsType;
 use phpOMS\Localization\ISO639x1Enum;
 
 /**
- * @testdox Modules\tests\News\Models\NewsArticleTest: News article
+ * @testdox Modules\News\tests\Models\NewsArticleTest: News article
  *
  * @internal
  */
