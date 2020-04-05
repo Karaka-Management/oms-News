@@ -20,15 +20,15 @@ use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 
 use Modules\News\Models\NewsType;
+use Modules\Tag\Models\NullTag;
 use phpOMS\Account\Account;
 use phpOMS\Localization\ISO639x1Enum;
+use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
-use phpOMS\Message\Http\HttpResponse;
-use Modules\Tag\Models\NullTag;
 
 /**
  * News controller class.
