@@ -51,7 +51,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
         self::assertEquals(ISO639x1Enum::_EN, $this->news->getLanguage());
         self::assertEquals(NewsStatus::DRAFT, $this->news->getStatus());
         self::assertEquals(NewsType::ARTICLE, $this->news->getType());
-        self::assertEquals([], $this->news->getBadges());
+        self::assertEquals([], $this->news->getTags());
         self::assertEquals('', $this->news->getPlain());
     }
 
