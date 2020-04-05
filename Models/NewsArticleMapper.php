@@ -15,8 +15,8 @@ declare(strict_types=1);
 namespace Modules\News\Models;
 
 use Modules\Admin\Models\AccountMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
 use Modules\Tag\Models\TagMapper;
+use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
  * News mapper class.
