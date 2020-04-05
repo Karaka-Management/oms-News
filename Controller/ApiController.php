@@ -27,6 +27,8 @@ use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Utils\Parser\Markdown\Markdown;
+use phpOMS\Message\Http\HttpResponse;
+use Modules\Tag\Models\NullTag;
 
 /**
  * News controller class.
@@ -163,6 +165,22 @@ final class ApiController extends Controller
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
         $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));
         $newsArticle->setFeatured((bool) ($request->getData('featured') ?? true));
+
+        if (!empty($tags = $request->getDataJson('tags'))) {
+            foreach ($tags as $tag) {
+                if (!isset($tag['id'])) {
+                    $request->setData('title', $tag['title'], true);
+                    $request->setData('color', $tag['color'], true);
+                    $request->setData('language', $tag['language'], true);
+
+                    $internalResponse = new HttpResponse();
+                    $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, null);
+                    $newsArticle->addTag($internalResponse->get($request->getUri()->__toString())['response']);
+                } else {
+                    $newsArticle->addTag(new NullTag((int) $tag['id']));
+                }
+            }
+        }
 
         return $newsArticle;
     }

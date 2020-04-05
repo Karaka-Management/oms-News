@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 use Modules\News\Models\NewsType;
+use \phpOMS\Uri\UriFactory;
 
 /**
  * @var \phpOMS\Views\View                 $this
@@ -20,39 +21,34 @@ use Modules\News\Models\NewsType;
  */
 $newsList = $this->getData('news');
 
+$previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=-';
+$next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=+';
+
 echo $this->getData('nav')->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="box wf-100">
-            <table id="newsList" class="default">
-                <caption><?= $this->getHtml('News'); ?><i class="fa fa-download floatRight download btn"></i></caption>
-                <thead>
-                <tr>
-                    <td>
-                    <td><?= $this->getHtml('Type') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td class="wf-100"><?= $this->getHtml('Title') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Author') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Date') ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                <tbody>
-                <?php $count = 0; foreach ($newsList as $key => $news) : ++$count;
-                $url = \phpOMS\Uri\UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
-                $color = 'darkred';
-                if ($news->getType() === NewsType::ARTICLE) { $color = 'green'; }
-                elseif ($news->getType() === NewsType::HEADLINE) { $color = 'purple'; }
-                elseif ($news->getType() === NewsType::LINK) { $color = 'yellow'; }
-                ?>
-                <tr data-href="<?= $url; ?>">
-                    <td><a href="<?= $url; ?>"><?= $news->isFeatured() ? '<i class="fa fa-star favorite"></i>' : ''; ?></a>
-                    <td data-label="<?= $this->getHtml('Type') ?>"><a href="<?= $url; ?>"><span class="tag <?= $this->printHtml($color); ?>"><?= $this->getHtml('TYPE' . $news->getType()) ?></span></a>
-                    <td data-label="<?= $this->getHtml('Title') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($news->getTitle()); ?></a>
-                    <td data-label="<?= $this->getHtml('Author') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($news->getCreatedBy()->getName1()); ?></a>
-                    <td data-label="<?= $this->getHtml('Date') ?>"><a href="<?= $url; ?>"><?= $this->printHtml($news->getPublish()->format('Y-m-d')); ?></a>
-                        <?php endforeach; ?>
-                        <?php if ($count === 0) : ?>
-                <tr><td colspan="5" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
-                        <?php endif; ?>
-            </table>
+        <?php foreach ($newsList as $news) : $url = UriFactory::build('{/prefix}news/article?id=' . $news->getId()); ?>
+        <div class="portlet">
+            <div class="portlet-head"><a href="<?= $url; ?>"><?= $this->printHtml($news->getTitle()); ?></a></div>
+            <div class="portlet-body">
+                <article>
+                    <?= \substr($news->getContent(), 0, 500) . (\strlen($news->getContent()) > 500 ? '...' : ''); ?>
+                </article>
+            </div>
+            <div class="portlet-foot">
+                <div class="overflowfix">
+                    <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
+                        <span class="tag" style="background: <?= $this->printHtml($tag->getColor()); ?>"><?= $this->printHtml($tag->getTitle()); ?></span>
+                    <?php endforeach; ?>
+                    <a href="<?= $url; ?>" class="button floatRight">More</a>
+                </div>
+            </div>
         </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="plain-portlet">
+        <a class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
+        <a class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
     </div>
 </div>

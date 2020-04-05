@@ -120,12 +120,12 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     private bool $featured = false;
 
     /**
-     * Badge.
+     * Tags.
      *
      * @var Tag[]
      * @since 1.0.0
      */
-    private array $badges = [];
+    private array $tags = [];
 
     /**
      * Constructor.
@@ -137,32 +137,6 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
         $this->createdBy = new NullAccount();
         $this->createdAt = new \DateTime('now');
         $this->publish   = new \DateTime('now');
-    }
-
-    /**
-     * Get badges
-     *
-     * @return Tag[]
-     *
-     * @since 1.0.0
-     */
-    public function getBadges() : array
-    {
-        return $this->badges;
-    }
-
-    /**
-     * Add badge
-     *
-     * @param Tag $badge Badge to add
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addBadge(Tag $badge) : void
-    {
-        $this->badges[] = $badge;
     }
 
     /**
@@ -429,6 +403,32 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     public function setFeatured(bool $featured) : void
     {
         $this->featured = $featured;
+    }
+
+    /**
+     * Get tags
+     *
+     * @return array
+     *
+     * @since 1.0.0
+     */
+    public function getTags() : array
+    {
+        return $this->tags;
+    }
+
+    /**
+     * Add tag
+     *
+     * @param Tag $tag Tag
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addTag(Tag $tag) : void
+    {
+        $this->tags[] = $tag;
     }
 
     /**

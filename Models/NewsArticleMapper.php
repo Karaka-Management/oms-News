@@ -16,6 +16,7 @@ namespace Modules\News\Models;
 
 use Modules\Admin\Models\AccountMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Tag\Models\TagMapper;
 
 /**
  * News mapper class.
@@ -57,6 +58,21 @@ final class NewsArticleMapper extends DataMapperAbstract
         'createdBy' => [
             'mapper' => AccountMapper::class,
             'self'   => 'news_created_by',
+        ],
+    ];
+
+    /**
+     * Has many relation.
+     *
+     * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
+     * @since 1.0.0
+     */
+    protected static array $hasMany = [
+        'tags' => [
+            'mapper' => TagMapper::class,
+            'table'  => 'news_tag',
+            'self'   => 'news_tag_src',
+            'external' => 'news_tag_dst',
         ],
     ];
 

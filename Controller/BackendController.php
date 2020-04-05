@@ -54,8 +54,17 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-dashboard');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
 
-        $news = NewsArticleMapper::getNewest(50);
-        $view->addData('news', $news);
+        if ($request->getData('ptype') === '-') {
+            $view->setData('news',
+                NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                    ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
+            );
+        } else {
+            $view->setData('news',
+                NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                    ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
+            );
+        }
 
         return $view;
     }
