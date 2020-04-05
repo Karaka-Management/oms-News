@@ -77,7 +77,9 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
 
-        $news = NewsArticleMapper::getNewest(5);
+        $news = NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+            ::getNewest(5);
+
         $view->addData('news', $news);
 
         return $view;

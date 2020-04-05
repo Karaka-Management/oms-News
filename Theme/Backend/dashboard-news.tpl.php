@@ -16,12 +16,12 @@ declare(strict_types=1);
  * @var \phpOMS\Views\View $this
  */
 
-$newsList = $this->getData('news');
+$newsList = $this->getData('news') ?? [];
 ?>
 <div id="news-dashboard" class="col-xs-12 col-md-6" draggable="true">
-    <div class="box wf-100">
+    <div class="portlet">
+        <div class="portlet-head"><?= $this->getHtml('News', 'News'); ?></div>
         <table class="default">
-            <caption><?= $this->getHtml('News', 'News'); ?><i class="fa fa-download floatRight download btn"></i></caption>
             <thead>
             <tr>
                 <td>
