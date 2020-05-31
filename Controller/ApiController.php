@@ -90,7 +90,7 @@ final class ApiController extends Controller
     {
         $old = clone NewsArticleMapper::get((int) $request->getData('id'));
         $new = $this->updateNewsFromRequest($request);
-        $this->updateModel($request->getHeader()->getAccount(), $old, $new, NewsArticleMapper::class, 'news');
+        $this->updateModel($request->getHeader()->getAccount(), $old, $new, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully updated', $new);
     }
 
@@ -140,7 +140,7 @@ final class ApiController extends Controller
         }
 
         $newsArticle = $this->createNewsArticleFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $newsArticle, NewsArticleMapper::class, 'news');
+        $this->createModel($request->getHeader()->getAccount(), $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully created', $newsArticle);
     }
 
@@ -272,7 +272,7 @@ final class ApiController extends Controller
     public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $news = NewsArticleMapper::get((int) $request->getData('id'));
-        $this->deleteModel($request->getHeader()->getAccount(), $news, NewsArticleMapper::class, 'news');
+        $this->deleteModel($request->getHeader()->getAccount(), $news, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully deleted', $news);
     }
 }
