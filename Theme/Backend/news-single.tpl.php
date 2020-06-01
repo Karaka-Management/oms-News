@@ -21,7 +21,7 @@ $news = $this->getData('news');
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
-        <section class="box wf-100">
+        <section class="portlet">
             <article>
                 <h1><?= $this->printHtml($news->getTitle()); ?></h1>
                 <?= $news->getContent(); ?>
