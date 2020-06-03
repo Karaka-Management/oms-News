@@ -12,7 +12,6 @@
  */
 declare(strict_types=1);
 
-use phpOMS\Account\PermissionType;
 
 /**
  * @var \Modules\News\Models\NewsArticle $news
