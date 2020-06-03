@@ -12,12 +12,21 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Account\PermissionType;
+
+/**
+ * @var \Modules\News\Models\NewsArticle $news
+ */
+$news = $this->getData('news');
+
+/**
+ * @var bool $editable
+ */
+$editable = $this->getData('editable');
+
 /**
  * @var \phpOMS\Views\View $this
  */
-
-$news = $this->getData('news');
-
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
@@ -29,3 +38,11 @@ echo $this->getData('nav')->render(); ?>
         </section>
     </div>
 </div>
+
+<?php if ($editable) : ?>
+<div class="row">
+    <div class="box">
+        <a tabindex="0" class="button" href="<?= \phpOMS\Uri\UriFactory::build('{/prefix}news/edit?id=' . $news->getId()); ?>">Edit</a>
+    </div>
+</div>
+<?php endif; ?>
