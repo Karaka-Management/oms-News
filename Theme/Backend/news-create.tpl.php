@@ -20,14 +20,14 @@ echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12 col-md-9">
         <div id="testEditor" class="m-editor">
-            <section class="box wf-100">
-                <div class="inner">
+            <section class="portlet">
+                <div class="portlet-body">
                     <input id="iTitle" type="text" name="title" form="docForm">
                 </div>
             </section>
 
-            <section class="box wf-100">
-                <div class="inner">
+            <section class="portlet">
+                <div class="portlet-body">
                     <?= $this->getData('editor')->render('iNews'); ?>
                 </div>
             </section>
@@ -39,11 +39,11 @@ echo $this->getData('nav')->render(); ?>
     </div>
 
     <div class="col-xs-12 col-md-3">
-        <section class="box wf-100">
-            <div class="inner">
+        <section class="portlet">
+            <div class="portlet-head"><?= $this->getHtml('Status'); ?></div>
+            <div class="portlet-body">
                 <form id="docForm" method="PUT" action="<?= \phpOMS\Uri\UriFactory::build('{/api}news?{?}&csrf={$CSRF}'); ?>">
                     <table class="layout wf-100">
-                        <tr><td colspan="2"><label for="iStatus"><?= $this->getHtml('Status'); ?></label>
                         <tr><td colspan="2"><select name="status" id="iStatus">
                                     <option value="<?= $this->printHtml(Modules\News\Models\NewsStatus::DRAFT); ?>" selected><?= $this->getHtml('Draft'); ?>
                                     <option value="<?= $this->printHtml(Modules\News\Models\NewsStatus::VISIBLE); ?>"><?= $this->getHtml('Visible'); ?>
@@ -63,32 +63,35 @@ echo $this->getData('nav')->render(); ?>
                 </form>
             </div>
         </section>
-        <section class="box wf-100">
-            <div class="inner">
+        <section class="portlet">
+            <div class="portlet-head"><?= $this->getHtml('Type'); ?></div>
+            <div class="portlet-body">
                 <table class="layout wf-100">
-                    <tr><td colspan="2"><label for="iNewsType"><?= $this->getHtml('Type'); ?></label>
-                    <tr><td colspan="2">
+                    <tr><td>
                         <span class="radio">
-                            <input type="radio" name="type" id="iNewsType" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::ARTICLE); ?>" id="news" checked>
-                            <label for="news"><?= $this->getHtml('News'); ?></label>
+                            <label for="iNewsTypeArticle"><?= $this->getHtml('News'); ?></label>
+                            <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::ARTICLE); ?>" checked>
+                            <span class="checkmark"></span>
                         </span>
-                    <tr><td colspan="2">
+                    <tr><td>
                         <span class="radio">
-                            <input type="radio" name="type" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::HEADLINE); ?>" id="headline">
-                            <label for="headline"><?= $this->getHtml('Headline'); ?></label>
+                            <label for="iNewsTypeHeadline"><?= $this->getHtml('Headline'); ?></label>
+                            <input type="radio" name="type" id="iNewsTypeHeadline" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::HEADLINE); ?>">
+                            <span class="checkmark"></span>
                         </span>
-                    <tr><td colspan="2">
+                    <tr><td>
                         <span class="radio">
-                            <input type="radio" name="type" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::LINK); ?>" id="link">
-                            <label for="link"><?= $this->getHtml('Link'); ?></label>
+                            <label for="iNewsTypeLink"><?= $this->getHtml('Link'); ?></label>
+                            <input type="radio" name="type" id="iNewsTypeLink" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::LINK); ?>">
+                            <span class="checkmark"></span>
                         </span>
                 </table>
             </div>
         </section>
-        <section class="box wf-100">
-            <div class="inner">
+        <section class="portlet">
+            <div class="portlet-head"><?= $this->getHtml('Accounts/Groups'); ?></div>
+            <div class="portlet-body">
                 <table class="layout wf-100">
-                    <tr><td><label for="permission"><?= $this->getHtml('Accounts/Groups'); ?></label>
                     <!-- @todo add form this belongs to -->
                     <!-- @todo make auto save on change for already created news article -->
                     <!-- @todo add default values (some can be removed/overwritten and some not?) -->
