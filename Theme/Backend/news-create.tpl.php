@@ -68,23 +68,23 @@ echo $this->getData('nav')->render(); ?>
             <div class="portlet-body">
                 <table class="layout wf-100">
                     <tr><td>
-                        <span class="radio">
-                            <label for="iNewsTypeArticle"><?= $this->getHtml('News'); ?></label>
+                        <label class="radio" for="iNewsTypeArticle">
                             <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::ARTICLE); ?>" checked>
                             <span class="checkmark"></span>
-                        </span>
+                            <?= $this->getHtml('News'); ?>
+                        </label>
                     <tr><td>
-                        <span class="radio">
-                            <label for="iNewsTypeHeadline"><?= $this->getHtml('Headline'); ?></label>
+                        <label class="radio" for="iNewsTypeHeadline">
                             <input type="radio" name="type" id="iNewsTypeHeadline" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::HEADLINE); ?>">
                             <span class="checkmark"></span>
-                        </span>
+                            <?= $this->getHtml('Headline'); ?>
+                        </label>
                     <tr><td>
-                        <span class="radio">
-                            <label for="iNewsTypeLink"><?= $this->getHtml('Link'); ?></label>
+                        <label class="radio" for="iNewsTypeLink">
                             <input type="radio" name="type" id="iNewsTypeLink" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::LINK); ?>">
                             <span class="checkmark"></span>
-                        </span>
+                            <?= $this->getHtml('Link'); ?>
+                        </label>
                 </table>
             </div>
         </section>
