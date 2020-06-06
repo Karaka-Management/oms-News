@@ -12,10 +12,10 @@
  */
 declare(strict_types=1);
 
-use Modules\News\Models\NullNewsArticle;
 use Modules\News\Models\NewsStatus;
-use phpOMS\Uri\UriFactory;
 use Modules\News\Models\NewsType;
+use Modules\News\Models\NullNewsArticle;
+use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle $news */
 $news = $this->getData('news') ?? new NullNewsArticle();
