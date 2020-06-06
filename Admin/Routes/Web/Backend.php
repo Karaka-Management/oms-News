@@ -59,4 +59,24 @@ return [
             ],
         ],
     ],
+    '^.*/news/edit.*$' => [
+        [
+            'dest' => '\Modules\Editor\Controller\BackendController:setUpEditorEditor',
+            'verb' => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::MODULE_NAME,
+                'type'  => PermissionType::MODIFY,
+                'state' => PermissionState::NEWS,
+            ],
+        ],
+        [
+            'dest' => '\Modules\News\Controller\BackendController:viewNewsEdit',
+            'verb' => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::MODULE_NAME,
+                'type'  => PermissionType::MODIFY,
+                'state' => PermissionState::NEWS,
+            ],
+        ],
+    ],
 ];

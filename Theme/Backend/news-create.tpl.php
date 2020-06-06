@@ -12,9 +12,15 @@
  */
 declare(strict_types=1);
 
-/**
- * @var \phpOMS\Views\View $this
- */
+use Modules\News\Models\NullNewsArticle;
+use Modules\News\Models\NewsStatus;
+use phpOMS\Uri\UriFactory;
+use Modules\News\Models\NewsType;
+
+/** @var \Modules\News\Models\NewsArticle $news */
+$news = $this->getData('news') ?? new NullNewsArticle();
+
+/** @var \phpOMS\Views\View $this */
 echo $this->getData('nav')->render(); ?>
 
 <div class="row">
@@ -22,7 +28,7 @@ echo $this->getData('nav')->render(); ?>
         <div id="testEditor" class="m-editor">
             <section class="portlet">
                 <div class="portlet-body">
-                    <input id="iTitle" type="text" name="title" form="docForm">
+                    <input id="iTitle" type="text" name="title" form="docForm" value="<?= $news->getTitle(); ?>">
                 </div>
             </section>
 
@@ -40,28 +46,35 @@ echo $this->getData('nav')->render(); ?>
 
     <div class="col-xs-12 col-md-3">
         <section class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Status'); ?></div>
-            <div class="portlet-body">
-                <form id="docForm" method="PUT" action="<?= \phpOMS\Uri\UriFactory::build('{/api}news?{?}&csrf={$CSRF}'); ?>">
+            <form id="docForm" method="PUT" action="<?= UriFactory::build('{/api}news?csrf={$CSRF}'); ?>">
+                <div class="portlet-head"><?= $this->getHtml('Status'); ?></div>
+                <div class="portlet-body">
                     <table class="layout wf-100">
                         <tr><td colspan="2"><select name="status" id="iStatus">
-                                    <option value="<?= $this->printHtml(Modules\News\Models\NewsStatus::DRAFT); ?>" selected><?= $this->getHtml('Draft'); ?>
-                                    <option value="<?= $this->printHtml(Modules\News\Models\NewsStatus::VISIBLE); ?>"><?= $this->getHtml('Visible'); ?>
+                                    <option value="<?= $this->printHtml(NewsStatus::DRAFT); ?>"<?= $news->getStatus() === NewsStatus::DRAFT ? ' selected' : ''; ?>><?= $this->getHtml('Draft'); ?>
+                                    <option value="<?= $this->printHtml(NewsStatus::VISIBLE); ?>"<?= $news->getStatus() === NewsStatus::VISIBLE ? ' selected' : ''; ?>><?= $this->getHtml('Visible'); ?>
                         <tr>
                             <td colspan="2">
                                 <label for="iPublish"><?= $this->getHtml('Publish'); ?></label>
                         <tr>
                             <td colspan="2">
-                                <input type="datetime-local" name="publish" id="iPublish" value="<?= $this->printHtml((new \DateTime('NOW'))->format('Y-m-d\TH:i:s')); ?>">
+                                <input type="datetime-local" name="publish" id="iPublish" value="<?= $this->printHtml($news->getPublish()->format('Y-m-d\TH:i:s')); ?>">
+                    </table>
+                </div>
+                <div class="portlet-foot">
+                    <table class="layout wf-100">
                         <tr>
                             <td>
-                                <input type="submit" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
+                                <?php if ($news instanceof NullNewsArticle) : ?>
+                                    <a href="<?= UriFactory::build('/news/dashboard'); ?>" class="button"><?= $this->getHtml('Delete', '0', '0'); ?></a>
+                                <?php else : ?>
+                                    <input type="submit" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
+                                <?php endif; ?>
                             <td class="rightText">
-                                <input type="submit" formaction="<?= \phpOMS\Uri\UriFactory::build('{/api}news?{?}&release=false&csrf={$CSRF}'); ?>" name="saveButton" id="iSaveButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
-                                <input type="submit" name="publishButton" id="iPublishButton" value="<?= $this->getHtml('Publish'); ?>">
+                                <input type="submit" formaction="<?= UriFactory::build('{/api}news&csrf={$CSRF}'); ?>" name="saveButton" id="iSaveButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                     </table>
-                </form>
-            </div>
+                </div>
+            </form>
         </section>
         <section class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Type'); ?></div>
@@ -69,19 +82,19 @@ echo $this->getData('nav')->render(); ?>
                 <table class="layout wf-100">
                     <tr><td>
                         <label class="radio" for="iNewsTypeArticle">
-                            <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::ARTICLE); ?>" checked>
+                            <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= $this->printHtml(NewsType::ARTICLE); ?>"<?= $news->getType() === NewsType::ARTICLE ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('News'); ?>
                         </label>
                     <tr><td>
                         <label class="radio" for="iNewsTypeHeadline">
-                            <input type="radio" name="type" id="iNewsTypeHeadline" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::HEADLINE); ?>">
+                            <input type="radio" name="type" id="iNewsTypeHeadline" form="docForm" value="<?= $this->printHtml(NewsType::HEADLINE); ?>"<?= $news->getType() === NewsType::HEADLINE ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('Headline'); ?>
                         </label>
                     <tr><td>
                         <label class="radio" for="iNewsTypeLink">
-                            <input type="radio" name="type" id="iNewsTypeLink" form="docForm" value="<?= $this->printHtml(Modules\News\Models\NewsType::LINK); ?>">
+                            <input type="radio" name="type" id="iNewsTypeLink" form="docForm" value="<?= $this->printHtml(NewsType::LINK); ?>"<?= $news->getType() === NewsType::LINK ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('Link'); ?>
                         </label>
