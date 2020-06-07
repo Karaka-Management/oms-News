@@ -12,8 +12,8 @@
  */
 declare(strict_types=1);
 
-use phpOMS\Uri\UriFactory;
 use Modules\News\Models\NewsType;
+use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
 $articles = $this->getData('news') ?? [];
