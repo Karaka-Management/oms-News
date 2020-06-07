@@ -150,8 +150,17 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-archive');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
 
-        $articles = NewsArticleMapper::getNewest(50);
-        $view->addData('articles', $articles);
+        if ($request->getData('ptype') === '-') {
+            $view->setData('news',
+                NewsArticleMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
+            );
+        } elseif ($request->getData('ptype') === '+') {
+            $view->setData('news',
+                NewsArticleMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
+            );
+        } else {
+            $view->setData('news', NewsArticleMapper::getAfterPivot(0, null, 25));
+        }
 
         return $view;
     }

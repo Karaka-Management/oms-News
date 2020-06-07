@@ -34,6 +34,13 @@ echo $this->getData('nav')->render(); ?>
                 <h1><?= $this->printHtml($news->getTitle()); ?></h1>
                 <?= $news->getContent(); ?>
             </article>
+            <div class="portlet-foot">
+                <div class="overflowfix">
+                    <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
+                        <span class="tag" style="background: <?= $this->printHtml($tag->getColor()); ?>"><?= $this->printHtml($tag->getTitle()); ?></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
         </section>
     </div>
 </div>
