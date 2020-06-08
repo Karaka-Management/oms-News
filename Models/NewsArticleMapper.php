@@ -26,6 +26,11 @@ use phpOMS\DataStorage\Database\RelationType;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
+ *
+ * @todo Orange-Management/oms-News#???
+ *  Too complicated select.
+ *  I think the default getAll etc. is too complicated and has too many joins which are not really required.
+ *  Check and fix!
  */
 final class NewsArticleMapper extends DataMapperAbstract
 {
