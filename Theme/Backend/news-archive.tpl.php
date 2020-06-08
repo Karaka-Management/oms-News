@@ -15,15 +15,13 @@ declare(strict_types=1);
 use Modules\News\Models\NewsType;
 use phpOMS\Uri\UriFactory;
 
+/** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
 $articles = $this->getData('news') ?? [];
 
 $previous = empty($newsList) ? '{/prefix}news/archive' : '{/prefix}news/archive?{?}&id=' . \reset($newsList)->getId() . '&ptype=-';
 $next     = empty($newsList) ? '{/prefix}news/archive' : '{/prefix}news/archive?{?}&id=' . \end($newsList)->getId() . '&ptype=+';
 
-/**
- * @var \phpOMS\Views\View $this
- */
 echo $this->getData('nav')->render(); ?>
 
 <div class="row">
@@ -44,7 +42,7 @@ echo $this->getData('nav')->render(); ?>
                     elseif ($news->getType() === NewsType::HEADLINE) { $color = 'purple'; }
                     elseif ($news->getType() === NewsType::LINK) { $color = 'yellow'; }
                 ?>
-                    <tr data-href="<?= $url; ?>">
+                    <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><span class="tag <?= $this->printHtml($color); ?>"><?= $this->getHtml('TYPE' . $news->getType()) ?></span></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getTitle()); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getCreatedBy()->getName1()); ?></a>

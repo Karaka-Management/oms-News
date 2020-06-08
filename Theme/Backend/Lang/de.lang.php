@@ -23,6 +23,7 @@ return ['News' => [
     'Groups'          => 'Gruppen',
     'Headline'        => 'Headline',
     'Headlines'       => 'Headlines',
+    'Langauge'        => 'Sprache',
     'Link'            => 'Link',
     'News'            => 'News',
     'Plain'           => 'Plain',

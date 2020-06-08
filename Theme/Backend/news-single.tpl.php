@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Orange Management
  *
@@ -12,20 +13,18 @@
  */
 declare(strict_types=1);
 
+use phpOMS\Uri\UriFactory;
 
-/**
- * @var \Modules\News\Models\NewsArticle $news
- */
+/** @var \Modules\News\Models\NewsArticle $news */
 $news = $this->getData('news');
 
-/**
- * @var bool $editable
- */
+/** @var bool $editable */
 $editable = $this->getData('editable');
 
-/**
- * @var \phpOMS\Views\View $this
- */
+/** @var \Modules\Tag\Models\Tag[] $tag */
+$tags = $news->getTags();
+
+/** @var \phpOMS\Views\View $this */
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
@@ -34,21 +33,22 @@ echo $this->getData('nav')->render(); ?>
                 <h1><?= $this->printHtml($news->getTitle()); ?></h1>
                 <?= $news->getContent(); ?>
             </article>
+            <?php if ($editable || !empty($tags)) : ?>
             <div class="portlet-foot">
-                <div class="overflowfix">
-                    <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
-                        <span class="tag" style="background: <?= $this->printHtml($tag->getColor()); ?>"><?= $this->printHtml($tag->getTitle()); ?></span>
-                    <?php endforeach; ?>
+                <div class="row">
+                    <div class="col-xs-6 overflowfix">
+                        <?php foreach ($tags as $tag) : ?>
+                            <span class="tag" style="background: <?= $this->printHtml($tag->getColor()); ?>"><?= $this->printHtml($tag->getTitle()); ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                    <?php if ($editable) : ?>
+                    <div class="col-xs-6 rightText">
+                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/prefix}news/edit?id=' . $news->getId()); ?>">Edit</a>
+                    </div>
+                    <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
         </section>
     </div>
 </div>
-
-<?php if ($editable) : ?>
-<div class="row">
-    <div class="box">
-        <a tabindex="0" class="button" href="<?= \phpOMS\Uri\UriFactory::build('{/prefix}news/edit?id=' . $news->getId()); ?>">Edit</a>
-    </div>
-</div>
-<?php endif; ?>

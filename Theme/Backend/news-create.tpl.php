@@ -18,7 +18,9 @@ use Modules\News\Models\NullNewsArticle;
 use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle $news */
-$news = $this->getData('news') ?? new NullNewsArticle();
+$news         = $this->getData('news') ?? new NullNewsArticle();
+$isNewArticle = $news instanceof NullNewsArticle;
+$languages    = \phpOMS\Localization\ISO639Enum::getConstants();
 
 /** @var \phpOMS\Views\View $this */
 echo $this->getData('nav')->render(); ?>
@@ -39,39 +41,46 @@ echo $this->getData('nav')->render(); ?>
             </section>
 
             <div class="box wf-100">
-            <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm'); ?>
+            <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm', $news->getPlain(), $news->getContent()); ?>
             </div>
         </div>
     </div>
 
     <div class="col-xs-12 col-md-3">
         <section class="portlet">
-            <form id="docForm" method="PUT" action="<?= UriFactory::build('{/api}news?csrf={$CSRF}'); ?>">
+            <form id="docForm" method="<?= $isNewArticle ? 'PUT' : 'POST'; ?>" action="<?= UriFactory::build('{/api}news?' . ($isNewArticle ? '' : 'id={?id}&') . 'csrf={$CSRF}'); ?>">
                 <div class="portlet-head"><?= $this->getHtml('Status'); ?></div>
                 <div class="portlet-body">
                     <table class="layout wf-100">
-                        <tr><td colspan="2"><select name="status" id="iStatus">
+                        <tr><td>
+                                <select name="status" id="iStatus">
                                     <option value="<?= $this->printHtml(NewsStatus::DRAFT); ?>"<?= $news->getStatus() === NewsStatus::DRAFT ? ' selected' : ''; ?>><?= $this->getHtml('Draft'); ?>
                                     <option value="<?= $this->printHtml(NewsStatus::VISIBLE); ?>"<?= $news->getStatus() === NewsStatus::VISIBLE ? ' selected' : ''; ?>><?= $this->getHtml('Visible'); ?>
-                        <tr>
-                            <td colspan="2">
+                                </select>
+                        <tr><td>
                                 <label for="iPublish"><?= $this->getHtml('Publish'); ?></label>
-                        <tr>
-                            <td colspan="2">
+                        <tr><td>
                                 <input type="datetime-local" name="publish" id="iPublish" value="<?= $this->printHtml($news->getPublish()->format('Y-m-d\TH:i:s')); ?>">
+                        <tr><td><label for="iLanguages"><?= $this->getHtml('Language'); ?></label>
+                        <tr><td>
+                                <select id="iLanguages" name="lang">
+                                    <?php foreach ($languages as $code => $language) : $code = \strtolower(\substr($code, 1)); ?>
+                                    <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $news->getLanguage() ? ' selected' : ''); ?>><?= $this->printHtml($language); ?>
+                                    <?php endforeach; ?>
+                                </select>
                     </table>
                 </div>
                 <div class="portlet-foot">
                     <table class="layout wf-100">
                         <tr>
                             <td>
-                                <?php if ($news instanceof NullNewsArticle) : ?>
+                                <?php if ($isNewArticle) : ?>
                                     <a href="<?= UriFactory::build('/news/dashboard'); ?>" class="button"><?= $this->getHtml('Delete', '0', '0'); ?></a>
                                 <?php else : ?>
                                     <input type="submit" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
                                 <?php endif; ?>
                             <td class="rightText">
-                                <input type="submit" formaction="<?= UriFactory::build('{/api}news&csrf={$CSRF}'); ?>" name="saveButton" id="iSaveButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
+                                <input type="submit" name="saveButton" id="iSaveButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                     </table>
                 </div>
             </form>

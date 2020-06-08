@@ -14,10 +14,8 @@ declare(strict_types=1);
 
 use \phpOMS\Uri\UriFactory;
 
-/**
- * @var \phpOMS\Views\View                 $this
- * @var \Modules\News\Models\NewsArticle[] $newsList
- */
+/** @var \phpOMS\Views\View $this */
+/** @var \Modules\News\Models\NewsArticle[] $newsList */
 $newsList = $this->getData('news');
 
 $previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=-';
