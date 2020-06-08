@@ -15,17 +15,17 @@ declare(strict_types=1);
 namespace Modules\News\Controller;
 
 use Modules\Dashboard\Models\DashboardElementInterface;
-use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsArticle;
-use Modules\News\Models\PermissionState;
+use Modules\News\Models\NewsArticleMapper;
+use Modules\News\Models\NewsStatus;
 
+use Modules\News\Models\PermissionState;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
-use Modules\News\Models\NewsStatus;
 
 /**
  * News controller class.

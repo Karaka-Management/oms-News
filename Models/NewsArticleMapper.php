@@ -17,7 +17,6 @@ namespace Modules\News\Models;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
-use phpOMS\DataStorage\Database\RelationType;
 
 /**
  * News mapper class.
