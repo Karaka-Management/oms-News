@@ -17,6 +17,7 @@ namespace Modules\News\Models;
 use Modules\Admin\Models\AccountMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\RelationType;
 
 /**
  * News mapper class.
@@ -91,12 +92,4 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static string $primaryField = 'news_id';
-
-    /**
-     * Created at.
-     *
-     * @var string
-     * @since 1.0.0
-     */
-    protected static string $createdAt = 'news_created_at';
 }

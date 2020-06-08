@@ -16,6 +16,7 @@ namespace Modules\News\Controller;
 
 use Modules\Dashboard\Models\DashboardElementInterface;
 use Modules\News\Models\NewsArticleMapper;
+use Modules\News\Models\NewsArticle;
 use Modules\News\Models\PermissionState;
 
 use phpOMS\Account\PermissionType;
@@ -24,6 +25,7 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
+use Modules\News\Models\NewsStatus;
 
 /**
  * News controller class.
@@ -57,16 +59,19 @@ final class BackendController extends Controller implements DashboardElementInte
         if ($request->getData('ptype') === '-') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                    ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } elseif ($request->getData('ptype') === '+') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                    ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } else {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                    ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::getAfterPivot(0, null, 25)
             );
         }
