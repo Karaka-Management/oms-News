@@ -195,7 +195,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
     */
     public function testInvalidStatus() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $news = new NewsArticle();
         $news->setStatus(9999);
@@ -208,7 +208,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
     */
     public function testInvalidType() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $news = new NewsArticle();
         $news->setType(9999);
@@ -221,7 +221,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
     */
     public function testInvalidLanguage() : void
     {
-        self::expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
+        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
 
         $news = new NewsArticle();
         $news->setLanguage('9999');
