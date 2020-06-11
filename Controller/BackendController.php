@@ -60,18 +60,21 @@ final class BackendController extends Controller implements DashboardElementInte
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } elseif ($request->getData('ptype') === '+') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } else {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot(0, null, 25)
             );
         }
@@ -88,6 +91,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
 
         $news = NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+            ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
             ::getNewest(5);
 
         $view->addData('news', $news);
@@ -130,9 +134,6 @@ final class BackendController extends Controller implements DashboardElementInte
             PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::MODULE_NAME, PermissionState::NEWS, $article->getId())
         );
 
-        $t = $this->app->accountManager->get($accountId)->hasPermission(
-            PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::MODULE_NAME, PermissionState::NEWS, $article->getId());
-
         return $view;
     }
 
@@ -153,6 +154,46 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-archive');
+        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
+
+        if ($request->getData('ptype') === '-') {
+            $view->setData('news',
+                NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                    ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
+            );
+        } elseif ($request->getData('ptype') === '+') {
+            $view->setData('news',
+                NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                    ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
+            );
+        } else {
+            $view->setData('news', NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                ::getAfterPivot(0, null, 25));
+        }
+
+        return $view;
+    }
+
+    /**
+     * Routing end-point for application behaviour.
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param mixed            $data     Generic data
+     *
+     * @return RenderableInterface
+     *
+     * @since 1.0.0
+     * @codeCoverageIgnore
+     */
+    public function viewNewsDraftList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    {
+        $view = new View($this->app->l11nManager, $request, $response);
+
+        $view->setTemplate('/Modules/News/Theme/Backend/news-draft');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
 
         if ($request->getData('ptype') === '-') {

@@ -39,6 +39,17 @@ return [
             ],
         ],
     ],
+    '^.*/news/draft/list.*$' => [
+        [
+            'dest' => '\Modules\News\Controller\BackendController:viewNewsDraftList',
+            'verb' => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::MODULE_NAME,
+                'type'  => PermissionType::MODIFY,
+                'state' => PermissionState::NEWS,
+            ],
+        ],
+    ],
     '^.*/news/create.*$' => [
         [
             'dest' => '\Modules\Editor\Controller\BackendController:setUpEditorEditor',
