@@ -42,7 +42,7 @@ echo $this->getData('nav')->render(); ?>
                         <?php endforeach; ?>
                     </div>
                     <?php if ($editable) : ?>
-                    <div class="col-xs-6 rightText">
+                    <div class="col-xs-6 end-xs plain-grid">
                         <a tabindex="0" class="button" href="<?= UriFactory::build('{/prefix}news/edit?id=' . $news->getId()); ?>">Edit</a>
                     </div>
                     <?php endif; ?>
