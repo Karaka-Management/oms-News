@@ -41,7 +41,8 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
 
         $news->setCreatedBy(new NullAccount(1));
         $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(100, 300)));
+        $news->setContent($raw = $text->generateText(\mt_rand(100, 300)));
+        $news->setPlain($raw);
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(true);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -56,6 +57,7 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($news->getCreatedAt()->format('Y-m-d'), $newsR->getCreatedAt()->format('Y-m-d'));
         self::assertEquals($news->getCreatedBy()->getId(), $newsR->getCreatedBy()->getId());
         self::assertEquals($news->getContent(), $newsR->getContent());
+        self::assertEquals($news->getPlain(), $newsR->getPlain());
         self::assertEquals($news->getTitle(), $newsR->getTitle());
         self::assertEquals($news->getStatus(), $newsR->getStatus());
         self::assertEquals($news->getType(), $newsR->getType());
