@@ -50,6 +50,12 @@
                 "type": "DATETIME",
                 "null": false
             },
+            "news_comment_list": {
+                "name": "news_comment_list",
+                "type": "int",
+                "null": true,
+                "default": null
+            },
             "news_created_at": {
                 "name": "news_created_at",
                 "type": "DATETIME",

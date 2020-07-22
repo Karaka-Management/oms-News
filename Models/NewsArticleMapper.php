@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\News\Models;
 
 use Modules\Admin\Models\AccountMapper;
+// @Module Comment use Modules\Comments\Models\CommentListMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 
@@ -41,7 +42,6 @@ final class NewsArticleMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'news_id'         => ['name' => 'news_id',         'type' => 'int',      'internal' => 'id'],
-        'news_created_by' => ['name' => 'news_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
         'news_publish'    => ['name' => 'news_publish',    'type' => 'DateTime', 'internal' => 'publish'],
         'news_title'      => ['name' => 'news_title',      'type' => 'string',   'internal' => 'title'],
         'news_plain'      => ['name' => 'news_plain',      'type' => 'string',   'internal' => 'plain'],
@@ -50,8 +50,26 @@ final class NewsArticleMapper extends DataMapperAbstract
         'news_status'     => ['name' => 'news_status',     'type' => 'int',      'internal' => 'status'],
         'news_type'       => ['name' => 'news_type',       'type' => 'int',      'internal' => 'type'],
         'news_featured'   => ['name' => 'news_featured',   'type' => 'bool',     'internal' => 'featured'],
+        'news_comment_list' => ['name' => 'news_comment_list',   'type' => 'int',     'internal' => 'comments'],
         'news_created_at' => ['name' => 'news_created_at', 'type' => 'DateTime', 'internal' => 'createdAt', 'readonly' => true],
+        'news_created_by' => ['name' => 'news_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
     ];
+
+    /**
+     * Has one relation.
+     *
+     * @var array<string, array{mapper:string, self:string, by?:string, column?:string}>
+     * @since 1.0.0
+     */
+    /* @Module Comment protected static array $ownsOne = [
+        'news_comment_list' => [
+            'mapper' => CommentListMapper::class,
+            'self'   => 'accounting_costcenter_l11n_language',
+            'by'     => 'code2',
+            'column' => 'code2',
+            'conditional'   => true,
+        ],
+    ]; @Module Comment */
 
     /**
      * Belongs to.

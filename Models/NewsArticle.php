@@ -128,6 +128,14 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     private array $tags = [];
 
     /**
+     * Comments
+     *
+     * @var null|object|CommentList
+     * @since 1.0.0
+     */
+    private ?object $comments = null;
+
+    /**
      * Constructor.
      *
      * @since 1.0.0
@@ -189,6 +197,18 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     public function getPlain() : string
     {
         return $this->plain;
+    }
+
+    /**
+     * Get comments
+     *
+     * @return null|object|CommentList
+     *
+     * @since 1.0.0
+     */
+    public function getComments() : ?object
+    {
+        return $this->comments;
     }
 
     /**
