@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Modules\News\Models;
 
 use Modules\Admin\Models\AccountMapper;
-// @Module Comment use Modules\Comments\Models\CommentListMapper;
+// @Module Comments use Modules\Comments\Models\CommentListMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 
@@ -61,7 +61,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, self:string, by?:string, column?:string}>
      * @since 1.0.0
      */
-    /* @Module Comment protected static array $ownsOne = [
+    /* @Module Comments protected static array $ownsOne = [
         'news_comment_list' => [
             'mapper' => CommentListMapper::class,
             'self'   => 'accounting_costcenter_l11n_language',
@@ -69,7 +69,7 @@ final class NewsArticleMapper extends DataMapperAbstract
             'column' => 'code2',
             'conditional'   => true,
         ],
-    ]; @Module Comment */
+    ]; @Module Comments */
 
     /**
      * Belongs to.

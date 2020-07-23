@@ -19,14 +19,14 @@ use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
 /**
- * Comment class.
+ * Comments class.
  *
  * @package Modules\News\Admin\Install
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class Comment
+class Comments
 {
     /**
      * Install comment relation
@@ -46,9 +46,9 @@ class Comment
 
         $mapper = \file_get_contents(__DIR__ . '/../../Models/NewsArticleMapper.php');
         $mapper = \str_replace([
-            '// @Module Comment ',
-            '/* @Module Comment ',
-            ' @Module Comment */'
+            '// @Module Comments ',
+            '/* @Module Comments ',
+            ' @Module Comments */'
             ], '', $mapper);
         \file_put_contents(__DIR__ . '/../../Models/NewsArticleMapper.php', $mapper);
     }
