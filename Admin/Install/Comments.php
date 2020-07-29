@@ -51,5 +51,7 @@ class Comments
             ' @Module Comments */'
             ], '', $mapper);
         \file_put_contents(__DIR__ . '/../../Models/NewsArticleMapper.php', $mapper);
+
+        \opcache_invalidate(__DIR__ . '/../../Models/NewsArticleMapper.php');
     }
 }
