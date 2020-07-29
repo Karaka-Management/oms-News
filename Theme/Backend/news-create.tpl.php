@@ -94,9 +94,10 @@ echo $this->getData('nav')->render(); ?>
             </form>
         </section>
         <section class="portlet">
-            <div class="portlet-head"><?= $this->getHtml('Type'); ?></div>
+            <div class="portlet-head"><?= $this->getHtml('Categories'); ?></div>
             <div class="portlet-body">
                 <table class="layout wf-100">
+                    <tr><td><?= $this->getHtml('Type'); ?>
                     <tr><td>
                         <label class="radio" for="iNewsTypeArticle">
                             <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= $this->printHtml(NewsType::ARTICLE); ?>"<?= $news->getType() === NewsType::ARTICLE ? ' checked' : ''; ?>>
@@ -115,6 +116,8 @@ echo $this->getData('nav')->render(); ?>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('Link'); ?>
                         </label>
+                    <tr><td><?= $this->getHtml('Tags', 'Tag'); ?>
+                    <tr><td><?= $this->getData('tagSelector')->render('iTag', 'tag', 'fEditor', false); ?>
                 </table>
             </div>
         </section>

@@ -248,6 +248,9 @@ final class BackendController extends Controller implements DashboardElementInte
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
 
+        $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
+        $view->addData('tagSelector', $tagSelector);
+
         return $view;
     }
 
@@ -275,6 +278,9 @@ final class BackendController extends Controller implements DashboardElementInte
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('accGrpSelector', $accGrpSelector);
+
+        $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
+        $view->addData('tagSelector', $tagSelector);
 
         $view->addData('news', NewsArticleMapper::get((int) ($request->getData('id') ?? 0)));
 

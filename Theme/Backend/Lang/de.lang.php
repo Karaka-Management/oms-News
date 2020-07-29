@@ -18,6 +18,7 @@ return ['News' => [
     'AllowComments'      => 'Kommentare erlauben',
     'Archive'         => 'Archiv',
     'Author'          => 'Autor',
+    'Categories'      => 'Kategorien',
     'Date'            => 'Datum',
     'Draft'           => 'Entwurf',
     'Featured'        => 'Featured',
