@@ -15,6 +15,7 @@ declare(strict_types=1);
 return ['News' => [
     'Accounts/Groups' => 'Benutyer/Gruppen',
     'Additional'      => 'Zusätzlich',
+    'AllowComments'      => 'Kommentare erlauben',
     'Archive'         => 'Archiv',
     'Author'          => 'Autor',
     'Date'            => 'Datum',

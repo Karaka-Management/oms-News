@@ -200,6 +200,20 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     }
 
     /**
+     * Set comment list
+     *
+     * @param CommentList $comments
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function setCommentList($comments) : void
+    {
+        $this->comments = $comments;
+    }
+
+    /**
      * Get comments
      *
      * @return null|object|CommentList

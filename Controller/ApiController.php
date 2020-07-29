@@ -28,6 +28,7 @@ use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
+use phpOMS\Module\NullModule;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 
 /**
@@ -165,6 +166,15 @@ final class ApiController extends Controller
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
         $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));
         $newsArticle->setFeatured((bool) ($request->getData('featured') ?? true));
+
+        // allow comments
+        if (!empty($request->getData('allow_comments'))
+            && !($commentApi = $this->app->moduleManager->get('Comments') instanceof NullModule)
+        ) {
+            /** @var \Modules\Comments\Controller\ApiController $commentApi */
+            $commnetList = $commentApi->createCommentList();
+            $newsArticle->setCommentList($commnetList);
+        }
 
         if (!empty($tags = $request->getDataJson('tags'))) {
             foreach ($tags as $tag) {

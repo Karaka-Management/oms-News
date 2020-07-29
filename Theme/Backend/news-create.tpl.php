@@ -68,6 +68,14 @@ echo $this->getData('nav')->render(); ?>
                                     <option value="<?= $this->printHtml($code); ?>"<?= $this->printHtml($code === $news->getLanguage() ? ' selected' : ''); ?>><?= $this->printHtml($language); ?>
                                     <?php endforeach; ?>
                                 </select>
+                        <tr><td>
+                                <label for="iComment"><?= $this->getHtml('AllowComments'); ?></label>
+                        <tr><td>
+                                <label class="checkbox" for="iComment">
+                                    <input id="iComment" type="checkbox" name="allow_comments" value="1">
+                                    <span class="checkmark"></span>
+                                    <?= $this->getHtml('AllowComments'); ?>
+                                </label>
                     </table>
                 </div>
                 <div class="portlet-foot">

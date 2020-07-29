@@ -15,6 +15,7 @@ declare(strict_types=1);
 return ['News' => [
     'Accounts/Groups' => 'Accounts/Groups',
     'Additional'      => 'Additional',
+    'AllowComments'      => 'Allow comments',
     'Archive'         => 'Archive',
     'Author'          => 'Author',
     'Date'            => 'Date',

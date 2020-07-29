@@ -26,6 +26,7 @@ use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Views\View;
+use phpOMS\Module\NullModule;
 
 /**
  * News controller class.
@@ -133,6 +134,17 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->addData('editable', $this->app->accountManager->get($accountId)->hasPermission(
             PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::MODULE_NAME, PermissionState::NEWS, $article->getId())
         );
+
+        // allow comments
+        if (!$article->getComments() !== null
+            && !($this->app->moduleManager->get('Comments') instanceof NullModule)
+        ) {
+            $commentCreateView = new \Modules\Comments\Theme\Backend\Components\Comment\CreateView($this->app->l11nManager, $request, $response);
+            $commentListView   = new \Modules\Comments\Theme\Backend\Components\Comment\ListView($this->app->l11nManager, $request, $response);
+
+            $view->addData('commentCreate', $commentCreateView);
+            $view->addData('commentList', $commentListView);
+        }
 
         return $view;
     }
