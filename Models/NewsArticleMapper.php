@@ -62,7 +62,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     /* @Module Comments protected static array $ownsOne = [
-        'news_comment_list' => [
+        'comments' => [
             'mapper' => CommentListMapper::class,
             'self'   => 'accounting_costcenter_l11n_language',
             'by'     => 'code2',
