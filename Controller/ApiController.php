@@ -169,7 +169,7 @@ final class ApiController extends Controller
 
         // allow comments
         if (!empty($request->getData('allow_comments'))
-            && !($commentApi = $this->app->moduleManager->get('Comments') instanceof NullModule)
+            && !(($commentApi = $this->app->moduleManager->get('Comments')) instanceof NullModule)
         ) {
             /** @var \Modules\Comments\Controller\ApiController $commentApi */
             $commnetList = $commentApi->createCommentList();
