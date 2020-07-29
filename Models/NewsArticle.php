@@ -130,10 +130,10 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     /**
      * Comments
      *
-     * @var null|object|CommentList
+     * @var null|int|object|CommentList
      * @since 1.0.0
      */
-    private ?object $comments = null;
+    private $comments = null;
 
     /**
      * Constructor.
