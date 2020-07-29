@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\News\Admin\Install;
 
-use Modules\News\Models\NewsArticleMapper;
+use phpOMS\Autoloader;
 use phpOMS\DataStorage\Database\DatabasePool;
 use phpOMS\DataStorage\Database\Schema\Builder;
 
@@ -41,7 +41,7 @@ class Comments
     public static function install(string $path, DatabasePool $dbPool) : void
     {
         $builder = new Builder($dbPool->get('schema'));
-        $builder->alterTable(NewsArticleMapper::getTable())
+        $builder->alterTable('news')
             ->addConstraint('news_comment_list', 'comment_list', 'comment_list_id');
 
         $mapper = \file_get_contents(__DIR__ . '/../../Models/NewsArticleMapper.php');
@@ -52,6 +52,6 @@ class Comments
             ], '', $mapper);
         \file_put_contents(__DIR__ . '/../../Models/NewsArticleMapper.php', $mapper);
 
-        \opcache_invalidate(__DIR__ . '/../../Models/NewsArticleMapper.php');
+        Autoloader::invalidate(__DIR__ . '/../../Models/NewsArticleMapper.php');
     }
 }
