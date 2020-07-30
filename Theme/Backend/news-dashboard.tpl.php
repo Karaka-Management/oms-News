@@ -18,8 +18,8 @@ use \phpOMS\Uri\UriFactory;
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
 $newsList = $this->getData('news');
 
-$previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=-';
-$next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=+';
+$previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
+$next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 

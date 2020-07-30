@@ -57,14 +57,14 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-dashboard');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
@@ -168,13 +168,13 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-archive');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
@@ -208,11 +208,11 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-draft');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000701001, $request, $response));
 
-        if ($request->getData('ptype') === '-') {
+        if ($request->getData('ptype') === 'p') {
             $view->setData('news',
                 NewsArticleMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
-        } elseif ($request->getData('ptype') === '+') {
+        } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
                 NewsArticleMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
             );
