@@ -52,7 +52,7 @@
             },
             "news_comment_list": {
                 "name": "news_comment_list",
-                "type": "int",
+                "type": "INT",
                 "null": true,
                 "default": null
             },
