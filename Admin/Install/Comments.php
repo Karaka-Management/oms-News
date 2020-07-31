@@ -45,6 +45,10 @@ class Comments
             ->addConstraint('news_comment_list', 'comment_list', 'comment_list_id');
 
         $mapper = \file_get_contents(__DIR__ . '/../../Models/NewsArticleMapper.php');
+        if ($mapper === false) {
+            throw new \Exception('Couldn\'t parse mapper');
+        }
+
         $mapper = \str_replace([
             '// @Module Comments ',
             '/* @Module Comments ',

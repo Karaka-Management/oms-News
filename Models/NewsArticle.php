@@ -202,7 +202,7 @@ class NewsArticle implements ArrayableInterface, \JsonSerializable
     /**
      * Set comment list
      *
-     * @param CommentList $comments
+     * @param int|CommentList $comments Comment list
      *
      * @return void
      *
