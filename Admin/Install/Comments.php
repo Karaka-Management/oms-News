@@ -52,7 +52,7 @@ class Comments
         $mapper = \str_replace([
             '// @Module Comments ',
             '/* @Module Comments ',
-            ' @Module Comments */'
+            ' @Module Comments */',
             ], '', $mapper);
         \file_put_contents(__DIR__ . '/../../Models/NewsArticleMapper.php', $mapper);
 

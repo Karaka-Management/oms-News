@@ -25,8 +25,8 @@ use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Views\View;
 use phpOMS\Module\NullModule;
+use phpOMS\Views\View;
 
 /**
  * News controller class.
