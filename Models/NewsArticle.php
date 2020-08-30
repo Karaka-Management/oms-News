@@ -29,7 +29,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-class NewsArticle implements ArrayableInterface, \JsonSerializable
+class NewsArticle implements \JsonSerializable, ArrayableInterface
 {
     /**
      * Article ID.

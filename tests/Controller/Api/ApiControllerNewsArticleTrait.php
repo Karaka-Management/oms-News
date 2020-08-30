@@ -23,8 +23,8 @@ use phpOMS\Uri\HttpUri;
 trait ApiControllerNewsArticleTrait
 {
     /**
-    * @testdox A news article can be created
-    * @covers Modules\News\Controller\ApiController
+     * @testdox A news article can be created
+     * @covers Modules\News\Controller\ApiController
      * @group module
      */
     public function testApiNewsCreate() : void

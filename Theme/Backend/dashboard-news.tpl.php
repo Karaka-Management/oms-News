@@ -25,8 +25,8 @@ $newsList = $this->getData('news') ?? [];
             <thead>
             <tr>
                 <td>
-                <td><?= $this->getHtml('Type', 'News') ?>
-                <td class="wf-100"><?= $this->getHtml('Title', 'News') ?>
+                <td><?= $this->getHtml('Type', 'News'); ?>
+                <td class="wf-100"><?= $this->getHtml('Title', 'News'); ?>
             <tbody>
             <?php $count = 0; foreach ($newsList as $key => $news) : ++$count;
             $url = \phpOMS\Uri\UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
@@ -42,13 +42,13 @@ $newsList = $this->getData('news') ?? [];
                             <i class="fa fa-star favorite"></i>
                         </a>
                     <?php endif; ?>
-                <td data-label="<?= $this->getHtml('Type', 'News') ?>">
+                <td data-label="<?= $this->getHtml('Type', 'News'); ?>">
                     <a href="<?= $url; ?>">
                         <span class="tag <?= $this->printHtml($color); ?>">
-                            <?= $this->getHtml('TYPE' . $news->getType(), 'News') ?>
+                            <?= $this->getHtml('TYPE' . $news->getType(), 'News'); ?>
                         </span>
                     </a>
-                <td data-label="<?= $this->getHtml('Title', 'News') ?>">
+                <td data-label="<?= $this->getHtml('Title', 'News'); ?>">
                     <a href="<?= $url; ?>">
                         <?= $this->printHtml($news->getTitle()); ?>
                     </a>

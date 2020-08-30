@@ -192,7 +192,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      * @testdox A invalid status throws a InvalidEnumValue exception
      * @covers Modules\News\Models\NewsArticle
      * @group module
-    */
+     */
     public function testInvalidStatus() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -205,7 +205,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      * @testdox A invalid type throws a InvalidEnumValue exception
      * @covers Modules\News\Models\NewsArticle
      * @group module
-    */
+     */
     public function testInvalidType() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
@@ -218,7 +218,7 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      * @testdox A invalid language throws a InvalidEnumValue exception
      * @covers Modules\News\Models\NewsArticle
      * @group module
-    */
+     */
     public function testInvalidLanguage() : void
     {
         $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
