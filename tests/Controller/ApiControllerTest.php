@@ -15,10 +15,8 @@ declare(strict_types=1);
 namespace Modules\News\tests\Controller;
 
 use Model\CoreSettings;
-
 use Modules\Admin\Models\AccountPermission;
 use Modules\News\tests\Controller\Api\ApiControllerNewsArticleTrait;
-
 use phpOMS\Account\Account;
 use phpOMS\Account\AccountManager;
 use phpOMS\Account\PermissionType;

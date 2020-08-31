@@ -18,7 +18,6 @@ use Modules\Dashboard\Models\DashboardElementInterface;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
-
 use Modules\News\Models\PermissionState;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
