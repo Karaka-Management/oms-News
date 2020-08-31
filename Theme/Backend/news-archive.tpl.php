@@ -36,11 +36,11 @@ echo $this->getData('nav')->render(); ?>
                     <td><?= $this->getHtml('Author'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
                     <td><?= $this->getHtml('Date'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
             <tbody>
-                <?php $count = 0; foreach ($articles as $key => $news) : ++$count; $url = UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
-                    $color = 'darkred';
-                    if ($news->getType() === NewsType::ARTICLE) { $color = 'green'; }
+                <?php $count                                                  = 0; foreach ($articles as $key => $news) : ++$count; $url                                                  = UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
+                    $color                                                    = 'darkred';
+                    if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }
                     elseif ($news->getType() === NewsType::HEADLINE) { $color = 'purple'; }
-                    elseif ($news->getType() === NewsType::LINK) { $color = 'yellow'; }
+                    elseif ($news->getType() === NewsType::LINK) { $color     = 'yellow'; }
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><span class="tag <?= $this->printHtml($color); ?>"><?= $this->getHtml('TYPE' . $news->getType()); ?></span></a>

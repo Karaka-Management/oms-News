@@ -172,14 +172,14 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
         $this->news->setType(NewsType::HEADLINE);
 
         $arr = [
-            'id' => 0,
-            'title' => $this->news->getTitle(),
-            'plain' => $this->news->getPlain(),
-            'content' => $this->news->getContent(),
-            'type' => $this->news->getType(),
-            'status' => $this->news->getStatus(),
-            'featured' => $this->news->isFeatured(),
-            'publish' => $this->news->getPublish(),
+            'id'        => 0,
+            'title'     => $this->news->getTitle(),
+            'plain'     => $this->news->getPlain(),
+            'content'   => $this->news->getContent(),
+            'type'      => $this->news->getType(),
+            'status'    => $this->news->getStatus(),
+            'featured'  => $this->news->isFeatured(),
+            'publish'   => $this->news->getPublish(),
             'createdAt' => $this->news->getCreatedAt(),
             'createdBy' => $this->news->getCreatedBy(),
         ];

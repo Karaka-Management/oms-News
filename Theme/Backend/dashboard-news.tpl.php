@@ -28,12 +28,12 @@ $newsList = $this->getData('news') ?? [];
                 <td><?= $this->getHtml('Type', 'News'); ?>
                 <td class="wf-100"><?= $this->getHtml('Title', 'News'); ?>
             <tbody>
-            <?php $count = 0; foreach ($newsList as $key => $news) : ++$count;
-            $url = \phpOMS\Uri\UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
-            $color = 'darkred';
-            if ($news->getType() === \Modules\News\Models\NewsType::ARTICLE) { $color = 'green'; }
+            <?php $count                                                                   = 0; foreach ($newsList as $key => $news) : ++$count;
+            $url                                                                           = \phpOMS\Uri\UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
+            $color                                                                         = 'darkred';
+            if ($news->getType() === \Modules\News\Models\NewsType::ARTICLE) { $color      = 'green'; }
             elseif ($news->getType() === \Modules\News\Models\NewsType::HEADLINE) { $color = 'purple'; }
-            elseif ($news->getType() === \Modules\News\Models\NewsType::LINK) { $color = 'yellow'; }
+            elseif ($news->getType() === \Modules\News\Models\NewsType::LINK) { $color     = 'yellow'; }
             ?>
             <tr data-href="<?= $url; ?>">
                 <td data-label="">

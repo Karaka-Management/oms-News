@@ -8,39 +8,39 @@ use phpOMS\Router\RouteVerb;
 return [
     '^.*/news.*$' => [
         [
-            'dest' => '\Modules\News\Controller\ApiController:apiNewsCreate',
-            'verb' => RouteVerb::PUT,
+            'dest'       => '\Modules\News\Controller\ApiController:apiNewsCreate',
+            'verb'       => RouteVerb::PUT,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
-                'type'  => PermissionType::CREATE,
-                'state' => PermissionState::NEWS,
+                'type'   => PermissionType::CREATE,
+                'state'  => PermissionState::NEWS,
             ],
         ],
         [
-            'dest' => '\Modules\News\Controller\ApiController:apiNewsUpdate',
-            'verb' => RouteVerb::SET,
+            'dest'       => '\Modules\News\Controller\ApiController:apiNewsUpdate',
+            'verb'       => RouteVerb::SET,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
-                'type'  => PermissionType::MODIFY,
-                'state' => PermissionState::NEWS,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionState::NEWS,
             ],
         ],
         [
-            'dest' => '\Modules\News\Controller\ApiController:apiNewsGet',
-            'verb' => RouteVerb::GET,
+            'dest'       => '\Modules\News\Controller\ApiController:apiNewsGet',
+            'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
-                'type'  => PermissionType::READ,
-                'state' => PermissionState::NEWS,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionState::NEWS,
             ],
         ],
         [
-            'dest' => '\Modules\News\Controller\ApiController:apiNewsDelete',
-            'verb' => RouteVerb::DELETE,
+            'dest'       => '\Modules\News\Controller\ApiController:apiNewsDelete',
+            'verb'       => RouteVerb::DELETE,
             'permission' => [
                 'module' => ApiController::MODULE_NAME,
-                'type'  => PermissionType::DELETE,
-                'state' => PermissionState::NEWS,
+                'type'   => PermissionType::DELETE,
+                'state'  => PermissionState::NEWS,
             ],
         ],
     ],
