@@ -41,18 +41,18 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @since 1.0.0
      */
     protected static array $columns = [
-        'news_id'         => ['name' => 'news_id',         'type' => 'int',      'internal' => 'id'],
-        'news_publish'    => ['name' => 'news_publish',    'type' => 'DateTime', 'internal' => 'publish'],
-        'news_title'      => ['name' => 'news_title',      'type' => 'string',   'internal' => 'title'],
-        'news_plain'      => ['name' => 'news_plain',      'type' => 'string',   'internal' => 'plain'],
-        'news_content'    => ['name' => 'news_content',    'type' => 'string',   'internal' => 'content'],
-        'news_lang'       => ['name' => 'news_lang',       'type' => 'string',   'internal' => 'language'],
-        'news_status'     => ['name' => 'news_status',     'type' => 'int',      'internal' => 'status'],
-        'news_type'       => ['name' => 'news_type',       'type' => 'int',      'internal' => 'type'],
-        'news_featured'   => ['name' => 'news_featured',   'type' => 'bool',     'internal' => 'featured'],
+        'news_id'           => ['name' => 'news_id',         'type' => 'int',      'internal' => 'id'],
+        'news_publish'      => ['name' => 'news_publish',    'type' => 'DateTime', 'internal' => 'publish'],
+        'news_title'        => ['name' => 'news_title',      'type' => 'string',   'internal' => 'title'],
+        'news_plain'        => ['name' => 'news_plain',      'type' => 'string',   'internal' => 'plain'],
+        'news_content'      => ['name' => 'news_content',    'type' => 'string',   'internal' => 'content'],
+        'news_lang'         => ['name' => 'news_lang',       'type' => 'string',   'internal' => 'language'],
+        'news_status'       => ['name' => 'news_status',     'type' => 'int',      'internal' => 'status'],
+        'news_type'         => ['name' => 'news_type',       'type' => 'int',      'internal' => 'type'],
+        'news_featured'     => ['name' => 'news_featured',   'type' => 'bool',     'internal' => 'featured'],
         'news_comment_list' => ['name' => 'news_comment_list',   'type' => 'int',     'internal' => 'comments'],
-        'news_created_at' => ['name' => 'news_created_at', 'type' => 'DateTime', 'internal' => 'createdAt', 'readonly' => true],
-        'news_created_by' => ['name' => 'news_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
+        'news_created_at'   => ['name' => 'news_created_at', 'type' => 'DateTime', 'internal' => 'createdAt', 'readonly' => true],
+        'news_created_by'   => ['name' => 'news_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
     ];
 
     /**
@@ -89,9 +89,9 @@ final class NewsArticleMapper extends DataMapperAbstract
      */
     protected static array $hasMany = [
         'tags' => [
-            'mapper' => TagMapper::class,
-            'table'  => 'news_tag',
-            'self'   => 'news_tag_src',
+            'mapper'   => TagMapper::class,
+            'table'    => 'news_tag',
+            'self'     => 'news_tag_src',
             'external' => 'news_tag_dst',
         ],
     ];
