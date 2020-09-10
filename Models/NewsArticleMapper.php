@@ -51,7 +51,7 @@ final class NewsArticleMapper extends DataMapperAbstract
         'news_type'         => ['name' => 'news_type',       'type' => 'int',      'internal' => 'type'],
         'news_featured'     => ['name' => 'news_featured',   'type' => 'bool',     'internal' => 'featured'],
         'news_comment_list' => ['name' => 'news_comment_list',   'type' => 'int',     'internal' => 'comments'],
-        'news_created_at'   => ['name' => 'news_created_at', 'type' => 'DateTime', 'internal' => 'createdAt', 'readonly' => true],
+        'news_created_at'   => ['name' => 'news_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
         'news_created_by'   => ['name' => 'news_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
     ];
 
