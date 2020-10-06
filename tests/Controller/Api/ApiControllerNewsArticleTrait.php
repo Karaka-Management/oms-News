@@ -14,8 +14,10 @@ declare(strict_types=1);
 
 namespace Modules\News\tests\Controller\Api;
 
+use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
+use Modules\News\Models\NullNewsArticle;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Uri\HttpUri;
@@ -99,6 +101,7 @@ trait ApiControllerNewsArticleTrait
         $request->setData('id', 1);
         $this->module->apiNewsDelete($request, $response);
 
-        self::assertGreaterThan(0, $response->get('')['response']->getId());
+        self::assertEquals(1, $response->get('')['response']->getId());
+        self::assertInstanceOf(NullNewsArticle::class, NewsArticleMapper::get(1));
     }
 }
