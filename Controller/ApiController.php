@@ -23,13 +23,13 @@ use Modules\Tag\Models\NullTag;
 use phpOMS\Account\Account;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpResponse;
+use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
 use phpOMS\Module\NullModule;
 use phpOMS\Utils\Parser\Markdown\Markdown;
-use phpOMS\Message\Http\RequestStatusCode;
 
 /**
  * News controller class.
