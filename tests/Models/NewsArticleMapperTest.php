@@ -68,8 +68,8 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @group volume
-     * @covers Modules\News\Models\NewsArticleMapper
      * @group module
+     * @coversNothing
      */
     public function testVolume() : void
     {
