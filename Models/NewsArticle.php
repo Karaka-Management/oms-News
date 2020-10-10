@@ -487,14 +487,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     /**
      * {@inheritdoc}
      */
-    public function __toString()
-    {
-        return (string) \json_encode($this->toArray());
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function jsonSerialize()
     {
         return $this->toArray();
