@@ -64,7 +64,7 @@ final class NewsArticleMapper extends DataMapperAbstract
     protected static array $ownsOne = [
         'comments' => [
             'mapper' => CommentListMapper::class,
-            'self'   => 'news_comment_list',
+            'external'   => 'news_comment_list',
         ],
     ];
 
@@ -77,7 +77,7 @@ final class NewsArticleMapper extends DataMapperAbstract
     protected static array $belongsTo = [
         'createdBy' => [
             'mapper' => AccountMapper::class,
-            'self'   => 'news_created_by',
+            'external'   => 'news_created_by',
         ],
     ];
 
@@ -91,8 +91,8 @@ final class NewsArticleMapper extends DataMapperAbstract
         'tags' => [
             'mapper'   => TagMapper::class,
             'table'    => 'news_tag',
-            'self'     => 'news_tag_src',
-            'external' => 'news_tag_dst',
+            'self'     => 'news_tag_dst',
+            'external' => 'news_tag_src',
         ],
     ];
 
