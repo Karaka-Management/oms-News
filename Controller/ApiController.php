@@ -216,58 +216,6 @@ final class ApiController extends Controller
     }
 
     /**
-     * Get Newslists.
-     *
-     * @param int     $limit   News limit
-     * @param int     $offset  News offset
-     * @param string  $orderBy Order criteria (database table name)
-     * @param string  $ordered Order type (e.g. ASC)
-     * @param Account $account Accont for permission handling
-     *
-     * @return array
-     *
-     * @since 1.0.0
-     */
-    public function getNewsListR(int $limit = 50, int $offset = 0, string $orderBy = 'news_created', string $ordered = 'ASC', Account $account = null)
-    {
-        $query = NewsArticleMapper::find('news.news_id', 'news.news_author', 'news.news_publish', 'news.news_title')
-            ->where('news.news_type', '=', 1)
-            ->where('news.news_status', '=', 1)
-            ->orderBy($orderBy, $ordered)
-            ->offset($offset)
-            ->limit($limit);
-
-        return NewsArticleMapper::getAllByQuery($query);
-    }
-
-    /**
-     * Get Headlinelist.
-     *
-     * @param int     $limit   News limit
-     * @param int     $offset  News offset
-     * @param string  $orderBy Order criteria (database table name)
-     * @param string  $ordered Order type (e.g. ASC)
-     * @param Account $account Accont for permission handling
-     *
-     * @return array
-     *
-     * @api
-     *
-     * @since 1.0.0
-     */
-    public function getHeadlineListR(int $limit = 50, int $offset = 0, string $orderBy = 'news_created', string $ordered = 'ASC', Account $account = null)
-    {
-        $query = NewsArticleMapper::find('news.news_id', 'news.news_author', 'news.news_publish', 'news.news_title')
-            ->where('news.news_type', '=', 0)
-            ->where('news.news_status', '=', 1)
-            ->orderBy($orderBy, $ordered)
-            ->offset($offset)
-            ->limit($limit);
-
-        return NewsArticleMapper::getAllByQuery($query);
-    }
-
-    /**
      * Api method to delete news article
      *
      * @param RequestAbstract  $request  Request

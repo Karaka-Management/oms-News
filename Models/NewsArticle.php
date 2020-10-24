@@ -130,7 +130,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     /**
      * Comments
      *
-     * @var null|int|object|CommentList
+     * @var null|\Modules\Comments\Models\CommentList
      * @since 1.0.0
      */
     private $comments = null;
@@ -202,7 +202,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     /**
      * Set comment list
      *
-     * @param int|CommentList $comments Comment list
+     * @param int|\Modules\Comments\Models\CommentList $comments Comment list
      *
      * @return void
      *
@@ -216,11 +216,11 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     /**
      * Get comments
      *
-     * @return null|object|CommentList
+     * @return null|\Modules\Comments\Models\CommentList
      *
      * @since 1.0.0
      */
-    public function getComments() : ?object
+    public function getComments()
     {
         return $this->comments;
     }
