@@ -20,7 +20,6 @@ use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
 use Modules\Tag\Models\NullTag;
-use phpOMS\Account\Account;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
