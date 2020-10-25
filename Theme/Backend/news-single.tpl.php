@@ -56,9 +56,7 @@ echo $this->getData('nav')->render(); ?>
 <?php
 $commentList = $news->getComments();
 if (!empty($commentList) && $commentList->isActive()) :
-/* @todo: check if user has permission to create a comment here, maybe he is only allowed to read comments */
-/* @todo: instead of creating a custom news list or news textarea I should create a component which simply gets loaded on the pages by passing the commentList id and the comments to show */
-$this->getData('commentCreate')->render(1);
-
-$this->getData('commentList')->render(1);
+    /* @todo: check if user has permission to create a comment here, maybe he is only allowed to read comments */
+    echo $this->getData('commentCreate')->render(1);
+    echo $this->getData('commentList')->render($commentList);
 endif; ?>

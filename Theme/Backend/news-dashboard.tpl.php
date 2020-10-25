@@ -13,6 +13,7 @@
 declare(strict_types=1);
 
 use \phpOMS\Uri\UriFactory;
+use phpOMS\Utils\Parser\Markdown\Markdown;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
@@ -30,7 +31,7 @@ echo $this->getData('nav')->render(); ?>
             <div class="portlet-head"><a href="<?= $url; ?>"><?= $this->printHtml($news->getTitle()); ?></a></div>
             <div class="portlet-body">
                 <article>
-                    <?= \substr($news->getContent(), 0, 500) . (\strlen($news->getContent()) > 500 ? '...' : ''); ?>
+                    <?= Markdown::parse(\substr($news->getPlain(), 0, 500)); ?>
                 </article>
             </div>
             <div class="portlet-foot">

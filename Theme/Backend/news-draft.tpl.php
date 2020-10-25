@@ -45,7 +45,7 @@ echo $this->getData('nav')->render(); ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><span class="tag <?= $this->printHtml($color); ?>"><?= $this->getHtml('TYPE' . $news->getType()); ?></span></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getTitle()); ?></a>
-                        <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getCreatedBy()->getName1()); ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getCreatedBy()->getName2() . ', ' . $news->getCreatedBy()->getName1()); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getPublish()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
