@@ -163,7 +163,7 @@ final class ApiController extends Controller
         $newsArticle->setTitle((string) ($request->getData('title') ?? ''));
         $newsArticle->setPlain($request->getData('plain') ?? '');
         $newsArticle->setContent(Markdown::parse((string) ($request->getData('plain') ?? '')));
-        $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getHeader()->getL11n()->getLanguage())));
+        $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
         $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));
         $newsArticle->setFeatured((bool) ($request->getData('featured') ?? true));

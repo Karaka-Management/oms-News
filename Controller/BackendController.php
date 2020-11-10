@@ -58,21 +58,21 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                NewsArticleMapper::withConditional('language', $response->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                NewsArticleMapper::withConditional('language', $response->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } else {
             $view->setData('news',
-                NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+                NewsArticleMapper::withConditional('language', $response->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot(0, null, 25)
@@ -90,7 +90,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
 
-        $news = NewsArticleMapper::withConditional('language', $response->getHeader()->getL11n()->getLanguage())
+        $news = NewsArticleMapper::withConditional('language', $response->getLanguage())
             ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
             ::getNewest(5);
 
