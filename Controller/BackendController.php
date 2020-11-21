@@ -61,21 +61,21 @@ final class BackendController extends Controller implements DashboardElementInte
                 NewsArticleMapper::withConditional('language', $response->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
+                    ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 10)
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
+                    ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 10)
             );
         } else {
             $view->setData('news',
                 NewsArticleMapper::withConditional('language', $response->getLanguage())
                     ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
                     ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getAfterPivot(0, null, 25)
+                    ::getAfterPivot(0, null, 10)
             );
         }
 
