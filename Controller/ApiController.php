@@ -109,7 +109,7 @@ final class ApiController extends Controller
         $newsArticle = NewsArticleMapper::get((int) $request->getData('id'));
         $newsArticle->setPublish(new \DateTime((string) ($request->getData('publish') ?? $newsArticle->getPublish()->format('Y-m-d H:i:s'))));
         $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
-        $newsArticle->plaint  = $request->getData('plain') ?? $newsArticle->plain;
+        $newsArticle->plain   = $request->getData('plain') ?? $newsArticle->plain;
         $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->plain));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $newsArticle->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? $newsArticle->getType()));

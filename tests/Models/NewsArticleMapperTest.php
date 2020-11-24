@@ -42,7 +42,7 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->createdBy = new NullAccount(1);
         $news->title     = $text->generateText(\mt_rand(3, 7));
         $news->content   = ($raw = $text->generateText(\mt_rand(100, 300)));
-        $news->plaint    = $raw;
+        $news->plain     = $raw;
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(true);
         $news->setLanguage(ISO639x1Enum::_DE);
