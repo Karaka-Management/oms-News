@@ -42,17 +42,17 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
     public function testDefault() : void
     {
         self::assertEquals(0, $this->news->getId());
-        self::assertEquals(0, $this->news->getCreatedBy()->getId());
-        self::assertEquals('', $this->news->getTitle());
-        self::assertEquals('', $this->news->getContent());
-        self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->getCreatedAt()->format('Y-m-d'));
+        self::assertEquals(0, $this->news->createdBy->getId());
+        self::assertEquals('', $this->news->title);
+        self::assertEquals('', $this->news->content);
+        self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->createdAt->format('Y-m-d'));
         self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->getPublish()->format('Y-m-d'));
         self::assertFalse($this->news->isFeatured());
         self::assertEquals(ISO639x1Enum::_EN, $this->news->getLanguage());
         self::assertEquals(NewsStatus::DRAFT, $this->news->getStatus());
         self::assertEquals(NewsType::ARTICLE, $this->news->getType());
         self::assertEquals([], $this->news->getTags());
-        self::assertEquals('', $this->news->getPlain());
+        self::assertEquals('', $this->news->plain);
     }
 
     /**
@@ -62,8 +62,8 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testCreatorInputOutput() : void
     {
-        $this->news->setCreatedBy(new NullAccount(1));
-        self::assertEquals(1, $this->news->getCreatedBy()->getId());
+        $this->news->createdBy = new NullAccount(1);
+        self::assertEquals(1, $this->news->createdBy->getId());
     }
 
     /**
@@ -73,8 +73,8 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testTitleInputOutput() : void
     {
-        $this->news->setTitle('Title');
-        self::assertEquals('Title', $this->news->getTitle());
+        $this->news->title = 'Title';
+        self::assertEquals('Title', $this->news->title);
     }
 
     /**
@@ -84,8 +84,8 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testContentInputOutput() : void
     {
-        $this->news->setContent('Content');
-        self::assertEquals('Content', $this->news->getContent());
+        $this->news->content = 'Content';
+        self::assertEquals('Content', $this->news->content);
     }
 
     /**
@@ -95,8 +95,8 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testPlainInputOutput() : void
     {
-        $this->news->setPlain('Plain');
-        self::assertEquals('Plain', $this->news->getPlain());
+        $this->news->plain = 'Plain';
+        self::assertEquals('Plain', $this->news->plain);
     }
 
     /**
@@ -161,10 +161,10 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialization() : void
     {
-        $this->news->setTitle('Title');
-        $this->news->setCreatedBy(new NullAccount(1));
-        $this->news->setContent('Content');
-        $this->news->setPlain('Plain');
+        $this->news->title = 'Title';
+        $this->news->createdBy = new NullAccount(1);
+        $this->news->content = 'Content';
+        $this->news->plain = 'Plain';
         $this->news->setPublish(new \DateTime('2001-05-07'));
         $this->news->setFeatured(true);
         $this->news->setLanguage(ISO639x1Enum::_DE);
@@ -173,15 +173,15 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
         $arr = [
             'id'        => 0,
-            'title'     => $this->news->getTitle(),
-            'plain'     => $this->news->getPlain(),
-            'content'   => $this->news->getContent(),
+            'title'     => $this->news->title,
+            'plain'     => $this->news->plain,
+            'content'   => $this->news->content,
             'type'      => $this->news->getType(),
             'status'    => $this->news->getStatus(),
             'featured'  => $this->news->isFeatured(),
             'publish'   => $this->news->getPublish(),
-            'createdAt' => $this->news->getCreatedAt(),
-            'createdBy' => $this->news->getCreatedBy(),
+            'createdAt' => $this->news->createdAt,
+            'createdBy' => $this->news->createdBy,
         ];
 
         self::assertEquals($arr, $this->news->toArray());

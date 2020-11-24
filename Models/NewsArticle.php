@@ -45,7 +45,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $title = '';
+    public string $title = '';
 
     /**
      * Content.
@@ -53,7 +53,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $content = '';
+    public string $content = '';
 
     /**
      * Unparsed.
@@ -61,7 +61,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var string
      * @since 1.0.0
      */
-    private string $plain = '';
+    public string $plain = '';
 
     /**
      * News type.
@@ -93,7 +93,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var \DateTimeImmutable
      * @since 1.0.0
      */
-    private \DateTimeImmutable $createdAt;
+    public \DateTimeImmutable $createdAt;
 
     /**
      * Creator.
@@ -101,7 +101,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var Account
      * @since 1.0.0
      */
-    private Account $createdBy;
+    public Account $createdBy;
 
     /**
      * Publish.
@@ -148,58 +148,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     }
 
     /**
-     * Get content
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getContent() : string
-    {
-        return $this->content;
-    }
-
-    /**
-     * Set content
-     *
-     * @param string $content News article content
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setContent(string $content) : void
-    {
-        $this->content = $content;
-    }
-
-    /**
-     * Set plain content
-     *
-     * @param string $plain Plain/raw content
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setPlain(string $plain) : void
-    {
-        $this->plain = $plain;
-    }
-
-    /**
-     * Get plain/raw content
-     *
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getPlain() : string
-    {
-        return $this->plain;
-    }
-
-    /**
      * Set comment list
      *
      * @param int|\Modules\Comments\Models\CommentList $comments Comment list
@@ -223,18 +171,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Get date of creation
-     *
-     * @return \DateTimeImmutable
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedAt() : \DateTimeImmutable
-    {
-        return $this->createdAt;
     }
 
     /**
@@ -303,56 +239,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     public function setPublish(\DateTime $publish) : void
     {
         $this->publish = $publish;
-    }
-
-    /**
-     * Get created by
-     *
-     * @return Account
-     *
-     * @since 1.0.0
-     */
-    public function getCreatedBy() : Account
-    {
-        return $this->createdBy;
-    }
-
-    /**
-     * Set created by
-     *
-     * @param Account $account Created by
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCreatedBy(Account $account) : void
-    {
-        $this->createdBy = $account;
-    }
-
-    /**
-     * @return string
-     *
-     * @since 1.0.0
-     */
-    public function getTitle() : string
-    {
-        return $this->title;
-    }
-
-    /**
-     * Set news article title
-     *
-     * @param string $title News article title
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setTitle(string $title) : void
-    {
-        $this->title = $title;
     }
 
     /**

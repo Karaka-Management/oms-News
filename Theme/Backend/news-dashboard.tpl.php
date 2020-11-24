@@ -28,10 +28,10 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) : $url = UriFactory::build('{/prefix}news/article?id=' . $news->getId()); ?>
         <div class="portlet">
-            <div class="portlet-head"><a href="<?= $url; ?>"><?= $this->printHtml($news->getTitle()); ?></a></div>
+            <div class="portlet-head"><a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a></div>
             <div class="portlet-body">
                 <article>
-                    <?= Markdown::parse(\substr($news->getPlain(), 0, 500)); ?>
+                    <?= Markdown::parse(\substr($news->plain, 0, 500)); ?>
                 </article>
             </div>
             <div class="portlet-foot">

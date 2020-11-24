@@ -90,7 +90,7 @@ final class ApiController extends Controller
     {
         $old = clone NewsArticleMapper::get((int) $request->getData('id'));
         $new = $this->updateNewsFromRequest($request);
-        $this->updateModel($request->getHeader()->getAccount(), $old, $new, NewsArticleMapper::class, 'news', $request->getOrigin());
+        $this->updateModel($request->header->account, $old, $new, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully updated', $new);
     }
 
@@ -105,11 +105,12 @@ final class ApiController extends Controller
      */
     private function updateNewsFromRequest(RequestAbstract $request) : NewsArticle
     {
+        /** @var NewsArticle $newsArticle */
         $newsArticle = NewsArticleMapper::get((int) $request->getData('id'));
         $newsArticle->setPublish(new \DateTime((string) ($request->getData('publish') ?? $newsArticle->getPublish()->format('Y-m-d H:i:s'))));
-        $newsArticle->setTitle((string) ($request->getData('title') ?? $newsArticle->getTitle()));
-        $newsArticle->setPlain($request->getData('plain') ?? $newsArticle->getPlain());
-        $newsArticle->setContent(Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->getPlain())));
+        $newsArticle->title = (string) ($request->getData('title') ?? $newsArticle->title);
+        $newsArticle->plaint = $request->getData('plain') ?? $newsArticle->plain;
+        $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->plain));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $newsArticle->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? $newsArticle->getType()));
         $newsArticle->setStatus((int) ($request->getData('status') ?? $newsArticle->getStatus()));
@@ -135,13 +136,13 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateNewsCreate($request))) {
             $response->set('news_create', new FormValidation($val));
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_400);
+            $response->header->status = RequestStatusCode::R_400;
 
             return;
         }
 
         $newsArticle = $this->createNewsArticleFromRequest($request);
-        $this->createModel($request->getHeader()->getAccount(), $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
+        $this->createModel($request->header->account, $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully created', $newsArticle);
     }
 
@@ -157,11 +158,11 @@ final class ApiController extends Controller
     private function createNewsArticleFromRequest(RequestAbstract $request) : NewsArticle
     {
         $newsArticle = new NewsArticle();
-        $newsArticle->setCreatedBy(new NullAccount($request->getHeader()->getAccount()));
+        $newsArticle->createdBy = new NullAccount($request->header->account);
         $newsArticle->setPublish(new \DateTime((string) ($request->getData('publish') ?? 'now')));
-        $newsArticle->setTitle((string) ($request->getData('title') ?? ''));
-        $newsArticle->setPlain($request->getData('plain') ?? '');
-        $newsArticle->setContent(Markdown::parse((string) ($request->getData('plain') ?? '')));
+        $newsArticle->title = (string) ($request->getData('title') ?? '');
+        $newsArticle->plain = $request->getData('plain') ?? '';
+        $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
         $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));
@@ -185,7 +186,7 @@ final class ApiController extends Controller
 
                     $internalResponse = new HttpResponse();
                     $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, null);
-                    $newsArticle->addTag($internalResponse->get($request->getUri()->__toString())['response']);
+                    $newsArticle->addTag($internalResponse->get($request->uri->__toString())['response']);
                 } else {
                     $newsArticle->addTag(new NullTag((int) $tag['id']));
                 }
@@ -230,7 +231,7 @@ final class ApiController extends Controller
     public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
         $news = NewsArticleMapper::get((int) $request->getData('id'));
-        $this->deleteModel($request->getHeader()->getAccount(), $news, NewsArticleMapper::class, 'news', $request->getOrigin());
+        $this->deleteModel($request->header->account, $news, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully deleted', $news);
     }
 }

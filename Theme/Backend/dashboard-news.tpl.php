@@ -50,7 +50,7 @@ $newsList = $this->getData('news') ?? [];
                     </a>
                 <td data-label="<?= $this->getHtml('Title', 'News'); ?>">
                     <a href="<?= $url; ?>">
-                        <?= $this->printHtml($news->getTitle()); ?>
+                        <?= $this->printHtml($news->title); ?>
                     </a>
                     <?php endforeach; ?>
                     <?php if ($count === 0) : ?>

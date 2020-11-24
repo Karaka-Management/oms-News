@@ -30,7 +30,7 @@ echo $this->getData('nav')->render(); ?>
         <div id="testEditor" class="m-editor">
             <section class="portlet">
                 <div class="portlet-body">
-                    <input id="iTitle" type="text" name="title" form="docForm" value="<?= $news->getTitle(); ?>">
+                    <input id="iTitle" type="text" name="title" form="docForm" value="<?= $news->title; ?>">
                 </div>
             </section>
 
@@ -41,7 +41,7 @@ echo $this->getData('nav')->render(); ?>
             </section>
 
             <div class="box wf-100">
-            <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm', $news->getPlain(), $news->getContent()); ?>
+            <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
             </div>
         </div>
     </div>

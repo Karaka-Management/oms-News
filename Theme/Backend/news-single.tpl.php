@@ -30,8 +30,8 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12">
         <section class="portlet">
             <article>
-                <h1><?= $this->printHtml($news->getTitle()); ?></h1>
-                <?= $news->getContent(); ?>
+                <h1><?= $this->printHtml($news->title); ?></h1>
+                <?= $news->content; ?>
             </article>
             <?php if ($editable || !empty($tags)) : ?>
             <div class="portlet-foot">

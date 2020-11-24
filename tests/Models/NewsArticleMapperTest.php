@@ -39,10 +39,10 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $text = new Text();
         $news = new NewsArticle();
 
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($raw = $text->generateText(\mt_rand(100, 300)));
-        $news->setPlain($raw);
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = ($raw = $text->generateText(\mt_rand(100, 300)));
+        $news->plaint = $raw;
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(true);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -54,11 +54,11 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($id, $news->getId());
 
         $newsR = NewsArticleMapper::get($news->getId());
-        self::assertEquals($news->getCreatedAt()->format('Y-m-d'), $newsR->getCreatedAt()->format('Y-m-d'));
-        self::assertEquals($news->getCreatedBy()->getId(), $newsR->getCreatedBy()->getId());
-        self::assertEquals($news->getContent(), $newsR->getContent());
-        self::assertEquals($news->getPlain(), $newsR->getPlain());
-        self::assertEquals($news->getTitle(), $newsR->getTitle());
+        self::assertEquals($news->createdAt->format('Y-m-d'), $newsR->createdAt->format('Y-m-d'));
+        self::assertEquals($news->createdBy->getId(), $newsR->createdBy->getId());
+        self::assertEquals($news->content, $newsR->content);
+        self::assertEquals($news->plain, $newsR->plain);
+        self::assertEquals($news->title, $newsR->title);
         self::assertEquals($news->getStatus(), $newsR->getStatus());
         self::assertEquals($news->getType(), $newsR->getType());
         self::assertEquals($news->getLanguage(), $newsR->getLanguage());
@@ -78,9 +78,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         // Created by other
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(false);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -90,9 +90,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $id = NewsArticleMapper::create($news);
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(false);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -104,9 +104,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         // Created by me
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(false);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -116,9 +116,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $id = NewsArticleMapper::create($news);
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(false);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -128,9 +128,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $id = NewsArticleMapper::create($news);
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(false);
         $news->setLanguage(ISO639x1Enum::_DE);
@@ -142,9 +142,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         // Language
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish(new \DateTime('2001-05-07'));
         $news->setFeatured(true);
         $news->setLanguage(ISO639x1Enum::_EN);
@@ -159,9 +159,9 @@ class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $publishDate->modify('+1 days');
 
         $news = new NewsArticle();
-        $news->setCreatedBy(new NullAccount(1));
-        $news->setTitle($text->generateText(\mt_rand(3, 7)));
-        $news->setContent($text->generateText(\mt_rand(10, 300)));
+        $news->createdBy = new NullAccount(1);
+        $news->title = $text->generateText(\mt_rand(3, 7));
+        $news->content = $text->generateText(\mt_rand(10, 300));
         $news->setPublish($publishDate);
         $news->setFeatured(false);
         $news->setLanguage(ISO639x1Enum::_DE);

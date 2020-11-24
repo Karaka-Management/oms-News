@@ -116,14 +116,14 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $article   = NewsArticleMapper::get((int) $request->getData('id'));
-        $accountId = $request->getHeader()->getAccount();
+        $accountId = $request->header->account;
 
-        if ($article->getCreatedBy()->getId() !== $accountId
+        if ($article->createdBy->getId() !== $accountId
             && !$this->app->accountManager->get($accountId)->hasPermission(
                 PermissionType::READ, $this->app->orgId, $this->app->appName, self::MODULE_NAME, PermissionState::NEWS, $article->getId())
         ) {
             $view->setTemplate('/Web/Backend/Error/403_inline');
-            $response->getHeader()->setStatusCode(RequestStatusCode::R_403);
+            $response->header->status = RequestStatusCode::R_403;
             return $view;
         }
 

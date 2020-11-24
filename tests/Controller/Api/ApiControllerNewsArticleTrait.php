@@ -34,7 +34,7 @@ trait ApiControllerNewsArticleTrait
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('title', 'Controller Test Title');
         $request->setData('plain', 'Controller Test Content');
         $request->setData('lang', 'en');
@@ -44,7 +44,7 @@ trait ApiControllerNewsArticleTrait
 
         $this->module->apiNewsCreate($request, $response);
 
-        self::assertEquals('Controller Test Title', $response->get('')['response']->getTitle());
+        self::assertEquals('Controller Test Title', $response->get('')['response']->title);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
     }
 
@@ -58,7 +58,7 @@ trait ApiControllerNewsArticleTrait
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', '1');
 
         $this->module->apiNewsGet($request, $response);
@@ -76,7 +76,7 @@ trait ApiControllerNewsArticleTrait
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', 1);
         $request->setData('title', 'New Title');
         $request->setData('plain', 'New Content here');
@@ -84,7 +84,7 @@ trait ApiControllerNewsArticleTrait
         $this->module->apiNewsUpdate($request, $response);
         $this->module->apiNewsGet($request, $response);
 
-        self::assertEquals('New Title', $response->get('')['response']->getTitle());
+        self::assertEquals('New Title', $response->get('')['response']->title);
     }
 
     /**
@@ -97,7 +97,7 @@ trait ApiControllerNewsArticleTrait
         $response = new HttpResponse();
         $request  = new HttpRequest(new HttpUri(''));
 
-        $request->getHeader()->setAccount(1);
+        $request->header->account = 1;
         $request->setData('id', 1);
         $this->module->apiNewsDelete($request, $response);
 
