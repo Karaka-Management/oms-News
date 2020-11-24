@@ -161,10 +161,10 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialization() : void
     {
-        $this->news->title = 'Title';
+        $this->news->title     = 'Title';
         $this->news->createdBy = new NullAccount(1);
-        $this->news->content = 'Content';
-        $this->news->plain = 'Plain';
+        $this->news->content   = 'Content';
+        $this->news->plain     = 'Plain';
         $this->news->setPublish(new \DateTime('2001-05-07'));
         $this->news->setFeatured(true);
         $this->news->setLanguage(ISO639x1Enum::_DE);
