@@ -174,7 +174,7 @@ final class ApiController extends Controller
         ) {
             /** @var \Modules\Comments\Controller\ApiController $commentApi */
             $commnetList = $commentApi->createCommentList();
-            $newsArticle->setCommentList($commnetList);
+            $newsArticle->comments = $commnetList;
         }
 
         if (!empty($tags = $request->getDataJson('tags'))) {

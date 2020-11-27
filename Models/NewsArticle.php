@@ -17,6 +17,7 @@ namespace Modules\News\Models;
 use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
 use Modules\Tag\Models\Tag;
+use Modules\Comments\Models\CommentList;
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
@@ -130,10 +131,10 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     /**
      * Comments
      *
-     * @var null|\Modules\Comments\Models\CommentList
+     * @var null|CommentList
      * @since 1.0.0
      */
-    private $comments = null;
+    public ?CommentList $comments = null;
 
     /**
      * Constructor.
@@ -145,32 +146,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
         $this->createdBy = new NullAccount();
         $this->createdAt = new \DateTimeImmutable('now');
         $this->publish   = new \DateTime('now');
-    }
-
-    /**
-     * Set comment list
-     *
-     * @param int|\Modules\Comments\Models\CommentList $comments Comment list
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setCommentList($comments) : void
-    {
-        $this->comments = $comments;
-    }
-
-    /**
-     * Get comments
-     *
-     * @return null|\Modules\Comments\Models\CommentList
-     *
-     * @since 1.0.0
-     */
-    public function getComments()
-    {
-        return $this->comments;
     }
 
     /**
