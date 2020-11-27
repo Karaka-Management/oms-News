@@ -16,8 +16,8 @@ namespace Modules\News\Models;
 
 use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
-use Modules\Tag\Models\Tag;
 use Modules\Comments\Models\CommentList;
+use Modules\Tag\Models\Tag;
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;

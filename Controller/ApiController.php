@@ -173,7 +173,7 @@ final class ApiController extends Controller
             && !(($commentApi = $this->app->moduleManager->get('Comments')) instanceof NullModule)
         ) {
             /** @var \Modules\Comments\Controller\ApiController $commentApi */
-            $commnetList = $commentApi->createCommentList();
+            $commnetList           = $commentApi->createCommentList();
             $newsArticle->comments = $commnetList;
         }
 
