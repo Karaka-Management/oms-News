@@ -54,8 +54,8 @@ echo $this->getData('nav')->render(); ?>
                     <table class="layout wf-100">
                         <tr><td>
                                 <select name="status" id="iStatus">
-                                    <option value="<?= $this->printHtml(NewsStatus::DRAFT); ?>"<?= $news->getStatus() === NewsStatus::DRAFT ? ' selected' : ''; ?>><?= $this->getHtml('Draft'); ?>
-                                    <option value="<?= $this->printHtml(NewsStatus::VISIBLE); ?>"<?= $news->getStatus() === NewsStatus::VISIBLE ? ' selected' : ''; ?>><?= $this->getHtml('Visible'); ?>
+                                    <option value="<?= NewsStatus::DRAFT; ?>"<?= $news->getStatus() === NewsStatus::DRAFT ? ' selected' : ''; ?>><?= $this->getHtml('Draft'); ?>
+                                    <option value="<?= NewsStatus::VISIBLE; ?>"<?= $news->getStatus() === NewsStatus::VISIBLE ? ' selected' : ''; ?>><?= $this->getHtml('Visible'); ?>
                                 </select>
                         <tr><td>
                                 <label for="iPublish"><?= $this->getHtml('Publish'); ?></label>
@@ -100,19 +100,19 @@ echo $this->getData('nav')->render(); ?>
                     <tr><td><?= $this->getHtml('Type'); ?>
                     <tr><td>
                         <label class="radio" for="iNewsTypeArticle">
-                            <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= $this->printHtml(NewsType::ARTICLE); ?>"<?= $news->getType() === NewsType::ARTICLE ? ' checked' : ''; ?>>
+                            <input type="radio" name="type" id="iNewsTypeArticle" form="docForm" value="<?= NewsType::ARTICLE; ?>"<?= $news->getType() === NewsType::ARTICLE ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('News'); ?>
                         </label>
                     <tr><td>
                         <label class="radio" for="iNewsTypeHeadline">
-                            <input type="radio" name="type" id="iNewsTypeHeadline" form="docForm" value="<?= $this->printHtml(NewsType::HEADLINE); ?>"<?= $news->getType() === NewsType::HEADLINE ? ' checked' : ''; ?>>
+                            <input type="radio" name="type" id="iNewsTypeHeadline" form="docForm" value="<?= NewsType::HEADLINE; ?>"<?= $news->getType() === NewsType::HEADLINE ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('Headline'); ?>
                         </label>
                     <tr><td>
                         <label class="radio" for="iNewsTypeLink">
-                            <input type="radio" name="type" id="iNewsTypeLink" form="docForm" value="<?= $this->printHtml(NewsType::LINK); ?>"<?= $news->getType() === NewsType::LINK ? ' checked' : ''; ?>>
+                            <input type="radio" name="type" id="iNewsTypeLink" form="docForm" value="<?= NewsType::LINK; ?>"<?= $news->getType() === NewsType::LINK ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('Link'); ?>
                         </label>
