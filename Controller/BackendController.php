@@ -135,7 +135,7 @@ final class BackendController extends Controller implements DashboardElementInte
         );
 
         // allow comments
-        if (!$article->getComments() !== null
+        if (!$article->comments !== null
             && !($this->app->moduleManager->get('Comments') instanceof NullModule)
         ) {
             $commentCreateView = new \Modules\Comments\Theme\Backend\Components\Comment\CreateView($this->app->l11nManager, $request, $response);

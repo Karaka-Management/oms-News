@@ -54,7 +54,7 @@ echo $this->getData('nav')->render(); ?>
 </div>
 
 <?php
-$commentList = $news->getComments();
+$commentList = $news->comments;
 if (!empty($commentList) && $commentList->isActive()) :
     /* @todo: check if user has permission to create a comment here, maybe he is only allowed to read comments */
     echo $this->getData('commentCreate')->render(1);
