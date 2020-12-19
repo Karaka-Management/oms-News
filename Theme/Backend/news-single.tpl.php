@@ -38,7 +38,7 @@ echo $this->getData('nav')->render(); ?>
                 <div class="row">
                     <div class="col-xs-6 overflowfix">
                         <?php foreach ($tags as $tag) : ?>
-                            <span class="tag" style="background: <?= $this->printHtml($tag->getColor()); ?>"><?= $this->printHtml($tag->getTitle()); ?></span>
+                            <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getTitle()); ?></span>
                         <?php endforeach; ?>
                     </div>
                     <?php if ($editable) : ?>
