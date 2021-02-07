@@ -115,7 +115,9 @@ final class BackendController extends Controller implements DashboardElementInte
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $article   = NewsArticleMapper::get((int) $request->getData('id'));
+        $article = NewsArticleMapper::withConditional('language', $response->getLanguage())
+            ::get((int) $request->getData('id'));
+
         $accountId = $request->header->account;
 
         if ($article->createdBy->getId() !== $accountId
