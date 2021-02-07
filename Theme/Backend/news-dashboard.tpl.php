@@ -39,7 +39,7 @@ echo $this->getData('nav')->render(); ?>
                     <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
                         <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getTitle()); ?></span>
                     <?php endforeach; ?>
-                    <a tabindex="0" href="<?= $url; ?>" class="button floatRight">More</a>
+                    <a tabindex="0" href="<?= $url; ?>" class="button floatRight"><?= $this->getHtml('More', '0', '0'); ?></a>
                 </div>
             </div>
         </div>
