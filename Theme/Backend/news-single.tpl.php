@@ -24,13 +24,15 @@ $editable = $this->getData('editable');
 /** @var \Modules\Tag\Models\Tag[] $tag */
 $tags = $news->getTags();
 
+$profile = UriFactory::build('{/prefix}profile/single?{?}&id=' . $news->createdBy->getId());
+
 /** @var \phpOMS\Views\View $this */
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <section class="portlet">
             <article>
-                <h1><?= $this->printHtml($news->title); ?></h1>
+                <h1><?= $this->printHtml($news->title); ?><span class="floatRight"><a href="<?= $profile; ?>"><?= $this->printHtml($news->createdBy->name3 . ' ' . $news->createdBy->name2 . ' ' . $news->createdBy->name1); ?></a> - <?= $news->publish->format('Y-m-d'); ?></span></h1>
                 <?= $news->content; ?>
             </article>
             <?php if ($editable || !empty($tags)) : ?>
@@ -43,7 +45,7 @@ echo $this->getData('nav')->render(); ?>
                     </div>
                     <?php if ($editable) : ?>
                     <div class="col-xs-6 end-xs plain-grid">
-                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/prefix}news/edit?id=' . $news->getId()); ?>">Edit</a>
+                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/prefix}news/edit?id=' . $news->getId()); ?>"><?= $this->getHtml('Edit'); ?></a>
                     </div>
                     <?php endif; ?>
                 </div>

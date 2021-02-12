@@ -110,7 +110,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var \DateTime
      * @since 1.0.0
      */
-    private \DateTime $publish;
+    public \DateTime $publish;
 
     /**
      * Featured.
