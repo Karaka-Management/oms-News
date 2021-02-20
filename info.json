@@ -23,7 +23,7 @@
     },
     "providing": {
         "Navigation": "*",
-        "Comment": "*"
+        "Comments": "*"
     },
     "load": [
         {

@@ -42,7 +42,7 @@ class Comments
     {
         $builder = new Builder($dbPool->get('schema'));
         $builder->alterTable('news')
-            ->addConstraint('news_comment_list', 'comment_list', 'comment_list_id')
+            ->addConstraint('news_comment_list', 'comments_list', 'comments_list_id')
             ->execute();
 
         $mapper = \file_get_contents(__DIR__ . '/../../Models/NewsArticleMapper.php');
