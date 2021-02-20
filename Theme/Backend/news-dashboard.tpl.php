@@ -27,7 +27,7 @@ echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) :
-            $url = UriFactory::build('{/prefix}news/article?id=' . $news->getId());
+            $url     = UriFactory::build('{/prefix}news/article?id=' . $news->getId());
             $profile = UriFactory::build('{/prefix}profile/single?{?}&id=' . $news->createdBy->getId());
         ?>
         <div class="portlet">
