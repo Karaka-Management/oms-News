@@ -31,10 +31,54 @@ echo $this->getData('nav')->render(); ?>
             <table id="newsArchiveList" class="default">
                 <thead>
                 <tr>
-                    <td><?= $this->getHtml('Type'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td class="wf-100"><?= $this->getHtml('Title'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Author'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
-                    <td><?= $this->getHtml('Date'); ?><i class="sort-asc fa fa-chevron-up"></i><i class="sort-desc fa fa-chevron-down"></i>
+                    <td><?= $this->getHtml('Type'); ?>
+                        <label for="newsArchiveList-sort-1">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-1">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="newsArchiveList-sort-2">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-2">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td class="wf-100"><?= $this->getHtml('Title'); ?>
+                        <label for="newsArchiveList-sort-3">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-3">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="newsArchiveList-sort-4">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-4">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Author'); ?>
+                        <label for="newsArchiveList-sort-5">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-5">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="newsArchiveList-sort-6">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-6">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
+                    <td><?= $this->getHtml('Date'); ?>
+                        <label for="newsArchiveList-sort-7">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-7">
+                            <i class="sort-asc fa fa-chevron-up"></i>
+                        </label>
+                        <label for="newsArchiveList-sort-8">
+                            <input type="radio" name="newsArchiveList-sort" id="newsArchiveList-sort-8">
+                             <i class="sort-desc fa fa-chevron-down"></i>
+                        </label>
+                        <label>
+                            <i class="filter fa fa-filter"></i>
+                        </label>
             <tbody>
                 <?php
                     $count = 0;

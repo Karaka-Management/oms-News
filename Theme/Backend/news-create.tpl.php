@@ -69,8 +69,6 @@ echo $this->getData('nav')->render(); ?>
                                     <?php endforeach; ?>
                                 </select>
                         <tr><td>
-                                <label for="iComment"><?= $this->getHtml('AllowComments'); ?></label>
-                        <tr><td>
                                 <label class="checkbox" for="iComment">
                                     <input id="iComment" type="checkbox" name="allow_comments" value="1">
                                     <span class="checkmark"></span>
