@@ -58,23 +58,26 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::withConditional('language', $response->getLanguage())
-                    ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                NewsArticleMapper::with('language', $response->getLanguage())
+                    ::with('comments', models: null)
+                    ::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 10)
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::withConditional('language', $response->getLanguage())
-                    ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                NewsArticleMapper::with('language', $response->getLanguage())
+                    ::with('comments', models: null)
+                    ::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 10)
             );
         } else {
             $view->setData('news',
-                NewsArticleMapper::withConditional('language', $response->getLanguage())
-                    ::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                NewsArticleMapper::with('language', $response->getLanguage())
+                    ::with('comments', models: null)
+                    ::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot(0, null, 10)
             );
         }
@@ -90,8 +93,8 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
 
-        $news = NewsArticleMapper::withConditional('language', $response->getLanguage())
-            ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+        $news = NewsArticleMapper::with('language', $response->getLanguage())
+            ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
             ::getNewest(5);
 
         $view->addData('news', $news);
@@ -115,7 +118,7 @@ final class BackendController extends Controller implements DashboardElementInte
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $article = NewsArticleMapper::withConditional('language', $response->getLanguage())
+        $article = NewsArticleMapper::with('language', $response->getLanguage())
             ::get((int) $request->getData('id'));
 
         $accountId = $request->header->account;
@@ -171,19 +174,19 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                NewsArticleMapper::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+                NewsArticleMapper::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
             );
         } else {
-            $view->setData('news', NewsArticleMapper::withConditional('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                ::withConditional('publish', new \DateTime('now'), [NewsArticle::class], '<=')
+            $view->setData('news', NewsArticleMapper::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
+                ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                 ::getAfterPivot(0, null, 25));
         }
 
