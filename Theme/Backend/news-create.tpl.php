@@ -30,7 +30,7 @@ echo $this->getData('nav')->render(); ?>
         <div id="testEditor" class="m-editor">
             <section class="portlet">
                 <div class="portlet-body">
-                    <input id="iTitle" type="text" name="title" form="docForm" value="<?= $news->title; ?>">
+                    <input id="iTitle" type="text" name="title" form="docForm" value="<?= $news->title; ?>" autocomplete="off">
                 </div>
             </section>
 

@@ -14,6 +14,7 @@
 declare(strict_types=1);
 
 use phpOMS\Uri\UriFactory;
+use Modules\Comments\Models\CommentListStatus;
 
 /** @var \Modules\News\Models\NewsArticle $news */
 $news = $this->getData('news');
@@ -57,7 +58,7 @@ echo $this->getData('nav')->render(); ?>
 
 <?php
 $commentList = $news->comments;
-if (!empty($commentList) && $commentList->isActive()) :
+if (!empty($commentList) && $commentList->status !== CommentListStatus::INACTIVE) :
     /* @todo: check if user has permission to create a comment here, maybe he is only allowed to read comments */
     echo $this->getData('commentCreate')->render(1);
     echo $this->getData('commentList')->render($commentList);

@@ -17,7 +17,10 @@ namespace Modules\News\Controller;
 use Modules\Dashboard\Models\DashboardElementInterface;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
+use Modules\News\Models\NewsSeen;
+use Modules\News\Models\NewsSeenMapper;
 use Modules\News\Models\NewsStatus;
+use Modules\News\Models\NullNewsSeen;
 use Modules\News\Models\PermissionState;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
@@ -80,6 +83,23 @@ final class BackendController extends Controller implements DashboardElementInte
                     ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
                     ::getAfterPivot(0, null, 10)
             );
+        }
+
+        $seen = NewsSeenMapper::getFor($request->header->account, 'seenBy');
+        $view->setData('seen', $seen->seenAt);
+
+        // @async
+        if ($seen instanceof NullNewsSeen) {
+            $seen = new NewsSeen();
+            $seen->seenBy = (int) $request->header->account;
+            $seen->seenAt = new \DateTime('now');
+
+            NewsSeenMapper::create($seen);
+        } else {
+            $newSeen = clone $seen;
+            $newSeen->seenAt = new \DateTime('now');
+
+            NewsSeenMapper::update($newSeen);
         }
 
         return $view;

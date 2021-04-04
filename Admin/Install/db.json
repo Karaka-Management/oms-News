@@ -95,5 +95,29 @@
                 "foreignKey": "tag_id"
             }
         }
+    },
+    "news_seen": {
+        "name": "news_seen",
+        "fields": {
+            "news_seen_id": {
+                "name": "news_seen_id",
+                "type": "INT",
+                "null": false,
+                "primary": true,
+                "autoincrement": true
+            },
+            "news_seen_at": {
+                "name": "news_seen_at",
+                "type": "DATETIME",
+                "null": false
+            },
+            "news_seen_by": {
+                "name": "news_seen_by",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "account",
+                "foreignKey": "account_id"
+            }
+        }
     }
 }
