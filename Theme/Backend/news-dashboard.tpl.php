@@ -18,7 +18,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
 $newsList = $this->getData('news');
-$seenAt = $this->getData('seen');
+$seenAt   = $this->getData('seen');
 
 $previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
 $next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';

@@ -13,8 +13,8 @@
  */
 declare(strict_types=1);
 
-use phpOMS\Uri\UriFactory;
 use Modules\Comments\Models\CommentListStatus;
+use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle $news */
 $news = $this->getData('news');

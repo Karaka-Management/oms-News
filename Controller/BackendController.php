@@ -90,13 +90,13 @@ final class BackendController extends Controller implements DashboardElementInte
 
         // @async
         if ($seen instanceof NullNewsSeen) {
-            $seen = new NewsSeen();
+            $seen         = new NewsSeen();
             $seen->seenBy = (int) $request->header->account;
             $seen->seenAt = new \DateTime('now');
 
             NewsSeenMapper::create($seen);
         } else {
-            $newSeen = clone $seen;
+            $newSeen         = clone $seen;
             $newSeen->seenAt = new \DateTime('now');
 
             NewsSeenMapper::update($newSeen);

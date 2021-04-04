@@ -14,9 +14,6 @@ declare(strict_types=1);
 
 namespace Modules\News\Models;
 
-use Modules\Admin\Models\AccountMapper;
-use Modules\Comments\Models\CommentListMapper;
-use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
 
 /**
@@ -42,8 +39,8 @@ final class NewsSeenMapper extends DataMapperAbstract
      */
     protected static array $columns = [
         'news_seen_id'           => ['name' => 'news_seen_id',         'type' => 'int',      'internal' => 'id'],
-        'news_seen_at'   => ['name' => 'news_seen_at', 'type' => 'DateTime', 'internal' => 'seenAt'],
-        'news_seen_by'   => ['name' => 'news_seen_by', 'type' => 'int',      'internal' => 'seenBy'],
+        'news_seen_at'           => ['name' => 'news_seen_at', 'type' => 'DateTime', 'internal' => 'seenAt'],
+        'news_seen_by'           => ['name' => 'news_seen_by', 'type' => 'int',      'internal' => 'seenBy'],
     ];
 
     /**
