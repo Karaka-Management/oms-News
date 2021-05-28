@@ -52,15 +52,6 @@ return [
     ],
     '^.*/news/create.*$' => [
         [
-            'dest'       => '\Modules\Editor\Controller\BackendController:setUpEditorEditor',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::MODULE_NAME,
-                'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::NEWS,
-            ],
-        ],
-        [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
@@ -71,15 +62,6 @@ return [
         ],
     ],
     '^.*/news/edit.*$' => [
-        [
-            'dest'       => '\Modules\Editor\Controller\BackendController:setUpEditorEditor',
-            'verb'       => RouteVerb::GET,
-            'permission' => [
-                'module' => BackendController::MODULE_NAME,
-                'type'   => PermissionType::MODIFY,
-                'state'  => PermissionState::NEWS,
-            ],
-        ],
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsEdit',
             'verb'       => RouteVerb::GET,
@@ -92,7 +74,7 @@ return [
     ],
     '^.*/news/analysis.*$' => [
         [
-            'dest'       => '\Modules\Editor\Controller\BackendController:viewNewsAnalysis',
+            'dest'       => '\Modules\News\Controller\BackendController:viewNewsAnalysis',
             'verb'       => RouteVerb::GET,
             'permission' => [
                 'module' => BackendController::MODULE_NAME,
