@@ -1,6 +1,6 @@
 [
     {
-        "id": 1000701001,
+        "id": 1000601001,
         "pid": "/",
         "type": 2,
         "subtype": 1,
@@ -14,7 +14,7 @@
         "parent": 1006901001,
         "children": [
             {
-                "id": 1000702001,
+                "id": 1000602001,
                 "pid": "/news",
                 "type": 3,
                 "subtype": 1,
@@ -25,11 +25,11 @@
                 "order": 1,
                 "from": "News",
                 "permission": { "permission": 2, "type": null, "element": null },
-                "parent": 1000701001,
+                "parent": 1000601001,
                 "children": []
             },
             {
-                "id": 1000703001,
+                "id": 1000603001,
                 "pid": "/news",
                 "type": 3,
                 "subtype": 1,
@@ -40,11 +40,11 @@
                 "order": 5,
                 "from": "News",
                 "permission": { "permission": 2, "type": null, "element": null },
-                "parent": 1000701001,
+                "parent": 1000601001,
                 "children": []
             },
             {
-                "id": 1000704001,
+                "id": 1000604001,
                 "pid": "/news",
                 "type": 3,
                 "subtype": 1,
@@ -55,11 +55,11 @@
                 "order": 10,
                 "from": "News",
                 "permission": { "permission": 4, "type": null, "element": null },
-                "parent": 1000701001,
+                "parent": 1000601001,
                 "children": []
             },
             {
-                "id": 1000705001,
+                "id": 1000605001,
                 "pid": "/news",
                 "type": 3,
                 "subtype": 1,
@@ -70,7 +70,22 @@
                 "order": 15,
                 "from": "News",
                 "permission": { "permission": 4, "type": null, "element": null },
-                "parent": 1000701001,
+                "parent": 1000601001,
+                "children": []
+            },
+            {
+                "id": 1000606001,
+                "pid": "/news",
+                "type": 3,
+                "subtype": 1,
+                "name": "Analysis",
+                "uri": "{/prefix}news/analysis",
+                "target": "self",
+                "icon": null,
+                "order": 15,
+                "from": "News",
+                "permission": { "permission": 4, "type": null, "element": null },
+                "parent": 1000601001,
                 "children": []
             }
         ]

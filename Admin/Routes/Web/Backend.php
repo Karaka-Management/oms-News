@@ -90,4 +90,15 @@ return [
             ],
         ],
     ],
+    '^.*/news/analysis.*$' => [
+        [
+            'dest'       => '\Modules\Editor\Controller\BackendController:viewNewsAnalysis',
+            'verb'       => RouteVerb::GET,
+            'permission' => [
+                'module' => BackendController::MODULE_NAME,
+                'type'   => PermissionType::MODIFY,
+                'state'  => PermissionState::ANALYSIS,
+            ],
+        ],
+    ],
 ];
