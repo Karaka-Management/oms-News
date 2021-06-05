@@ -12,9 +12,6 @@
  */
 declare(strict_types=1);
 
-use Modules\News\Models\NewsType;
-use phpOMS\Uri\UriFactory;
-
 // @todo: stats: published timeline, published by tags, published by author
 
 echo $this->getData('nav')->render(); ?>
