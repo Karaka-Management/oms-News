@@ -17,7 +17,7 @@ use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
-$articles = $this->getData('news') ?? [];
+$newsList = $this->getData('news') ?? [];
 
 $previous = empty($newsList) ? '{/prefix}news/draft/list' : '{/prefix}news/draft/list?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
 $next     = empty($newsList) ? '{/prefix}news/draft/list' : '{/prefix}news/draft/list?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
@@ -80,8 +80,11 @@ echo $this->getData('nav')->render(); ?>
                             <i class="filter fa fa-filter"></i>
                         </label>
             <tbody>
-                <?php $count                                                  = 0; foreach ($articles as $key => $news) : ++$count; $url                                                  = UriFactory::build('{/prefix}news/edit?{?}&id=' . $news->getId());
-                    $color                                                    = 'darkred';
+                <?php $count = 0;
+                    foreach ($newsList as $key => $news) : ++$count;
+                    $url   = UriFactory::build('{/prefix}news/edit?{?}&id=' . $news->getId());
+                    $color = 'darkred';
+
                     if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }
                     elseif ($news->getType() === NewsType::HEADLINE) { $color = 'purple'; }
                     elseif ($news->getType() === NewsType::LINK) { $color     = 'yellow'; }

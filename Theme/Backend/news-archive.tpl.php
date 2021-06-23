@@ -17,7 +17,7 @@ use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
-$articles = $this->getData('news') ?? [];
+$newsList = $this->getData('news') ?? [];
 
 $previous = empty($newsList) ? '{/prefix}news/archive' : '{/prefix}news/archive?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
 $next     = empty($newsList) ? '{/prefix}news/archive' : '{/prefix}news/archive?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
@@ -83,7 +83,7 @@ echo $this->getData('nav')->render(); ?>
                 <?php
                     $count = 0;
 
-                    foreach ($articles as $key => $news) : ++$count;
+                    foreach ($newsList as $key => $news) : ++$count;
                     $url   = UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
                     $color = 'darkred';
 

@@ -49,7 +49,7 @@ echo $this->getData('nav')->render(); ?>
             <div class="portlet-foot">
                 <div class="overflowfix">
                     <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
-                        <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getTitle()); ?></span>
+                        <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                     <?php endforeach; ?>
                     <a tabindex="0" href="<?= $url; ?>" class="button floatRight"><?= $this->getHtml('More', '0', '0'); ?></a>
                 </div>
