@@ -19,11 +19,13 @@
     "dependencies": {
         "Admin": "1.0.0",
         "Home": "1.0.0",
-        "Tag": "1.0.0"
+        "Tag": "1.0.0",
+        "Media": "*"
     },
     "providing": {
         "Navigation": "*",
-        "Comments": "*"
+        "Comments": "*",
+        "Media": "*"
     },
     "load": [
         {

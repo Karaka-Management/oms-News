@@ -21,6 +21,7 @@ use Modules\Tag\Models\Tag;
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
+use Modules\Media\Models\Media;
 
 /**
  * News article class.
@@ -135,6 +136,14 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @since 1.0.0
      */
     public ?CommentList $comments = null;
+
+    /**
+     * Media files
+     *
+     * @var array
+     * @since 1.0.0
+     */
+    protected array $media = [];
 
     /**
      * Constructor.
@@ -324,6 +333,32 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     public function addTag(Tag $tag) : void
     {
         $this->tags[] = $tag;
+    }
+
+    /**
+     * Get all media
+     *
+     * @return Media[]
+     *
+     * @since 1.0.0
+     */
+    public function getMedia() : array
+    {
+        return $this->media;
+    }
+
+    /**
+     * Add media
+     *
+     * @param Media $media Media to add
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
+    public function addMedia(Media $media) : void
+    {
+        $this->media[] = $media;
     }
 
     /**

@@ -42,6 +42,10 @@ echo $this->getData('nav')->render(); ?>
                         <?php foreach ($tags as $tag) : ?>
                             <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= $tag->icon !== null ? '<i class="' . $this->printHtml($tag->icon ?? '') . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                         <?php endforeach; ?>
+
+                        <?php $files = $news->getMedia(); foreach ($files as $file) : ?>
+                            <span class="file"><?= $this->printHtml($file->name); ?></span>
+                        <?php endforeach; ?>
                     </div>
                     <?php if ($editable) : ?>
                     <div class="col-xs-6 end-xs plain-grid">

@@ -94,6 +94,12 @@ final class NewsArticleMapper extends DataMapperAbstract
             'self'     => 'news_tag_dst',
             'external' => 'news_tag_src',
         ],
+        'media'        => [
+            'mapper'   => MediaMapper::class,
+            'table'    => 'news_media',
+            'external' => 'news_media_dst',
+            'self'     => 'news_media_src',
+        ],
     ];
 
     /**
