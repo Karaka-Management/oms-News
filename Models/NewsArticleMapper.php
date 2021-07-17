@@ -18,6 +18,7 @@ use Modules\Admin\Models\AccountMapper;
 use Modules\Comments\Models\CommentListMapper;
 use Modules\Tag\Models\TagMapper;
 use phpOMS\DataStorage\Database\DataMapperAbstract;
+use Modules\Media\Models\MediaMapper;
 
 /**
  * News mapper class.
