@@ -44,7 +44,7 @@ echo $this->getData('nav')->render(); ?>
                         <?php endforeach; ?>
 
                         <?php $files = $news->getMedia(); foreach ($files as $file) : ?>
-                            <span class="file"><?= $this->printHtml($file->name); ?></span>
+                            <span><a class="content" href="<?= UriFactory::build('{/prefix}media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                         <?php endforeach; ?>
                     </div>
                     <?php if ($editable) : ?>
