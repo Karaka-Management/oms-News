@@ -94,7 +94,7 @@ echo $this->getData('nav')->render(); ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><span class="tag <?= $this->printHtml($color); ?>"><?= $this->getHtml('TYPE' . $news->getType()); ?></span></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
-                        <td><a href="<?= $url; ?>"><?= $this->printHtml($news->createdBy->name2 . ', ' . $news->createdBy->name1); ?></a>
+                        <td><a class="content" href="<?= UriFactory::build('{/prefix}profile/single?{?}&for=' . $news->createdBy->getId()); ?>"><?= $this->printHtml($news->createdBy->name2 . ', ' . $news->createdBy->name1); ?></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getPublish()->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>

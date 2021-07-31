@@ -36,7 +36,7 @@ echo $this->getData('nav')->render(); ?>
                 <?= $seenAt->getTimestamp() < $news->publish->getTimestamp() ? '<strong>' : ''; ?>
                     <a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
                     <span class="floatRight">
-                        <a href="<?= $profile; ?>"><?= $this->printHtml($news->createdBy->name3 . ' ' . $news->createdBy->name2 . ' ' . $news->createdBy->name1); ?>
+                        <a class="content" href="<?= $profile; ?>"><?= $this->printHtml($news->createdBy->name3 . ' ' . $news->createdBy->name2 . ' ' . $news->createdBy->name1); ?>
                         </a> - <?= $news->publish->format('Y-m-d'); ?>
                     </span>
                 <?= $seenAt->getTimestamp() < $news->publish->getTimestamp() ? '</strong>' : ''; ?>
