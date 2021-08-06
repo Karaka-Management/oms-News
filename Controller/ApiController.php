@@ -20,6 +20,7 @@ use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
 use Modules\Tag\Models\NullTag;
+use Modules\Media\Models\NullMedia;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
@@ -205,6 +206,12 @@ final class ApiController extends Controller
 
             foreach ($uploaded as $media) {
                 $newsArticle->addMedia($media);
+            }
+        }
+
+        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+            foreach ($mediaFiles as $media) {
+                $newsArticle->addMedia(new NullMedia($media));
             }
         }
 
