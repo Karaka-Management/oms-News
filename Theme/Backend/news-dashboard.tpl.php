@@ -24,7 +24,6 @@ $previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashbo
 $next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
-
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) :
@@ -57,8 +56,12 @@ echo $this->getData('nav')->render(); ?>
         </div>
         <?php endforeach; ?>
     </div>
+    <?php if (empty($newsList)) : ?>
+    <div class="emptyPage"></div>
+    <?php else : ?>
     <div class="plain-portlet">
         <a tabindex="0" class="button" href="<?= UriFactory::build($previous); ?>"><?= $this->getHtml('Previous', '0', '0'); ?></a>
         <a tabindex="0" class="button" href="<?= UriFactory::build($next); ?>"><?= $this->getHtml('Next', '0', '0'); ?></a>
     </div>
+    <?php endif; ?>
 </div>
