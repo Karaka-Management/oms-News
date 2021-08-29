@@ -29,6 +29,9 @@ class NewsArticleTest extends \PHPUnit\Framework\TestCase
 {
     protected NewsArticle $news;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->news = new NewsArticle();

@@ -38,6 +38,9 @@ class ControllerTest extends \PHPUnit\Framework\TestCase
 
     protected $module = null;
 
+    /**
+     * {@inheritdoc}
+     */
     protected function setUp() : void
     {
         $this->app = new class() extends ApplicationAbstract
