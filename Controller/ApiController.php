@@ -15,12 +15,12 @@ declare(strict_types=1);
 namespace Modules\News\Controller;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\Media\Models\NullMedia;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
 use Modules\Tag\Models\NullTag;
-use Modules\Media\Models\NullMedia;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
