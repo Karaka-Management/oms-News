@@ -19,7 +19,7 @@ namespace Modules\News\tests\Admin;
  */
 class AdminTest extends \PHPUnit\Framework\TestCase
 {
-    protected const MODULE_NAME = 'News';
+    protected const NAME = 'News';
 
     protected const URI_LOAD = 'http://127.0.0.1/en/backend/news';
 

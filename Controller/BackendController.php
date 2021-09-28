@@ -145,7 +145,7 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($article->createdBy->getId() !== $accountId
             && !$this->app->accountManager->get($accountId)->hasPermission(
-                PermissionType::READ, $this->app->orgId, $this->app->appName, self::MODULE_NAME, PermissionState::NEWS, $article->getId())
+                PermissionType::READ, $this->app->orgId, $this->app->appName, self::NAME, PermissionState::NEWS, $article->getId())
         ) {
             $view->setTemplate('/Web/Backend/Error/403_inline');
             $response->header->status = RequestStatusCode::R_403;
@@ -156,7 +156,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
         $view->addData('news', $article);
         $view->addData('editable', $this->app->accountManager->get($accountId)->hasPermission(
-            PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::MODULE_NAME, PermissionState::NEWS, $article->getId())
+            PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::NAME, PermissionState::NEWS, $article->getId())
         );
 
         // allow comments

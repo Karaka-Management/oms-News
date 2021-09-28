@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsDashboard',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::NEWS,
             ],
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsArticle',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::NEWS,
             ],
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsArchive',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::NEWS,
             ],
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsDraftList',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::NEWS,
             ],
@@ -67,7 +67,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsCreate',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::NEWS,
             ],
@@ -78,7 +78,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsEdit',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::NEWS,
             ],
@@ -89,7 +89,7 @@ return [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsAnalysis',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => BackendController::MODULE_NAME,
+                'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::ANALYSIS,
             ],

@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsCreate',
             'verb'       => RouteVerb::PUT,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
                 'state'  => PermissionState::NEWS,
             ],
@@ -32,7 +32,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsUpdate',
             'verb'       => RouteVerb::SET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
                 'state'  => PermissionState::NEWS,
             ],
@@ -41,7 +41,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsGet',
             'verb'       => RouteVerb::GET,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
                 'state'  => PermissionState::NEWS,
             ],
@@ -50,7 +50,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsDelete',
             'verb'       => RouteVerb::DELETE,
             'permission' => [
-                'module' => ApiController::MODULE_NAME,
+                'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
                 'state'  => PermissionState::NEWS,
             ],
