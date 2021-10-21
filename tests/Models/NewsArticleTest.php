@@ -25,7 +25,7 @@ use phpOMS\Localization\ISO639x1Enum;
  *
  * @internal
  */
-class NewsArticleTest extends \PHPUnit\Framework\TestCase
+final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 {
     protected NewsArticle $news;
 

@@ -27,7 +27,7 @@ use phpOMS\Utils\RnG\Text;
  *
  * @internal
  */
-class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
+final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model can be created and read from the database
