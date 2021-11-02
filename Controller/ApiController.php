@@ -108,14 +108,14 @@ final class ApiController extends Controller
     {
         /** @var NewsArticle $newsArticle */
         $newsArticle = NewsArticleMapper::get((int) $request->getData('id'));
-        $newsArticle->setPublish(new \DateTime((string) ($request->getData('publish') ?? $newsArticle->getPublish()->format('Y-m-d H:i:s'))));
+        $newsArticle->publich = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
         $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
         $newsArticle->plain   = $request->getData('plain') ?? $newsArticle->plain;
         $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->plain));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $newsArticle->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? $newsArticle->getType()));
         $newsArticle->setStatus((int) ($request->getData('status') ?? $newsArticle->getStatus()));
-        $newsArticle->setFeatured((bool) ($request->getData('featured') ?? $newsArticle->isFeatured()));
+        $newsArticle->isFeatured = (bool) ($request->getData('featured') ?? $newsArticle->isFeatured);
 
         return $newsArticle;
     }
@@ -160,14 +160,14 @@ final class ApiController extends Controller
     {
         $newsArticle            = new NewsArticle();
         $newsArticle->createdBy = new NullAccount($request->header->account);
-        $newsArticle->setPublish(new \DateTime((string) ($request->getData('publish') ?? 'now')));
+        $newsArticle->publich = new \DateTime((string) ($request->getData('publish') ?? 'now'));
         $newsArticle->title   = (string) ($request->getData('title') ?? '');
         $newsArticle->plain   = $request->getData('plain') ?? '';
         $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
         $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));
-        $newsArticle->setFeatured((bool) ($request->getData('featured') ?? true));
+        $newsArticle->isFeatured = (bool) ($request->getData('featured') ?? true);
 
         // allow comments
         if (!empty($request->getData('allow_comments'))

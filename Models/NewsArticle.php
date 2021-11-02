@@ -119,7 +119,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
      * @var bool
      * @since 1.0.0
      */
-    private bool $featured = false;
+    public bool $isFeatured = false;
 
     /**
      * Tags.
@@ -182,18 +182,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     }
 
     /**
-     * Get publish date
-     *
-     * @return \DateTime
-     *
-     * @since 1.0.0
-     */
-    public function getPublish() : \DateTime
-    {
-        return $this->publish;
-    }
-
-    /**
      * Set language
      *
      * @param string $language News article language
@@ -209,20 +197,6 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
         }
 
         $this->language = $language;
-    }
-
-    /**
-     * Set publish date
-     *
-     * @param \DateTime $publish Publish date
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function setPublish(\DateTime $publish) : void
-    {
-        $this->publish = $publish;
     }
 
     /**
@@ -286,53 +260,69 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
     }
 
     /**
+     * Adding new tag.
+     *
+     * @param Tag $tag Tag
+     *
+     * @return int
+     *
+     * @since 1.0.0
+     */
+    public function addTag(Tag $tag) : int
+    {
+        $this->tags[] = $tag;
+
+        \end($this->tags);
+        $key = (int) \key($this->tags);
+        \reset($this->tags);
+
+        return $key;
+    }
+
+    /**
+     * Remove Tag from list.
+     *
+     * @param int $id Tag
+     *
      * @return bool
      *
      * @since 1.0.0
      */
-    public function isFeatured() : bool
+    public function removeTag($id) : bool
     {
-        return $this->featured;
+        if (isset($this->tags[$id])) {
+            unset($this->tags[$id]);
+
+            return true;
+        }
+
+        return false;
     }
 
     /**
-     * Set featured
+     * Get task elements.
      *
-     * @param bool $featured Is featured
+     * @param int $id Element id
      *
-     * @return void
+     * @return Tag
      *
      * @since 1.0.0
      */
-    public function setFeatured(bool $featured) : void
+    public function getTag(int $id) : Tag
     {
-        $this->featured = $featured;
+        return $this->tags[$id] ?? new NullTag();
     }
 
     /**
-     * Get tags
+     * Get task elements.
      *
-     * @return array
+     * @return Tag[]
      *
      * @since 1.0.0
      */
     public function getTags() : array
     {
         return $this->tags;
-    }
-
-    /**
-     * Add tag
-     *
-     * @param Tag $tag Tag
-     *
-     * @return void
-     *
-     * @since 1.0.0
-     */
-    public function addTag(Tag $tag) : void
-    {
-        $this->tags[] = $tag;
     }
 
     /**
@@ -373,7 +363,7 @@ class NewsArticle implements \JsonSerializable, ArrayableInterface
             'content'   => $this->content,
             'type'      => $this->type,
             'status'    => $this->status,
-            'featured'  => $this->featured,
+            'isFeatured'  => $this->isFeatured,
             'publish'   => $this->publish,
             'createdAt' => $this->createdAt,
             'createdBy' => $this->createdBy,

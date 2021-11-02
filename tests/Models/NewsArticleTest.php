@@ -19,6 +19,8 @@ use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
 use phpOMS\Localization\ISO639x1Enum;
+use Modules\Media\Models\Media;
+use Modules\Tag\Models\Tag;
 
 /**
  * @testdox Modules\News\tests\Models\NewsArticleTest: News article
@@ -49,8 +51,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->news->title);
         self::assertEquals('', $this->news->content);
         self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->createdAt->format('Y-m-d'));
-        self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->getPublish()->format('Y-m-d'));
-        self::assertFalse($this->news->isFeatured());
+        self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->publish->format('Y-m-d'));
+        self::assertFalse($this->news->isFeatured);
         self::assertEquals(ISO639x1Enum::_EN, $this->news->getLanguage());
         self::assertEquals(NewsStatus::DRAFT, $this->news->getStatus());
         self::assertEquals(NewsType::ARTICLE, $this->news->getType());
@@ -109,8 +111,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testPublishInputOutput() : void
     {
-        $this->news->setPublish($data = new \DateTime('2001-05-07'));
-        self::assertEquals($data, $this->news->getPublish());
+        $this->news->publish = $data = new \DateTime('2001-05-07');
+        self::assertEquals($data, $this->news->publish);
     }
 
     /**
@@ -120,8 +122,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testFeaturedInputOutput() : void
     {
-        $this->news->setFeatured(true);
-        self::assertTrue($this->news->isFeatured());
+        $this->news->isFeatured = true;
+        self::assertTrue($this->news->isFeatured);
     }
 
     /**
@@ -168,8 +170,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
         $this->news->createdBy = new NullAccount(1);
         $this->news->content   = 'Content';
         $this->news->plain     = 'Plain';
-        $this->news->setPublish(new \DateTime('2001-05-07'));
-        $this->news->setFeatured(true);
+        $this->news->publish = new \DateTime('2001-05-07');
+        $this->news->isFeatured = true;
         $this->news->setLanguage(ISO639x1Enum::_DE);
         $this->news->setStatus(NewsStatus::VISIBLE);
         $this->news->setType(NewsType::HEADLINE);
@@ -181,8 +183,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
             'content'   => $this->news->content,
             'type'      => $this->news->getType(),
             'status'    => $this->news->getStatus(),
-            'featured'  => $this->news->isFeatured(),
-            'publish'   => $this->news->getPublish(),
+            'isFeatured'  => $this->news->isFeatured,
+            'publish'   => $this->news->publish,
             'createdAt' => $this->news->createdAt,
             'createdBy' => $this->news->createdBy,
         ];
@@ -228,5 +230,44 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
         $news = new NewsArticle();
         $news->setLanguage('9999');
+    }
+
+    /**
+     * @covers Modules\News\Models\NewsArticle
+     * @group module
+     */
+    public function testTagInputOutput() : void
+    {
+        $tag = new Tag();
+        $tag->setL11n('Tag');
+
+        $this->news->addTag($tag);
+        self::assertEquals($tag, $this->news->getTag(0));
+        self::assertCount(1, $this->news->getTags());
+    }
+
+    /**
+     * @covers Modules\News\Models\NewsArticle
+     * @group module
+     */
+    public function testTagRemove() : void
+    {
+        $tag = new Tag();
+        $tag->setL11n('Tag');
+
+        $this->news->addTag($tag);
+        self::assertTrue($this->news->removeTag(0));
+        self::assertCount(0, $this->news->getTags());
+        self::assertFalse($this->news->removeTag(0));
+    }
+
+    /**
+     * @covers Modules\News\Models\NewsArticle
+     * @group module
+     */
+    public function testMediaInputOutput() : void
+    {
+        $this->news->addMedia(new Media());
+        self::assertCount(1, $this->news->getMedia());
     }
 }

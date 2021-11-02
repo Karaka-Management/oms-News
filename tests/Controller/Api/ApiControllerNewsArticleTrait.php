@@ -21,6 +21,9 @@ use Modules\News\Models\NullNewsArticle;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Uri\HttpUri;
+use phpOMS\Message\Http\RequestStatusCode;
+use phpOMS\Utils\TestUtils;
+use phpOMS\System\MimeType;
 
 trait ApiControllerNewsArticleTrait
 {
@@ -41,11 +44,44 @@ trait ApiControllerNewsArticleTrait
         $request->setData('type', NewsType::ARTICLE);
         $request->setData('status', NewsStatus::DRAFT);
         $request->setData('featred', true);
+        $request->setData('tags', '[{"title": "TestTitle", "color": "#f0f", "language": "en"}, {"id": 1}]');
+
+        if (!\is_file(__DIR__ . '/test_tmp.md')) {
+            \copy(__DIR__ . '/test.md', __DIR__ . '/test_tmp.md');
+        }
+
+        TestUtils::setMember($request, 'files', [
+            'file1' => [
+                'name'     => 'test.md',
+                'type'     => MimeType::M_TXT,
+                'tmp_name' => __DIR__ . '/test_tmp.md',
+                'error'    => \UPLOAD_ERR_OK,
+                'size'     => \filesize(__DIR__ . '/test_tmp.md'),
+            ],
+        ]);
+
+        $request->setData('media', \json_encode([1]));
 
         $this->module->apiNewsCreate($request, $response);
 
         self::assertEquals('Controller Test Title', $response->get('')['response']->title);
         self::assertGreaterThan(0, $response->get('')['response']->getId());
+    }
+
+    /**
+     * @covers Modules\News\Controller\ApiController
+     * @group module
+     */
+    public function testApiNewsCreateInvalidData() : void
+    {
+        $response = new HttpResponse();
+        $request  = new HttpRequest(new HttpUri(''));
+
+        $request->header->account = 1;
+        $request->setData('invalid', '1');
+
+        $this->module->apiNewsCreate($request, $response);
+        self::assertEquals(RequestStatusCode::R_400, $response->header->status);
     }
 
     /**
