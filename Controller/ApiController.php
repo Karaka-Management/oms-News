@@ -107,7 +107,7 @@ final class ApiController extends Controller
     private function updateNewsFromRequest(RequestAbstract $request) : NewsArticle
     {
         /** @var NewsArticle $newsArticle */
-        $newsArticle = NewsArticleMapper::get((int) $request->getData('id'));
+        $newsArticle          = NewsArticleMapper::get((int) $request->getData('id'));
         $newsArticle->publich = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
         $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
         $newsArticle->plain   = $request->getData('plain') ?? $newsArticle->plain;
@@ -160,10 +160,10 @@ final class ApiController extends Controller
     {
         $newsArticle            = new NewsArticle();
         $newsArticle->createdBy = new NullAccount($request->header->account);
-        $newsArticle->publich = new \DateTime((string) ($request->getData('publish') ?? 'now'));
-        $newsArticle->title   = (string) ($request->getData('title') ?? '');
-        $newsArticle->plain   = $request->getData('plain') ?? '';
-        $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? ''));
+        $newsArticle->publich   = new \DateTime((string) ($request->getData('publish') ?? 'now'));
+        $newsArticle->title     = (string) ($request->getData('title') ?? '');
+        $newsArticle->plain     = $request->getData('plain') ?? '';
+        $newsArticle->content   = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
         $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));

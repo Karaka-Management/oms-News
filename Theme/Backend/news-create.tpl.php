@@ -62,7 +62,7 @@ echo $this->getData('nav')->render(); ?>
 
                     <div class="form-group">
                         <label for="iPublish"><?= $this->getHtml('Publish'); ?></label>
-                        <input type="datetime-local" name="publish" id="iPublish" value="<?= $this->printHtml($news->getPublish()->format('Y-m-d\TH:i:s')); ?>">
+                        <input type="datetime-local" name="publish" id="iPublish" value="<?= $this->printHtml($news->publish->format('Y-m-d\TH:i:s')); ?>">
                     </div>
 
                     <div class="form-group">

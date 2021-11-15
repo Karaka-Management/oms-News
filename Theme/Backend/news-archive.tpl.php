@@ -86,17 +86,12 @@ echo $this->getData('nav')->render(); ?>
 
                     foreach ($newsList as $key => $news) : ++$count;
                     $url   = UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
-                    $color = 'darkred';
-
-                    if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }
-                    elseif ($news->getType() === NewsType::HEADLINE) { $color = 'purple'; }
-                    elseif ($news->getType() === NewsType::LINK) { $color     = 'yellow'; }
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
-                        <td><span class="tag <?= $this->printHtml($color); ?>"><?= $this->getHtml('TYPE' . $news->getType()); ?></span></a>
+                        <td><span class="tag"><?= $this->getHtml('TYPE' . $news->getType()); ?></span></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
                         <td><a class="content" href="<?= UriFactory::build('{/prefix}profile/single?{?}&for=' . $news->createdBy->getId()); ?>"><?= $this->printHtml($news->createdBy->name2 . ', ' . $news->createdBy->name1); ?></a>
-                        <td><a href="<?= $url; ?>"><?= $this->printHtml($news->getPublish()->format('Y-m-d')); ?></a>
+                        <td><a href="<?= $url; ?>"><?= $this->printHtml($news->publish->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>
                     <tr><td colspan="4" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>

@@ -15,12 +15,12 @@ declare(strict_types=1);
 namespace Modules\News\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
+use Modules\Media\Models\Media;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
-use phpOMS\Localization\ISO639x1Enum;
-use Modules\Media\Models\Media;
 use Modules\Tag\Models\Tag;
+use phpOMS\Localization\ISO639x1Enum;
 
 /**
  * @testdox Modules\News\tests\Models\NewsArticleTest: News article
@@ -166,27 +166,27 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testSerialization() : void
     {
-        $this->news->title     = 'Title';
-        $this->news->createdBy = new NullAccount(1);
-        $this->news->content   = 'Content';
-        $this->news->plain     = 'Plain';
-        $this->news->publish = new \DateTime('2001-05-07');
+        $this->news->title      = 'Title';
+        $this->news->createdBy  = new NullAccount(1);
+        $this->news->content    = 'Content';
+        $this->news->plain      = 'Plain';
+        $this->news->publish    = new \DateTime('2001-05-07');
         $this->news->isFeatured = true;
         $this->news->setLanguage(ISO639x1Enum::_DE);
         $this->news->setStatus(NewsStatus::VISIBLE);
         $this->news->setType(NewsType::HEADLINE);
 
         $arr = [
-            'id'        => 0,
-            'title'     => $this->news->title,
-            'plain'     => $this->news->plain,
-            'content'   => $this->news->content,
-            'type'      => $this->news->getType(),
-            'status'    => $this->news->getStatus(),
+            'id'          => 0,
+            'title'       => $this->news->title,
+            'plain'       => $this->news->plain,
+            'content'     => $this->news->content,
+            'type'        => $this->news->getType(),
+            'status'      => $this->news->getStatus(),
             'isFeatured'  => $this->news->isFeatured,
-            'publish'   => $this->news->publish,
-            'createdAt' => $this->news->createdAt,
-            'createdBy' => $this->news->createdBy,
+            'publish'     => $this->news->publish,
+            'createdAt'   => $this->news->createdAt,
+            'createdBy'   => $this->news->createdBy,
         ];
 
         self::assertEquals($arr, $this->news->toArray());

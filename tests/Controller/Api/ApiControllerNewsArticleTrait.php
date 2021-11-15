@@ -20,10 +20,10 @@ use Modules\News\Models\NewsType;
 use Modules\News\Models\NullNewsArticle;
 use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Message\Http\RequestStatusCode;
-use phpOMS\Utils\TestUtils;
 use phpOMS\System\MimeType;
+use phpOMS\Uri\HttpUri;
+use phpOMS\Utils\TestUtils;
 
 trait ApiControllerNewsArticleTrait
 {
