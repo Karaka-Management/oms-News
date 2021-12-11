@@ -24,6 +24,7 @@ use Modules\News\Models\NullNewsSeen;
 use Modules\News\Models\PermissionState;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\DataStorage\Database\Query\OrderType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -59,47 +60,48 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-dashboard');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
 
+        $mapperQuery =  NewsArticleMapper::getAll()
+            ->with('createdBy')
+            ->with('tags')
+            ->with('tags/title')
+            ->where('status', NewsStatus::VISIBLE)
+            ->where('publish', new \DateTime('now'), '<=')
+            ->where('language', $response->getLanguage())
+            ->where('tags/title/language', $response->getLanguage());
+
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::with('language', $response->getLanguage())
-                    ::with('comments', models: null)
-                    ::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 10)
+                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
+                    ->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::with('language', $response->getLanguage())
-                    ::with('comments', models: null)
-                    ::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 10)
+                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
+                    ->limit(25)->execute()
             );
         } else {
             $view->setData('news',
-                NewsArticleMapper::with('language', $response->getLanguage())
-                    ::with('comments', models: null)
-                    ::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getAfterPivot(0, null, 10)
+                $mapperQuery->where('id', 0, '>')
+                    ->limit(25)->execute()
             );
         }
 
-        $seen = NewsSeenMapper::getFor($request->header->account, 'seenBy');
+        $seen = NewsSeenMapper::get()->where('seenBy', $request->header->account)->execute();
         $view->setData('seen', $seen->seenAt);
 
         // @async
+        // @todo: Seen needs field which defines which news article is seen!!!!
         if ($seen instanceof NullNewsSeen) {
             $seen         = new NewsSeen();
             $seen->seenBy = (int) $request->header->account;
             $seen->seenAt = new \DateTime('now');
 
-            NewsSeenMapper::create($seen);
+            NewsSeenMapper::create()->execute($seen);
         } else {
             $newSeen         = clone $seen;
             $newSeen->seenAt = new \DateTime('now');
 
-            NewsSeenMapper::update($newSeen);
+            NewsSeenMapper::update()->execute($newSeen);
         }
 
         return $view;
@@ -114,9 +116,15 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
 
-        $news = NewsArticleMapper::with('language', $response->getLanguage())
-            ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-            ::getNewest(5);
+        $news = NewsArticleMapper::getAll()
+            ->with('createdBy')
+            ->with('tags')
+            ->with('tags/title')
+            ->where('status', NewsStatus::VISIBLE)
+            ->where('publish', new \DateTime('now'), '<=')
+            ->where('language', $response->getLanguage())
+            ->where('tags/title/language', $response->getLanguage())
+            ->limit(5)->sort('publish', OrderType::DESC)->execute();
 
         $view->addData('news', $news);
 
@@ -139,8 +147,20 @@ final class BackendController extends Controller implements DashboardElementInte
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        $article = NewsArticleMapper::with('language', $response->getLanguage())
-            ::get((int) $request->getData('id'));
+        $article = NewsArticleMapper::get()
+            ->with('createdBy')
+            ->with('comments')
+            ->with('comments/comments')
+            ->with('comments/comments/createdBy')
+            ->with('comments/comments/media')
+            ->with('tags')
+            ->with('tags/title')
+            ->where('status', NewsStatus::VISIBLE)
+            ->where('publish', new \DateTime('now'), '<=')
+            ->where('language', $response->getLanguage())
+            ->where('tags/title/language', $response->getLanguage())
+            ->where('id', (int) $request->getData('id'))
+            ->execute();
 
         $accountId = $request->header->account;
 
@@ -193,22 +213,30 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-archive');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
 
+        $mapperQuery =  NewsArticleMapper::getAll()
+        ->with('createdBy')
+        ->with('tags')
+        ->with('tags/title')
+        ->where('status', NewsStatus::VISIBLE)
+        ->where('publish', new \DateTime('now'), '<=')
+        ->where('language', $response->getLanguage())
+        ->where('tags/title/language', $response->getLanguage());
+
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
+                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
+                    ->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                    ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                    ::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
+                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
+                    ->limit(25)->execute()
             );
         } else {
-            $view->setData('news', NewsArticleMapper::with('status', NewsStatus::VISIBLE, [NewsArticle::class])
-                ::with('publish', new \DateTime('now'), [NewsArticle::class], '<=')
-                ::getAfterPivot(0, null, 25));
+            $view->setData('news',
+                $mapperQuery->where('id', 0, '>')
+                    ->limit(25)->execute()
+            );
         }
 
         return $view;
@@ -235,14 +263,14 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::getBeforePivot((int) ($request->getData('id') ?? 0), null, 25)
+                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '<')->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::getAfterPivot((int) ($request->getData('id') ?? 0), null, 25)
+                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '>')->limit(25)->execute()
             );
         } else {
-            $view->setData('news', NewsArticleMapper::getAfterPivot(0, null, 25));
+            $view->setData('news', NewsArticleMapper::getAll()->where('id', 0, '>')->limit(25)->execute());
         }
 
         return $view;
@@ -307,7 +335,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('tagSelector', $tagSelector);
 
-        $view->addData('news', NewsArticleMapper::get((int) ($request->getData('id') ?? 0)));
+        $view->addData('news', NewsArticleMapper::get()->where('id', (int) ($request->getData('id') ?? 0))->execute());
 
         return $view;
     }

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Modules\News\Models;
 
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * News mapper class.
@@ -29,7 +29,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  *  I think the default getAll etc. is too complicated and has too many joins which are not really required.
  *  Check and fix!
  */
-final class NewsSeenMapper extends DataMapperAbstract
+final class NewsSeenMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -37,7 +37,7 @@ final class NewsSeenMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'news_seen_id'           => ['name' => 'news_seen_id',         'type' => 'int',      'internal' => 'id'],
         'news_seen_at'           => ['name' => 'news_seen_at', 'type' => 'DateTime', 'internal' => 'seenAt'],
         'news_seen_by'           => ['name' => 'news_seen_by', 'type' => 'int',      'internal' => 'seenBy'],
@@ -49,7 +49,7 @@ final class NewsSeenMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'news_seen';
+    public const TABLE = 'news_seen';
 
     /**
      * Primary field name.
@@ -57,5 +57,5 @@ final class NewsSeenMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'news_seen_id';
+    public const PRIMARYFIELD ='news_seen_id';
 }

@@ -89,7 +89,7 @@ final class ApiController extends Controller
      */
     public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $old = clone NewsArticleMapper::get((int) $request->getData('id'));
+        $old = clone NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateNewsFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully updated', $new);
@@ -107,7 +107,7 @@ final class ApiController extends Controller
     private function updateNewsFromRequest(RequestAbstract $request) : NewsArticle
     {
         /** @var NewsArticle $newsArticle */
-        $newsArticle          = NewsArticleMapper::get((int) $request->getData('id'));
+        $newsArticle          = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $newsArticle->publich = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
         $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
         $newsArticle->plain   = $request->getData('plain') ?? $newsArticle->plain;
@@ -234,7 +234,7 @@ final class ApiController extends Controller
      */
     public function apiNewsGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $news = NewsArticleMapper::get((int) $request->getData('id'));
+        $news = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully returned', $news);
     }
 
@@ -253,7 +253,7 @@ final class ApiController extends Controller
      */
     public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
     {
-        $news = NewsArticleMapper::get((int) $request->getData('id'));
+        $news = NewsArticleMapper::get()->with('media')->with('tags')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $news, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully deleted', $news);
     }

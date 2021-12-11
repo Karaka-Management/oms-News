@@ -49,11 +49,11 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::VISIBLE);
         $news->setType(NewsType::HEADLINE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
         self::assertGreaterThan(0, $news->getId());
         self::assertEquals($id, $news->getId());
 
-        $newsR = NewsArticleMapper::get($news->getId());
+        $newsR = NewsArticleMapper::get()->where('id', $news->getId())->execute();
         self::assertEquals($news->createdAt->format('Y-m-d'), $newsR->createdAt->format('Y-m-d'));
         self::assertEquals($news->createdBy->getId(), $newsR->createdBy->getId());
         self::assertEquals($news->content, $newsR->content);
@@ -87,7 +87,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::VISIBLE);
         $news->setType(NewsType::HEADLINE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
 
         $news             = new NewsArticle();
         $news->createdBy  = new NullAccount(1);
@@ -99,7 +99,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::DRAFT);
         $news->setType(NewsType::HEADLINE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
 
         // Created by me
 
@@ -113,7 +113,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::VISIBLE);
         $news->setType(NewsType::ARTICLE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
 
         $news             = new NewsArticle();
         $news->createdBy  = new NullAccount(1);
@@ -125,7 +125,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::VISIBLE);
         $news->setType(NewsType::LINK);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
 
         $news             = new NewsArticle();
         $news->createdBy  = new NullAccount(1);
@@ -137,7 +137,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::DRAFT);
         $news->setType(NewsType::ARTICLE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
 
         // Language
 
@@ -151,7 +151,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::VISIBLE);
         $news->setType(NewsType::ARTICLE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
 
         // Publish
 
@@ -168,6 +168,6 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setStatus(NewsStatus::VISIBLE);
         $news->setType(NewsType::ARTICLE);
 
-        $id = NewsArticleMapper::create($news);
+        $id = NewsArticleMapper::create()->execute($news);
     }
 }

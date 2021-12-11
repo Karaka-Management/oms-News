@@ -18,7 +18,7 @@ use Modules\Admin\Models\AccountMapper;
 use Modules\Comments\Models\CommentListMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Tag\Models\TagMapper;
-use phpOMS\DataStorage\Database\DataMapperAbstract;
+use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
 
 /**
  * News mapper class.
@@ -28,7 +28,7 @@ use phpOMS\DataStorage\Database\DataMapperAbstract;
  * @link    https://orange-management.org
  * @since   1.0.0
  */
-final class NewsArticleMapper extends DataMapperAbstract
+final class NewsArticleMapper extends DataMapperFactory
 {
     /**
      * Columns.
@@ -36,7 +36,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var array<string, array{name:string, type:string, internal:string, autocomplete?:bool, readonly?:bool, writeonly?:bool, annotations?:array}>
      * @since 1.0.0
      */
-    protected static array $columns = [
+    public const COLUMNS = [
         'news_id'           => ['name' => 'news_id',         'type' => 'int',      'internal' => 'id'],
         'news_publish'      => ['name' => 'news_publish',    'type' => 'DateTime', 'internal' => 'publish'],
         'news_title'        => ['name' => 'news_title',      'type' => 'string',   'internal' => 'title'],
@@ -57,7 +57,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string, by?:string, column?:string, conditional?:bool}>
      * @since 1.0.0
      */
-    protected static array $ownsOne = [
+    public const OWNS_ONE = [
         'comments' => [
             'mapper'     => CommentListMapper::class,
             'external'   => 'news_comment_list',
@@ -70,7 +70,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, external:string}>
      * @since 1.0.0
      */
-    protected static array $belongsTo = [
+    public const BELONGS_TO = [
         'createdBy' => [
             'mapper'     => AccountMapper::class,
             'external'   => 'news_created_by',
@@ -83,7 +83,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var array<string, array{mapper:string, table:string, self?:?string, external?:?string, column?:string}>
      * @since 1.0.0
      */
-    protected static array $hasMany = [
+    public const HAS_MANY = [
         'tags' => [
             'mapper'   => TagMapper::class,
             'table'    => 'news_tag',
@@ -104,7 +104,7 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $table = 'news';
+    public const TABLE = 'news';
 
     /**
      * Primary field name.
@@ -112,5 +112,5 @@ final class NewsArticleMapper extends DataMapperAbstract
      * @var string
      * @since 1.0.0
      */
-    protected static string $primaryField = 'news_id';
+    public const PRIMARYFIELD ='news_id';
 }

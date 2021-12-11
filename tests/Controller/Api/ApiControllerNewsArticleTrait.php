@@ -138,6 +138,6 @@ trait ApiControllerNewsArticleTrait
         $this->module->apiNewsDelete($request, $response);
 
         self::assertEquals(1, $response->get('')['response']->getId());
-        self::assertInstanceOf(NullNewsArticle::class, NewsArticleMapper::get(1));
+        self::assertInstanceOf(NullNewsArticle::class, NewsArticleMapper::get()->where('id', 1)->execute());
     }
 }
