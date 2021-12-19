@@ -108,7 +108,7 @@ final class ApiController extends Controller
     {
         /** @var NewsArticle $newsArticle */
         $newsArticle          = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
-        $newsArticle->publich = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
+        $newsArticle->publish = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
         $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
         $newsArticle->plain   = $request->getData('plain') ?? $newsArticle->plain;
         $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->plain));
@@ -160,7 +160,7 @@ final class ApiController extends Controller
     {
         $newsArticle            = new NewsArticle();
         $newsArticle->createdBy = new NullAccount($request->header->account);
-        $newsArticle->publich   = new \DateTime((string) ($request->getData('publish') ?? 'now'));
+        $newsArticle->publish   = new \DateTime((string) ($request->getData('publish') ?? 'now'));
         $newsArticle->title     = (string) ($request->getData('title') ?? '');
         $newsArticle->plain     = $request->getData('plain') ?? '';
         $newsArticle->content   = Markdown::parse((string) ($request->getData('plain') ?? ''));

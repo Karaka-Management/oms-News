@@ -38,9 +38,9 @@ final class NewsSeenMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'news_seen_id'           => ['name' => 'news_seen_id',         'type' => 'int',      'internal' => 'id'],
-        'news_seen_at'           => ['name' => 'news_seen_at', 'type' => 'DateTime', 'internal' => 'seenAt'],
-        'news_seen_by'           => ['name' => 'news_seen_by', 'type' => 'int',      'internal' => 'seenBy'],
+        'news_seen_id' => ['name' => 'news_seen_id', 'type' => 'int',      'internal' => 'id'],
+        'news_seen_at' => ['name' => 'news_seen_at', 'type' => 'DateTime', 'internal' => 'seenAt'],
+        'news_seen_by' => ['name' => 'news_seen_by', 'type' => 'int',      'internal' => 'seenBy'],
     ];
 
     /**

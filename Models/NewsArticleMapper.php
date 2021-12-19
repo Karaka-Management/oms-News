@@ -37,18 +37,18 @@ final class NewsArticleMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'news_id'           => ['name' => 'news_id',         'type' => 'int',      'internal' => 'id'],
-        'news_publish'      => ['name' => 'news_publish',    'type' => 'DateTime', 'internal' => 'publish'],
-        'news_title'        => ['name' => 'news_title',      'type' => 'string',   'internal' => 'title'],
-        'news_plain'        => ['name' => 'news_plain',      'type' => 'string',   'internal' => 'plain'],
-        'news_content'      => ['name' => 'news_content',    'type' => 'string',   'internal' => 'content'],
-        'news_lang'         => ['name' => 'news_lang',       'type' => 'string',   'internal' => 'language'],
-        'news_status'       => ['name' => 'news_status',     'type' => 'int',      'internal' => 'status'],
-        'news_type'         => ['name' => 'news_type',       'type' => 'int',      'internal' => 'type'],
-        'news_featured'     => ['name' => 'news_featured',   'type' => 'bool',     'internal' => 'isFeatured'],
-        'news_comment_list' => ['name' => 'news_comment_list',   'type' => 'int',     'internal' => 'comments'],
-        'news_created_at'   => ['name' => 'news_created_at', 'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
-        'news_created_by'   => ['name' => 'news_created_by', 'type' => 'int',      'internal' => 'createdBy', 'readonly' => true],
+        'news_id'           => ['name' => 'news_id',           'type' => 'int',               'internal' => 'id'],
+        'news_publish'      => ['name' => 'news_publish',      'type' => 'DateTime',          'internal' => 'publish'],
+        'news_title'        => ['name' => 'news_title',        'type' => 'string',            'internal' => 'title'],
+        'news_plain'        => ['name' => 'news_plain',        'type' => 'string',            'internal' => 'plain'],
+        'news_content'      => ['name' => 'news_content',      'type' => 'string',            'internal' => 'content'],
+        'news_lang'         => ['name' => 'news_lang',         'type' => 'string',            'internal' => 'language'],
+        'news_status'       => ['name' => 'news_status',       'type' => 'int',               'internal' => 'status'],
+        'news_type'         => ['name' => 'news_type',         'type' => 'int',               'internal' => 'type'],
+        'news_featured'     => ['name' => 'news_featured',     'type' => 'bool',              'internal' => 'isFeatured'],
+        'news_comment_list' => ['name' => 'news_comment_list', 'type' => 'int',               'internal' => 'comments'],
+        'news_created_at'   => ['name' => 'news_created_at',   'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
+        'news_created_by'   => ['name' => 'news_created_by',   'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
     ];
 
     /**
@@ -59,8 +59,8 @@ final class NewsArticleMapper extends DataMapperFactory
      */
     public const OWNS_ONE = [
         'comments' => [
-            'mapper'     => CommentListMapper::class,
-            'external'   => 'news_comment_list',
+            'mapper'   => CommentListMapper::class,
+            'external' => 'news_comment_list',
         ],
     ];
 
@@ -72,8 +72,8 @@ final class NewsArticleMapper extends DataMapperFactory
      */
     public const BELONGS_TO = [
         'createdBy' => [
-            'mapper'     => AccountMapper::class,
-            'external'   => 'news_created_by',
+            'mapper'   => AccountMapper::class,
+            'external' => 'news_created_by',
         ],
     ];
 

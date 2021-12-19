@@ -18,6 +18,7 @@ use Modules\Admin\Models\Account;
 use Modules\Admin\Models\NullAccount;
 use Modules\Comments\Models\CommentList;
 use Modules\Media\Models\Media;
+use Modules\Tag\Models\NullTag;
 use Modules\Tag\Models\Tag;
 use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\ISO639x1Enum;

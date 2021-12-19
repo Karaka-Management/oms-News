@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\News\Controller;
 
 use Modules\Dashboard\Models\DashboardElementInterface;
-use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsSeen;
 use Modules\News\Models\NewsSeenMapper;
