@@ -18,7 +18,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
 $newsList = $this->getData('news');
-$seenAt   = $this->getData('seen');
+$seen     = $this->getData('seen') ?? [];
 
 $previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
 $next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
@@ -32,13 +32,13 @@ echo $this->getData('nav')->render(); ?>
         ?>
         <div class="portlet">
             <div class="portlet-head">
-                <?= $seenAt->getTimestamp() < $news->publish->getTimestamp() ? '<strong>' : ''; ?>
+                <?= !($isSeen = \in_array($news->getId(), $seen)) ? '<strong>' : ''; ?>
                     <a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
                     <span class="floatRight">
                         <a class="content" href="<?= $profile; ?>"><?= $this->printHtml($news->createdBy->name3 . ' ' . $news->createdBy->name2 . ' ' . $news->createdBy->name1); ?>
                         </a> - <?= $news->publish->format('Y-m-d'); ?>
                     </span>
-                <?= $seenAt->getTimestamp() < $news->publish->getTimestamp() ? '</strong>' : ''; ?>
+                <?= !$isSeen ? '</strong>' : ''; ?>
             </div>
             <div class="portlet-body">
                 <article>

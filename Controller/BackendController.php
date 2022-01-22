@@ -70,38 +70,37 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
+                $data = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
                     ->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
+                $data = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
                     ->limit(25)->execute()
             );
         } else {
             $view->setData('news',
-                $mapperQuery->where('id', 0, '>')
+                $data = $mapperQuery->where('id', 0, '>')
                     ->limit(25)->execute()
             );
         }
 
-        $seen = NewsSeenMapper::get()->where('seenBy', $request->header->account)->execute();
-        $view->setData('seen', $seen->seenAt);
-
-        // @async
-        // @todo: Seen needs field which defines which news article is seen!!!!
-        if ($seen instanceof NullNewsSeen) {
-            $seen         = new NewsSeen();
-            $seen->seenBy = (int) $request->header->account;
-            $seen->seenAt = new \DateTime('now');
-
-            NewsSeenMapper::create()->execute($seen);
-        } else {
-            $newSeen         = clone $seen;
-            $newSeen->seenAt = new \DateTime('now');
-
-            NewsSeenMapper::update()->execute($newSeen);
+        $ids = [];
+        foreach ($data as $news) {
+            $ids[] = $news->getId();
         }
+
+        $seenObjects = NewsSeenMapper::getAll()
+            ->where('seenBy', $request->header->account)
+            ->where('news', $ids, 'in')
+            ->execute();
+
+        $seen = [];
+        foreach ($seenObjects as $seenObject) {
+            $seen[] = $seenObject->news;
+        }
+
+        $view->setData('seen', $seen);
 
         return $view;
     }
@@ -170,6 +169,20 @@ final class BackendController extends Controller implements DashboardElementInte
             $view->setTemplate('/Web/Backend/Error/403_inline');
             $response->header->status = RequestStatusCode::R_403;
             return $view;
+        }
+
+        $seen = NewsSeenMapper::get()
+            ->where('news', (int) $request->getData('id'))
+            ->where('seenBy', $request->header->account)
+            ->execute();
+
+        if ($seen instanceof NullNewsSeen) {
+            $seen         = new NewsSeen();
+            $seen->seenBy = (int) $request->header->account;
+            $seen->news   = (int) $request->getData('id');
+            $seen->seenAt = new \DateTime('now');
+
+            NewsSeenMapper::create()->execute($seen);
         }
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-single');

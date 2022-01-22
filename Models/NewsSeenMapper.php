@@ -23,11 +23,6 @@ use phpOMS\DataStorage\Database\Mapper\DataMapperFactory;
  * @license OMS License 1.0
  * @link    https://orange-management.org
  * @since   1.0.0
- *
- * @todo Orange-Management/oms-News#???
- *  Too complicated select.
- *  I think the default getAll etc. is too complicated and has too many joins which are not really required.
- *  Check and fix!
  */
 final class NewsSeenMapper extends DataMapperFactory
 {
@@ -38,9 +33,10 @@ final class NewsSeenMapper extends DataMapperFactory
      * @since 1.0.0
      */
     public const COLUMNS = [
-        'news_seen_id' => ['name' => 'news_seen_id', 'type' => 'int',      'internal' => 'id'],
-        'news_seen_at' => ['name' => 'news_seen_at', 'type' => 'DateTime', 'internal' => 'seenAt'],
-        'news_seen_by' => ['name' => 'news_seen_by', 'type' => 'int',      'internal' => 'seenBy'],
+        'news_seen_id'   => ['name' => 'news_seen_id',   'type' => 'int',      'internal' => 'id'],
+        'news_seen_at'   => ['name' => 'news_seen_at',   'type' => 'DateTime', 'internal' => 'seenAt'],
+        'news_seen_news' => ['name' => 'news_seen_news', 'type' => 'int',      'internal' => 'news'],
+        'news_seen_by'   => ['name' => 'news_seen_by',   'type' => 'int',      'internal' => 'seenBy'],
     ];
 
     /**

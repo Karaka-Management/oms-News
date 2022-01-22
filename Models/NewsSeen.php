@@ -36,6 +36,8 @@ class NewsSeen
 
     public int $seenBy = 0;
 
+    public int $news = 0;
+
     /**
      * Constructor.
      *

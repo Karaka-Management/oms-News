@@ -143,6 +143,13 @@
                 "null": false,
                 "foreignTable": "account",
                 "foreignKey": "account_id"
+            },
+            "news_seen_news": {
+                "name": "news_seen_news",
+                "type": "INT",
+                "null": false,
+                "foreignTable": "news",
+                "foreignKey": "news_id"
             }
         }
     }
