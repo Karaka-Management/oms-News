@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 return ['News' => [
-    'Accounts/Groups' => 'Comptes / Groupes',
+    'Accounts/Groups' => 'Comptes / groupes',
     'Additional'      => 'Supplémentaire',
     'AllowComments'   => 'Autoriser les commentaires',
     'Archive'         => 'Archiver',
@@ -28,7 +28,7 @@ return ['News' => [
     'Headlines'       => 'Titres',
     'Language'        => 'Langue',
     'Link'            => 'Lien',
-    'News'            => 'Nouvelles',
+    'News'            => 'Des nouvelles',
     'Plain'           => 'Plaine',
     'Preview'         => 'Aperçu',
     'Publish'         => 'Publier',

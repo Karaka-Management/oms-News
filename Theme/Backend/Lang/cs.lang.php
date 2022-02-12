@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 return ['News' => [
-    'Accounts/Groups' => 'Účtů / skupiny',
+    'Accounts/Groups' => 'Účty / skupiny',
     'Additional'      => 'Další',
     'AllowComments'   => 'povolit komentáře',
     'Archive'         => 'Archiv',
@@ -22,10 +22,10 @@ return ['News' => [
     'Date'            => 'datum',
     'Draft'           => 'Návrh',
     'Edit'            => 'Upravit',
-    'Featured'        => 'představoval',
+    'Featured'        => 'Představen',
     'Groups'          => 'Skupiny',
     'Headline'        => 'Titulek',
-    'Headlines'       => 'titulky',
+    'Headlines'       => 'Titulky',
     'Language'        => 'Jazyk',
     'Link'            => 'Odkaz',
     'News'            => 'Zprávy',
@@ -39,5 +39,5 @@ return ['News' => [
     'TYPE2'           => 'Titulek',
     'Title'           => 'Titul',
     'Type'            => 'Typ',
-    'Visible'         => 'viditelný',
+    'Visible'         => 'Viditelný',
 ]];

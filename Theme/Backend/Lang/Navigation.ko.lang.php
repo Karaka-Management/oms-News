@@ -13,8 +13,8 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Archive' => 'Archive',
-    'Create'  => 'Create',
-    'Draft'   => 'Draft',
-    'News'    => 'News',
+    'Archive' => '보관소',
+    'Create'  => '만들다',
+    'Draft'   => '초안',
+    'News'    => '소식',
 ]];

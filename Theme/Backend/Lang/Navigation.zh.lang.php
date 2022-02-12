@@ -13,8 +13,8 @@
 declare(strict_types=1);
 
 return ['Navigation' => [
-    'Archive' => 'Archive',
-    'Create'  => 'Create',
-    'Draft'   => 'Draft',
-    'News'    => 'News',
+    'Archive' => '档案',
+    'Create'  => '创建',
+    'Draft'   => '草稿',
+    'News'    => '消息',
 ]];

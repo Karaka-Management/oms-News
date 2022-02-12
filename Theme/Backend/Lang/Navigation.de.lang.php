@@ -4,7 +4,7 @@
  *
  * PHP Version 8.0
  *
- * @package   Modules\News
+ * @package   Modules\Localization
  * @copyright Dennis Eichhorn
  * @license   OMS License 1.0
  * @version   1.0.0
@@ -16,5 +16,5 @@ return ['Navigation' => [
     'Archive' => 'Archiv',
     'Create'  => 'Erstellen',
     'Draft'   => 'Entwurf',
-    'News'    => 'News',
+    'News'    => 'Nachrichten',
 ]];

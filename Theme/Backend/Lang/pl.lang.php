@@ -13,16 +13,16 @@
 declare(strict_types=1);
 
 return ['News' => [
-    'Accounts/Groups' => 'Konta / grupy',
+    'Accounts/Groups' => 'Konta / grupy.',
     'Additional'      => 'Dodatkowy',
-    'AllowComments'   => 'Pozostawić komentarze',
-    'Archive'         => 'Archiwum',
+    'AllowComments'   => 'Zezwalaj na komentarze',
+    'Archive'         => 'Archiwum.',
     'Author'          => 'Autor',
     'Categories'      => 'Kategorie',
     'Date'            => 'Data',
-    'Draft'           => 'Wersja robocza',
+    'Draft'           => 'Projekt',
     'Edit'            => 'Edytować',
-    'Featured'        => 'Opisany',
+    'Featured'        => 'Wyróżniony',
     'Groups'          => 'Grupy',
     'Headline'        => 'Nagłówek',
     'Headlines'       => 'Nagłówki',
