@@ -14,8 +14,13 @@ declare(strict_types=1);
 
 namespace Modules\News\Controller;
 
+use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
+use Modules\Media\Models\CollectionMapper;
+use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullMedia;
+use Modules\Media\Models\Reference;
+use Modules\Media\Models\ReferenceMapper;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
@@ -144,7 +149,91 @@ final class ApiController extends Controller
 
         $newsArticle = $this->createNewsArticleFromRequest($request);
         $this->createModel($request->header->account, $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
+
+        if (!empty($request->getFiles() ?? [])
+            || !empty($request->getDataJson('media') ?? [])
+        ) {
+            $this->createNewsMedia($newsArticle, $request);
+        }
+
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully created', $newsArticle);
+    }
+
+    private function createNewsMedia(NewsArticle $news, RequestAbstract $request) : void
+    {
+        $path = $this->createNewsDir($news);
+        $account = AccountMapper::get()->where('id', $request->header->account)->execute();
+
+        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
+                [],
+                [],
+                $uploadedFiles,
+                $request->header->account,
+                __DIR__ . '/../../../Modules/Media/Files' . $path,
+                $path,
+            );
+
+            $collection = null;
+
+            foreach ($uploaded as $media) {
+                MediaMapper::create()->execute($media);
+                NewsArticleMapper::writer()->createRelationTable('media', [$media->getId()], $news->getId());
+
+                $ref = new Reference();
+                $ref->source = new NullMedia($media->getId());
+                $ref->createdBy = new NullAccount($request->header->account);
+                $ref->setVirtualPath($accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId());
+
+                ReferenceMapper::create()->execute($ref);
+
+                if ($collection === null) {
+                    $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
+                        '/Modules/Media/Files',
+                        $accountPath,
+                        $request->header->account,
+                        __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->getId() . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId()
+                    );
+                }
+
+                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+            }
+        }
+
+        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+            $collection = null;
+
+            foreach ($mediaFiles as $media) {
+                NewsArticleMapper::writer()->createRelationTable('media', [(int) $media], $news->getId());
+
+                $ref = new Reference();
+                $ref->source = new NullMedia((int) $media);
+                $ref->createdBy = new NullAccount($request->header->account);
+                $ref->setVirtualPath($path);
+
+                ReferenceMapper::create()->execute($ref);
+
+                if ($collection === null) {
+                    $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
+                        '/Modules/Media/Files',
+                        $path,
+                        $request->header->account,
+                        __DIR__ . '/../../../Modules/Media/Files' . $path
+                    );
+                }
+
+                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+            }
+        }
+    }
+
+    private function createNewsDir(NewsArticle $news) : string
+    {
+        return '/Modules/News/'
+            . $news->createdAt->format('Y') . '/'
+            . $news->createdAt->format('m') . '/'
+            . $news->createdAt->format('d') . '/'
+            . $news->getId();
     }
 
     /**
@@ -192,27 +281,6 @@ final class ApiController extends Controller
                 } else {
                     $newsArticle->addTag(new NullTag((int) $tag['id']));
                 }
-            }
-        }
-
-        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
-            $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
-                [],
-                [],
-                $uploadedFiles,
-                $request->header->account,
-                __DIR__ . '/../../../Modules/Media/Files/Modules/News',
-                '/Modules/News',
-            );
-
-            foreach ($uploaded as $media) {
-                $newsArticle->addMedia($media);
-            }
-        }
-
-        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
-            foreach ($mediaFiles as $media) {
-                $newsArticle->addMedia(new NullMedia($media));
             }
         }
 
