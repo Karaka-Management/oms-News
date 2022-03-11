@@ -32,7 +32,7 @@ echo $this->getData('nav')->render(); ?>
     <div class="col-xs-12">
         <section class="portlet">
             <article>
-                <h1><?= $this->printHtml($news->title); ?><span class="floatRight"><a href="<?= $profile; ?>"><?= $this->printHtml($news->createdBy->name3 . ' ' . $news->createdBy->name2 . ' ' . $news->createdBy->name1); ?></a> - <?= $news->publish->format('Y-m-d'); ?></span></h1>
+                <h1><?= $this->printHtml($news->title); ?><span class="floatRight"><a href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?></a> - <?= $news->publish->format('Y-m-d'); ?></span></h1>
                 <?= $news->content; ?>
             </article>
             <?php if ($editable || !empty($tags)) : ?>
