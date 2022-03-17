@@ -25,6 +25,7 @@
     "providing": {
         "Navigation": "*",
         "Comments": "*",
+        "Dashboard": "*",
         "Media": "*"
     },
     "load": [
