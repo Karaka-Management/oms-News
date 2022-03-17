@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\News\Controller\BackendController;
-use Modules\News\Models\PermissionState;
+use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],
@@ -36,7 +36,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],
@@ -47,7 +47,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],
@@ -58,7 +58,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],
@@ -69,7 +69,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],
@@ -80,7 +80,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],
@@ -91,7 +91,7 @@ return [
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
-                'state'  => PermissionState::ANALYSIS,
+                'state'  => PermissionCategory::ANALYSIS,
             ],
         ],
     ],

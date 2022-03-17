@@ -13,7 +13,7 @@
 declare(strict_types=1);
 
 use Modules\News\Controller\ApiController;
-use Modules\News\Models\PermissionState;
+use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
@@ -25,7 +25,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
         [
@@ -34,7 +34,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
         [
@@ -43,7 +43,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
         [
@@ -52,7 +52,7 @@ return [
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
-                'state'  => PermissionState::NEWS,
+                'state'  => PermissionCategory::NEWS,
             ],
         ],
     ],

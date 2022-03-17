@@ -20,7 +20,7 @@ use Modules\News\Models\NewsSeen;
 use Modules\News\Models\NewsSeenMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NullNewsSeen;
-use Modules\News\Models\PermissionState;
+use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\DataStorage\Database\Query\OrderType;
@@ -164,7 +164,7 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($article->createdBy->getId() !== $accountId
             && !$this->app->accountManager->get($accountId)->hasPermission(
-                PermissionType::READ, $this->app->orgId, $this->app->appName, self::NAME, PermissionState::NEWS, $article->getId())
+                PermissionType::READ, $this->app->orgId, $this->app->appName, self::NAME, PermissionCategory::NEWS, $article->getId())
         ) {
             $view->setTemplate('/Web/Backend/Error/403_inline');
             $response->header->status = RequestStatusCode::R_403;
@@ -189,7 +189,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
         $view->addData('news', $article);
         $view->addData('editable', $this->app->accountManager->get($accountId)->hasPermission(
-            PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::NAME, PermissionState::NEWS, $article->getId())
+            PermissionType::MODIFY, $this->app->orgId, $this->app->appName, self::NAME, PermissionCategory::NEWS, $article->getId())
         );
 
         // allow comments
