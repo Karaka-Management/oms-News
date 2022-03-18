@@ -59,7 +59,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-dashboard');
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
 
-        $mapperQuery =  NewsArticleMapper::getAll()
+        $mapperQuery = NewsArticleMapper::getAll()
             ->with('createdBy')
             ->with('tags')
             ->with('tags/title')
@@ -122,7 +122,9 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('publish', new \DateTime('now'), '<=')
             ->where('language', $response->getLanguage())
             ->where('tags/title/language', $response->getLanguage())
-            ->limit(5)->sort('publish', OrderType::DESC)->execute();
+            ->where('id', 0, '>')
+            ->limit(5)
+            ->execute();
 
         $view->addData('news', $news);
 
