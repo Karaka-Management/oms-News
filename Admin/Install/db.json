@@ -135,7 +135,8 @@
             "news_seen_at": {
                 "name": "news_seen_at",
                 "type": "DATETIME",
-                "null": false
+                "null": true,
+                "default": null
             },
             "news_seen_by": {
                 "name": "news_seen_by",
