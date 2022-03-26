@@ -24,6 +24,7 @@ $newsList = $this->getData('news') ?? [];
 <div id="news-dashboard" class="col-xs-12 col-md-6" draggable="true">
     <div class="portlet">
         <div class="portlet-head"><?= $this->getHtml('News', 'News'); ?></div>
+        <div class="slider">
         <table class="default">
             <thead>
             <tr>
@@ -63,6 +64,7 @@ $newsList = $this->getData('news') ?? [];
             <tr><td colspan="5" class="empty"><?= $this->getHtml('Empty', '0', '0'); ?>
                     <?php endif; ?>
         </table>
+        </div>
         <div class="portlet-foot">
             <a class="button" href="<?= UriFactory::build('{/prefix}news/dashboard?{?}') ?>"><?= $this->getHtml('More', '0', '0'); ?></a>
         </div>

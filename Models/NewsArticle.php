@@ -20,7 +20,6 @@ use Modules\Comments\Models\CommentList;
 use Modules\Media\Models\Media;
 use Modules\Tag\Models\NullTag;
 use Modules\Tag\Models\Tag;
-use phpOMS\Contract\ArrayableInterface;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
 
@@ -32,7 +31,7 @@ use phpOMS\Stdlib\Base\Exception\InvalidEnumValue;
  * @link    https://karaka.app
  * @since   1.0.0
  */
-class NewsArticle implements \JsonSerializable, ArrayableInterface
+class NewsArticle implements \JsonSerializable
 {
     /**
      * Article ID.

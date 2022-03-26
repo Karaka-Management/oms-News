@@ -182,6 +182,7 @@ final class ApiController extends Controller
                 NewsArticleMapper::writer()->createRelationTable('media', [$media->getId()], $news->getId());
 
                 $ref = new Reference();
+                $ref->name = $media->name;
                 $ref->source = new NullMedia($media->getId());
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId());
