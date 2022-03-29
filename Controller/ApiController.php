@@ -160,9 +160,19 @@ final class ApiController extends Controller
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully created', $newsArticle);
     }
 
+    /**
+     * Create media files for news article
+     *
+     * @param NewsArticle     $news    News article
+     * @param RequestAbstract $request Request incl. media do upload
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function createNewsMedia(NewsArticle $news, RequestAbstract $request) : void
     {
-        $path = $this->createNewsDir($news);
+        $path    = $this->createNewsDir($news);
         $account = AccountMapper::get()->where('id', $request->header->account)->execute();
 
         if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
@@ -181,11 +191,13 @@ final class ApiController extends Controller
                 MediaMapper::create()->execute($media);
                 NewsArticleMapper::writer()->createRelationTable('media', [$media->getId()], $news->getId());
 
-                $ref = new Reference();
-                $ref->name = $media->name;
-                $ref->source = new NullMedia($media->getId());
+                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId();
+
+                $ref            = new Reference();
+                $ref->name      = $media->name;
+                $ref->source    = new NullMedia($media->getId());
                 $ref->createdBy = new NullAccount($request->header->account);
-                $ref->setVirtualPath($accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId());
+                $ref->setVirtualPath($accountPath);
 
                 ReferenceMapper::create()->execute($ref);
 
@@ -194,7 +206,6 @@ final class ApiController extends Controller
 
                     if ($collection instanceof NullCollection) {
                         $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                            '/Modules/Media/Files',
                             $accountPath,
                             $request->header->account,
                             __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->getId() . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId()
@@ -212,8 +223,8 @@ final class ApiController extends Controller
             foreach ($mediaFiles as $media) {
                 NewsArticleMapper::writer()->createRelationTable('media', [(int) $media], $news->getId());
 
-                $ref = new Reference();
-                $ref->source = new NullMedia((int) $media);
+                $ref            = new Reference();
+                $ref->source    = new NullMedia((int) $media);
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($path);
 
@@ -224,7 +235,6 @@ final class ApiController extends Controller
 
                     if ($collection instanceof NullCollection) {
                         $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                            '/Modules/Media/Files',
                             $path,
                             $request->header->account,
                             __DIR__ . '/../../../Modules/Media/Files' . $path
@@ -237,6 +247,15 @@ final class ApiController extends Controller
         }
     }
 
+    /**
+     * Create media directory path
+     *
+     * @param NewsArticle $news News article
+     *
+     * @return string
+     *
+     * @since 1.0.0
+     */
     private function createNewsDir(NewsArticle $news) : string
     {
         return '/Modules/News/'
