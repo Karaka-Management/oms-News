@@ -151,8 +151,8 @@ final class ApiController extends Controller
         $newsArticle = $this->createNewsArticleFromRequest($request);
         $this->createModel($request->header->account, $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
 
-        if (!empty($request->getFiles() ?? [])
-            || !empty($request->getDataJson('media') ?? [])
+        if (!empty($request->getFiles())
+            || !empty($request->getDataJson('media'))
         ) {
             $this->createNewsMedia($newsArticle, $request);
         }
@@ -175,7 +175,7 @@ final class ApiController extends Controller
         $path    = $this->createNewsDir($news);
         $account = AccountMapper::get()->where('id', $request->header->account)->execute();
 
-        if (!empty($uploadedFiles = $request->getFiles() ?? [])) {
+        if (!empty($uploadedFiles = $request->getFiles())) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 [],
                 [],
@@ -217,7 +217,7 @@ final class ApiController extends Controller
             }
         }
 
-        if (!empty($mediaFiles = $request->getDataJson('media') ?? [])) {
+        if (!empty($mediaFiles = $request->getDataJson('media'))) {
             $collection = null;
 
             foreach ($mediaFiles as $media) {
