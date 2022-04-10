@@ -35,7 +35,7 @@ $newsList = $this->getData('news') ?? [];
             <?php
             $count = 0;
             foreach ($newsList as $key => $news) : ++$count;
-            $url = UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
+            $url    = UriFactory::build('{/prefix}news/article?{?}&id=' . $news->getId());
             $color  = 'darkred';
 
             if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }
@@ -66,7 +66,7 @@ $newsList = $this->getData('news') ?? [];
         </table>
         </div>
         <div class="portlet-foot">
-            <a class="button" href="<?= UriFactory::build('{/prefix}news/dashboard?{?}') ?>"><?= $this->getHtml('More', '0', '0'); ?></a>
+            <a class="button" href="<?= UriFactory::build('{/prefix}news/dashboard?{?}'); ?>"><?= $this->getHtml('More', '0', '0'); ?></a>
         </div>
     </div>
 </div>

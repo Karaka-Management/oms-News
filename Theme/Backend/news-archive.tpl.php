@@ -12,7 +12,6 @@
  */
 declare(strict_types=1);
 
-use Modules\News\Models\NewsType;
 use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */

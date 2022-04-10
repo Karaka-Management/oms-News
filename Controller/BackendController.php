@@ -23,7 +23,6 @@ use Modules\News\Models\NullNewsSeen;
 use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
-use phpOMS\DataStorage\Database\Query\OrderType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
