@@ -93,7 +93,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $old = clone NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $new = $this->updateNewsFromRequest($request);
@@ -139,7 +139,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiNewsCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateNewsCreate($request))) {
             $response->set('news_create', new FormValidation($val));
@@ -329,7 +329,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsGet(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiNewsGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $news = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully returned', $news);
@@ -348,7 +348,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, $data = null) : void
+    public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         $news = NewsArticleMapper::get()->with('media')->with('tags')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $news, NewsArticleMapper::class, 'news', $request->getOrigin());

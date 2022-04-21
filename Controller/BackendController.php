@@ -51,7 +51,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsDashboard(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsDashboard(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -89,6 +89,7 @@ final class BackendController extends Controller implements DashboardElementInte
             $ids[] = $news->getId();
         }
 
+        /** @var \Modules\NEws\Models\NewsSeen[] $seenObjects */
         $seenObjects = NewsSeenMapper::getAll()
             ->where('seenBy', $request->header->account)
             ->where('news', $ids, 'in')
@@ -108,11 +109,12 @@ final class BackendController extends Controller implements DashboardElementInte
      * {@inheritdoc}
      * @codeCoverageIgnore
      */
-    public function viewDashboard(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewDashboard(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
 
+        /** @var \Modules\News\Models\NewsArticle[] $news */
         $news = NewsArticleMapper::getAll()
             ->with('createdBy')
             ->with('tags')
@@ -142,10 +144,11 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsArticle(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsArticle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
+        /** @var \Modules\News\Models\NewsArticle $news */
         $article = NewsArticleMapper::get()
             ->with('createdBy')
             ->with('comments')
@@ -172,6 +175,7 @@ final class BackendController extends Controller implements DashboardElementInte
             return $view;
         }
 
+        /** @var \Modules\News\Models\NewsSeen $seen */
         $seen = NewsSeenMapper::get()
             ->where('news', (int) $request->getData('id'))
             ->where('seenBy', $request->header->account)
@@ -219,7 +223,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsArchive(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsArchive(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -267,7 +271,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsDraftList(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsDraftList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -301,7 +305,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsCreate(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -332,7 +336,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsEdit(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -365,7 +369,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsAnalysis(RequestAbstract $request, ResponseAbstract $response, $data = null) : RenderableInterface
+    public function viewNewsAnalysis(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
