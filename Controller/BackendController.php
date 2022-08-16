@@ -280,14 +280,14 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '<')->limit(25)->execute()
+                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '<')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '>')->limit(25)->execute()
+                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
             );
         } else {
-            $view->setData('news', NewsArticleMapper::getAll()->where('id', 0, '>')->limit(25)->execute());
+            $view->setData('news', NewsArticleMapper::getAll()->where('id', 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute());
         }
 
         return $view;

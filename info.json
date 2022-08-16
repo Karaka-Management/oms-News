@@ -20,6 +20,7 @@
         "Admin": "1.0.0",
         "Home": "1.0.0",
         "Tag": "1.0.0",
+        "Comments": "*",
         "Media": "*"
     },
     "providing": {

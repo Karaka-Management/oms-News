@@ -40,11 +40,9 @@ echo $this->getData('nav')->render(); ?>
                     </span>
                 <?= !$isSeen ? '</strong>' : ''; ?>
             </div>
-            <div class="portlet-body">
-                <article>
-                    <?= Markdown::parse(\substr($news->plain, 0, 500)); ?>
-                </article>
-            </div>
+            <article>
+                <?= Markdown::parse(\substr($news->plain, 0, 500)); ?>
+            </article>
             <div class="portlet-foot">
                 <div class="overflowfix">
                     <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
