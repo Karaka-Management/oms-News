@@ -20,15 +20,15 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 $newsList = $this->getData('news');
 $seen     = $this->getData('seen') ?? [];
 
-$previous = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
-$next     = empty($newsList) ? '{/prefix}news/dashboard' : '{/prefix}news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
+$previous = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
+$next     = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) :
-            $url     = UriFactory::build('{/prefix}news/article?id=' . $news->getId());
-            $profile = UriFactory::build('{/prefix}profile/single?{?}&id=' . $news->createdBy->getId());
+            $url     = UriFactory::build('news/article?id=' . $news->getId());
+            $profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->getId());
         ?>
         <div class="portlet">
             <div class="portlet-head">
