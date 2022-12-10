@@ -44,12 +44,12 @@ echo $this->getData('nav')->render(); ?>
                         <?php endforeach; ?>
 
                         <?php $files = $news->getMedia(); foreach ($files as $file) : ?>
-                            <span><a class="content" href="<?= UriFactory::build('media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                            <span><a class="content" href="<?= UriFactory::build('{/lang}/{/app}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
                         <?php endforeach; ?>
                     </div>
                     <?php if ($editable) : ?>
                     <div class="col-xs-6 end-xs plain-grid">
-                        <a tabindex="0" class="button" href="<?= UriFactory::build('news/edit?id=' . $news->getId()); ?>"><?= $this->getHtml('Edit'); ?></a>
+                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/lang}/{/app}/news/edit?id=' . $news->getId()); ?>"><?= $this->getHtml('Edit'); ?></a>
                     </div>
                     <?php endif; ?>
                 </div>
