@@ -89,7 +89,7 @@ final class BackendController extends Controller implements DashboardElementInte
             $ids[] = $news->getId();
         }
 
-        /** @var \Modules\NEws\Models\NewsSeen[] $seenObjects */
+        /** @var \Modules\News\Models\NewsSeen[] $seenObjects */
         $seenObjects = NewsSeenMapper::getAll()
             ->where('seenBy', $request->header->account)
             ->where('news', $ids, 'in')
@@ -148,7 +148,7 @@ final class BackendController extends Controller implements DashboardElementInte
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
-        /** @var \Modules\News\Models\NewsArticle $news */
+        /** @var \Modules\News\Models\NewsArticle $article */
         $article = NewsArticleMapper::get()
             ->with('createdBy')
             ->with('comments')
