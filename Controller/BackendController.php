@@ -67,25 +67,30 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('language', $response->getLanguage())
             ->where('tags/title/language', $response->getLanguage());
 
+        /** @var \Modules\News\Models\NewsArticle[] $objs */
+        $objs = [];
         if ($request->getData('ptype') === 'p') {
-            $view->setData('news',
-                $data = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
-                    ->limit(25)->execute()
-            );
+            /** @var \Modules\News\Models\NewsArticle[] $objs */
+            $objs = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
+                    ->limit(25)->execute();
+
+            $view->setData('news', $objs);
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('news',
-                $data = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
-                    ->limit(25)->execute()
-            );
+            /** @var \Modules\News\Models\NewsArticle[] $objs */
+            $objs = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
+                    ->limit(25)->execute();
+
+            $view->setData('news', $objs);
         } else {
-            $view->setData('news',
-                $data = $mapperQuery->where('id', 0, '>')
-                    ->limit(25)->execute()
-            );
+            /** @var \Modules\News\Models\NewsArticle[] $objs */
+            $objs = $mapperQuery->where('id', 0, '>')
+                    ->limit(25)->execute();
+
+            $view->setData('news', $objs);
         }
 
         $ids = [];
-        foreach ($data as $news) {
+        foreach ($objs as $news) {
             $ids[] = $news->getId();
         }
 

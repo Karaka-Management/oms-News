@@ -95,7 +95,9 @@ final class ApiController extends Controller
      */
     public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
-        $old = clone NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        /** @var \Modules\News\Models\NewsArticle $old */
+        $old = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = clone $old;
         $new = $this->updateNewsFromRequest($request);
         $this->updateModel($request->header->account, $old, $new, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->fillJsonResponse($request, $response, NotificationLevel::OK, 'News', 'News successfully updated', $new);
@@ -112,11 +114,11 @@ final class ApiController extends Controller
      */
     private function updateNewsFromRequest(RequestAbstract $request) : NewsArticle
     {
-        /** @var NewsArticle $newsArticle */
+        /** @var \Modules\News\Models\NewsArticle $newsArticle */
         $newsArticle          = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $newsArticle->publish = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
         $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
-        $newsArticle->plain   = $request->getData('plain') ?? $newsArticle->plain;
+        $newsArticle->plain   = (string) ($request->getData('plain') ?? $newsArticle->plain);
         $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->plain));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $newsArticle->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? $newsArticle->getType()));
@@ -172,7 +174,9 @@ final class ApiController extends Controller
      */
     private function createNewsMedia(NewsArticle $news, RequestAbstract $request) : void
     {
-        $path    = $this->createNewsDir($news);
+        $path = $this->createNewsDir($news);
+
+        /** @var \Modules\Admin\Models\Account $account */
         $account = AccountMapper::get()->where('id', $request->header->account)->execute();
 
         if (!empty($uploadedFiles = $request->getFiles())) {
@@ -280,7 +284,7 @@ final class ApiController extends Controller
         $newsArticle->createdBy = new NullAccount($request->header->account);
         $newsArticle->publish   = new \DateTime((string) ($request->getData('publish') ?? 'now'));
         $newsArticle->title     = (string) ($request->getData('title') ?? '');
-        $newsArticle->plain     = $request->getData('plain') ?? '';
+        $newsArticle->plain     = (string) ($request->getData('plain') ?? '');
         $newsArticle->content   = Markdown::parse((string) ($request->getData('plain') ?? ''));
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
         $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
@@ -306,7 +310,12 @@ final class ApiController extends Controller
 
                     $internalResponse = new HttpResponse();
                     $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse, null);
-                    $newsArticle->addTag($internalResponse->get($request->uri->__toString())['response']);
+
+                    if (!\is_array($data = $internalResponse->get($request->uri->__toString()))) {
+                        continue;
+                    }
+
+                    $newsArticle->addTag($data['response']);
                 } else {
                     $newsArticle->addTag(new NullTag((int) $tag['id']));
                 }
