@@ -90,6 +90,22 @@ class NewsArticle implements \JsonSerializable
     private string $language = ISO639x1Enum::_EN;
 
     /**
+     * Unit
+     *
+     * @var null|int
+     * @since 1.0.0
+     */
+    public ?int $unit = null;
+
+    /**
+     * Application
+     *
+     * @var null|int
+     * @since 1.0.0
+     */
+    public ?int $app = null;
+
+    /**
      * Created.
      *
      * @var \DateTimeImmutable

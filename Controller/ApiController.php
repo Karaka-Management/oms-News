@@ -124,6 +124,8 @@ final class ApiController extends Controller
         $newsArticle->setType((int) ($request->getData('type') ?? $newsArticle->getType()));
         $newsArticle->setStatus((int) ($request->getData('status') ?? $newsArticle->getStatus()));
         $newsArticle->isFeatured = (bool) ($request->getData('featured') ?? $newsArticle->isFeatured);
+        $newsArticle->unit = $request->getData('unit', 'int');
+        $newsArticle->app = $request->getData('app', 'int');
 
         return $newsArticle;
     }

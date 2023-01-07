@@ -43,7 +43,9 @@
             "news_lang": {
                 "name": "news_lang",
                 "type": "VARCHAR(2)",
-                "null": false
+                "null": false,
+                "foreignTable": "language",
+                "foreignKey": "language_639_1"
             },
             "news_publish": {
                 "name": "news_publish",
@@ -55,6 +57,22 @@
                 "type": "INT",
                 "null": true,
                 "default": null
+            },
+            "news_unit": {
+                "name": "news_unit",
+                "type": "INT",
+                "default": null,
+                "null": true,
+                "foreignTable": "organization_unit",
+                "foreignKey": "organization_unit_id"
+            },
+            "news_app": {
+                "name": "news_app",
+                "type": "INT",
+                "default": null,
+                "null": true,
+                "foreignTable": "app",
+                "foreignKey": "app_id"
             },
             "news_created_at": {
                 "name": "news_created_at",
