@@ -47,8 +47,8 @@ final class NewsArticleMapper extends DataMapperFactory
         'news_type'         => ['name' => 'news_type',         'type' => 'int',               'internal' => 'type'],
         'news_featured'     => ['name' => 'news_featured',     'type' => 'bool',              'internal' => 'isFeatured'],
         'news_comment_list' => ['name' => 'news_comment_list', 'type' => 'int',               'internal' => 'comments'],
-        'news_unit'   => ['name' => 'news_unit',   'type' => 'int',               'internal' => 'unit'],
-        'news_app'   => ['name' => 'news_app',   'type' => 'int',               'internal' => 'app'],
+        'news_unit'         => ['name' => 'news_unit',   'type' => 'int',               'internal' => 'unit'],
+        'news_app'          => ['name' => 'news_app',   'type' => 'int',               'internal' => 'app'],
         'news_created_at'   => ['name' => 'news_created_at',   'type' => 'DateTimeImmutable', 'internal' => 'createdAt', 'readonly' => true],
         'news_created_by'   => ['name' => 'news_created_by',   'type' => 'int',               'internal' => 'createdBy', 'readonly' => true],
     ];
