@@ -63,8 +63,8 @@
                 "type": "INT",
                 "default": null,
                 "null": true,
-                "foreignTable": "organization_unit",
-                "foreignKey": "organization_unit_id"
+                "foreignTable": "unit",
+                "foreignKey": "unit_id"
             },
             "news_app": {
                 "name": "news_app",
