@@ -194,10 +194,20 @@ final class ApiController extends Controller
             $collection = null;
 
             foreach ($uploaded as $media) {
-                MediaMapper::create()->execute($media);
-                NewsArticleMapper::writer()->createRelationTable('media', [$media->getId()], $news->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $news->getId(),
+                    $media->getId(),
+                    NewsArticleMapper::class,
+                    'media',
+                    '',
+                    $request->getOrigin()
+                );
 
-                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId();
+                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login
+                    . '/News/'
+                    . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m')
+                    . '/' . $news->getId();
 
                 $ref            = new Reference();
                 $ref->name      = $media->name;
@@ -205,7 +215,7 @@ final class ApiController extends Controller
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($accountPath);
 
-                ReferenceMapper::create()->execute($ref);
+                $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
 
                 if ($collection === null) {
                     $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
@@ -219,7 +229,15 @@ final class ApiController extends Controller
                     }
                 }
 
-                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $collection->getId(),
+                    $ref->getId(),
+                    CollectionMapper::class,
+                    'sources',
+                    '',
+                    $request->getOrigin()
+                );
             }
         }
 
@@ -227,14 +245,25 @@ final class ApiController extends Controller
             $collection = null;
 
             foreach ($mediaFiles as $media) {
-                NewsArticleMapper::writer()->createRelationTable('media', [(int) $media], $news->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $news->getId(),
+                    (int) $media,
+                    NewsArticleMapper::class,
+                    'media',
+                    '',
+                    $request->getOrigin()
+                );
+
+                $mediaObject = MediaMapper::get()->where('id', (int) $media)->execute();
 
                 $ref            = new Reference();
                 $ref->source    = new NullMedia((int) $media);
+                $ref->name      = $mediaObject->name;
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($path);
 
-                ReferenceMapper::create()->execute($ref);
+                $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
 
                 if ($collection === null) {
                     $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
@@ -248,7 +277,15 @@ final class ApiController extends Controller
                     }
                 }
 
-                CollectionMapper::writer()->createRelationTable('sources', [$ref->getId()], $collection->getId());
+                $this->createModelRelation(
+                    $request->header->account,
+                    $collection->getId(),
+                    $ref->getId(),
+                    CollectionMapper::class,
+                    'sources',
+                    '',
+                    $request->getOrigin()
+                );
             }
         }
     }
