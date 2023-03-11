@@ -53,5 +53,5 @@ final class NewsSeenMapper extends DataMapperFactory
      * @var string
      * @since 1.0.0
      */
-    public const PRIMARYFIELD ='news_seen_id';
+    public const PRIMARYFIELD = 'news_seen_id';
 }
