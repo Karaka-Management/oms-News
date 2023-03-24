@@ -6,7 +6,7 @@
  *
  * @package   Modules\News
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -87,7 +87,7 @@ echo $this->getData('nav')->render(); ?>
                         <tr>
                             <td>
                                 <?php if ($isNewArticle) : ?>
-                                    <a href="<?= UriFactory::build('{/lang}/{/app}//news/dashboard'); ?>" class="button"><?= $this->getHtml('Delete', '0', '0'); ?></a>
+                                    <a href="<?= UriFactory::build('{/base}//news/dashboard'); ?>" class="button"><?= $this->getHtml('Delete', '0', '0'); ?></a>
                                 <?php else : ?>
                                     <input type="submit" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
                                 <?php endif; ?>

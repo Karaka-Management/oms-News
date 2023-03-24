@@ -6,7 +6,7 @@
  *
  * @package   Modules\News
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -33,7 +33,7 @@ use phpOMS\Views\View;
  * News controller class.
  *
  * @package Modules\News
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -71,13 +71,13 @@ final class BackendController extends Controller implements DashboardElementInte
         $objs = [];
         if ($request->getData('ptype') === 'p') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
-            $objs = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
+            $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
                     ->limit(25)->execute();
 
             $view->setData('news', $objs);
         } elseif ($request->getData('ptype') === 'n') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
-            $objs = $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
+            $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
                     ->limit(25)->execute();
 
             $view->setData('news', $objs);
@@ -246,12 +246,12 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '<')
+                $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
                     ->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                $mapperQuery->where('id', (int) ($request->getData('id') ?? 0), '>')
+                $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
                     ->limit(25)->execute()
             );
         } else {
@@ -285,11 +285,11 @@ final class BackendController extends Controller implements DashboardElementInte
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
-                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '<')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
+                NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '<')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
             );
         } elseif ($request->getData('ptype') === 'n') {
             $view->setData('news',
-                NewsArticleMapper::getAll()->where('id', (int) ($request->getData('id') ?? 0), '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
+                NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
             );
         } else {
             $view->setData('news', NewsArticleMapper::getAll()->where('id', 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute());
@@ -357,7 +357,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->addData('tagSelector', $tagSelector);
 
-        $view->addData('news', NewsArticleMapper::get()->where('id', (int) ($request->getData('id') ?? 0))->execute());
+        $view->addData('news', NewsArticleMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute());
 
         return $view;
     }

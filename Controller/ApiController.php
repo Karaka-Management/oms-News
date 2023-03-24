@@ -6,7 +6,7 @@
  *
  * @package   Modules\News
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -41,7 +41,7 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  * News controller class.
  *
  * @package Modules\News
- * @license OMS License 1.0
+ * @license OMS License 2.0
  * @link    https://jingga.app
  * @since   1.0.0
  */
@@ -62,15 +62,15 @@ final class ApiController extends Controller
         if (($val['title'] = empty($request->getData('title')))
             || ($val['plain'] = empty($request->getData('plain')))
             || ($val['lang'] = (
-                $request->getData('lang') !== null
+                $request->hasData('lang')
                 && !ISO639x1Enum::isValidValue(\strtolower((string) $request->getData('lang')))
             ))
             || ($val['type'] = (
-                $request->getData('type') === null
+                !$request->hasData('type')
                 || !NewsType::isValidValue((int) $request->getData('type'))
             ))
             || ($val['status'] = (
-                $request->getData('status') === null
+                !$request->hasData('status')
                 || !NewsStatus::isValidValue((int) $request->getData('status'))
             ))
         ) {
@@ -117,15 +117,15 @@ final class ApiController extends Controller
         /** @var \Modules\News\Models\NewsArticle $newsArticle */
         $newsArticle          = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $newsArticle->publish = new \DateTime((string) ($request->getData('publish') ?? $newsArticle->publish->format('Y-m-d H:i:s')));
-        $newsArticle->title   = (string) ($request->getData('title') ?? $newsArticle->title);
-        $newsArticle->plain   = (string) ($request->getData('plain') ?? $newsArticle->plain);
-        $newsArticle->content = Markdown::parse((string) ($request->getData('plain') ?? $newsArticle->plain));
-        $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $newsArticle->getLanguage())));
-        $newsArticle->setType((int) ($request->getData('type') ?? $newsArticle->getType()));
-        $newsArticle->setStatus((int) ($request->getData('status') ?? $newsArticle->getStatus()));
-        $newsArticle->isFeatured = (bool) ($request->getData('featured') ?? $newsArticle->isFeatured);
-        $newsArticle->unit       = $request->getData('unit', 'int');
-        $newsArticle->app        = $request->getData('app', 'int');
+        $newsArticle->title   = $request->getDataString('title') ?? $newsArticle->title;
+        $newsArticle->plain   = $request->getDataString('plain') ?? $newsArticle->plain;
+        $newsArticle->content = Markdown::parse($request->getDataString('plain') ?? $newsArticle->plain);
+        $newsArticle->setLanguage(\strtolower($request->getDataString('lang') ?? $newsArticle->getLanguage()));
+        $newsArticle->setType($request->getDataInt('type') ?? $newsArticle->getType());
+        $newsArticle->setStatus($request->getDataInt('status') ?? $newsArticle->getStatus());
+        $newsArticle->isFeatured = $request->getDataBool('featured') ?? $newsArticle->isFeatured;
+        $newsArticle->unit       = $request->getDataInt('unit');
+        $newsArticle->app        = $request->getDataInt('app');
 
         return $newsArticle;
     }
@@ -255,7 +255,10 @@ final class ApiController extends Controller
                     $request->getOrigin()
                 );
 
-                $mediaObject = MediaMapper::get()->where('id', (int) $media)->execute();
+                /** @var \Modules\Media\Models\Media $mediaObject */
+                $mediaObject = MediaMapper::get()
+                    ->where('id', (int) $media)
+                    ->execute();
 
                 $ref            = new Reference();
                 $ref->source    = new NullMedia((int) $media);
@@ -322,13 +325,13 @@ final class ApiController extends Controller
         $newsArticle            = new NewsArticle();
         $newsArticle->createdBy = new NullAccount($request->header->account);
         $newsArticle->publish   = new \DateTime((string) ($request->getData('publish') ?? 'now'));
-        $newsArticle->title     = (string) ($request->getData('title') ?? '');
-        $newsArticle->plain     = (string) ($request->getData('plain') ?? '');
-        $newsArticle->content   = Markdown::parse((string) ($request->getData('plain') ?? ''));
+        $newsArticle->title     = $request->getDataString('title') ?? '';
+        $newsArticle->plain     = $request->getDataString('plain') ?? '';
+        $newsArticle->content   = Markdown::parse($request->getDataString('plain') ?? '');
         $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
-        $newsArticle->setType((int) ($request->getData('type') ?? NewsType::ARTICLE));
-        $newsArticle->setStatus((int) ($request->getData('status') ?? NewsStatus::VISIBLE));
-        $newsArticle->isFeatured = (bool) ($request->getData('featured') ?? true);
+        $newsArticle->setType($request->getDataInt('type') ?? NewsType::ARTICLE);
+        $newsArticle->setStatus($request->getDataInt('status') ?? NewsStatus::VISIBLE);
+        $newsArticle->isFeatured = $request->getDataBool('featured') ?? true;
 
         // allow comments
         if (!empty($request->getData('allow_comments'))

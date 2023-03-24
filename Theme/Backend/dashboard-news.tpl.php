@@ -6,7 +6,7 @@
  *
  * @package   Modules\News
  * @copyright Dennis Eichhorn
- * @license   OMS License 1.0
+ * @license   OMS License 2.0
  * @version   1.0.0
  * @link      https://jingga.app
  */
@@ -35,7 +35,7 @@ $newsList = $this->getData('news') ?? [];
             <?php
             $count = 0;
             foreach ($newsList as $key => $news) : ++$count;
-            $url    = UriFactory::build('{/lang}/{/app}/news/article?{?}&id=' . $news->getId());
+            $url    = UriFactory::build('{/base}/news/article?{?}&id=' . $news->getId());
             $color  = 'darkred';
 
             if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }
@@ -66,7 +66,7 @@ $newsList = $this->getData('news') ?? [];
         </table>
         </div>
         <div class="portlet-foot">
-            <a class="button" href="<?= UriFactory::build('{/lang}/{/app}/news/dashboard?{?}'); ?>"><?= $this->getHtml('More', '0', '0'); ?></a>
+            <a class="button" href="<?= UriFactory::build('{/base}/news/dashboard?{?}'); ?>"><?= $this->getHtml('More', '0', '0'); ?></a>
         </div>
     </div>
 </div>
