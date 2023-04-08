@@ -59,8 +59,8 @@ final class ApiController extends Controller
     private function validateNewsCreate(RequestAbstract $request) : array
     {
         $val = [];
-        if (($val['title'] = empty($request->getData('title')))
-            || ($val['plain'] = empty($request->getData('plain')))
+        if (($val['title'] = !$request->hasData('title'))
+            || ($val['plain'] = !$request->hasData('plain'))
             || ($val['lang'] = (
                 $request->hasData('lang')
                 && !ISO639x1Enum::isValidValue(\strtolower((string) $request->getData('lang')))
@@ -334,7 +334,7 @@ final class ApiController extends Controller
         $newsArticle->isFeatured = $request->getDataBool('featured') ?? true;
 
         // allow comments
-        if (!empty($request->getData('allow_comments'))
+        if ($request->hasData('allow_comments')
             && !(($commentApi = $this->app->moduleManager->get('Comments')) instanceof NullModule)
         ) {
             /** @var \Modules\Comments\Controller\ApiController $commentApi */

@@ -62,7 +62,7 @@ final class ControllerTest extends \PHPUnit\Framework\TestCase
 
         $permission = new AccountPermission();
         $permission->setUnit(1);
-        $permission->setApp('backend');
+        $permission->setApp(2);
         $permission->setPermission(
             PermissionType::READ
             | PermissionType::CREATE
