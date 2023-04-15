@@ -20,6 +20,7 @@ use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
 use Modules\Media\Models\NullCollection;
 use Modules\Media\Models\NullMedia;
+use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
 use Modules\Media\Models\ReferenceMapper;
 use Modules\News\Models\NewsArticle;
@@ -149,6 +150,8 @@ final class ApiController extends Controller
             $response->set('news_create', new FormValidation($val));
             $response->header->status = RequestStatusCode::R_400;
 
+            var_dump($val);
+
             return;
         }
 
@@ -183,12 +186,13 @@ final class ApiController extends Controller
 
         if (!empty($uploadedFiles = $request->getFiles())) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
-                [],
-                [],
-                $uploadedFiles,
-                $request->header->account,
-                __DIR__ . '/../../../Modules/Media/Files' . $path,
-                $path,
+                names: [],
+                fileNames: [],
+                files: $uploadedFiles,
+                account: $request->header->account,
+                basePath: __DIR__ . '/../../../Modules/Media/Files' . $path,
+                virtualPath: $path,
+                pathSettings: PathSettings::FILE_PATH
             );
 
             $collection = null;
@@ -328,7 +332,7 @@ final class ApiController extends Controller
         $newsArticle->title     = $request->getDataString('title') ?? '';
         $newsArticle->plain     = $request->getDataString('plain') ?? '';
         $newsArticle->content   = Markdown::parse($request->getDataString('plain') ?? '');
-        $newsArticle->setLanguage(\strtolower((string) ($request->getData('lang') ?? $request->getLanguage())));
+        $newsArticle->setLanguage(\strtolower($request->getDataString('lang') ?? $request->getLanguage()));
         $newsArticle->setType($request->getDataInt('type') ?? NewsType::ARTICLE);
         $newsArticle->setStatus($request->getDataInt('status') ?? NewsStatus::VISIBLE);
         $newsArticle->isFeatured = $request->getDataBool('featured') ?? true;

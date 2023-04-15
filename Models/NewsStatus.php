@@ -26,7 +26,7 @@ use phpOMS\Stdlib\Base\Enum;
  */
 abstract class NewsStatus extends Enum
 {
-    public const VISIBLE = 0;
+    public const VISIBLE = 1;
 
-    public const DRAFT = 1;
+    public const DRAFT = 2;
 }
