@@ -23,6 +23,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Application\ApplicationAbstract;
 use phpOMS\Dispatcher\Dispatcher;
 use phpOMS\Event\EventManager;
+use phpOMS\Localization\L11nManager;
 use phpOMS\Module\ModuleManager;
 use phpOMS\Router\WebRouter;
 use phpOMS\Utils\TestUtils;
@@ -55,6 +56,7 @@ final class ControllerTest extends \PHPUnit\Framework\TestCase
         $this->app->moduleManager  = new ModuleManager($this->app, __DIR__ . '/../../../Modules/');
         $this->app->dispatcher     = new Dispatcher($this->app);
         $this->app->eventManager   = new EventManager($this->app->dispatcher);
+        $this->app->l11nManager    = new L11nManager();
         $this->app->eventManager->importFromFile(__DIR__ . '/../../../Web/Api/Hooks.php');
 
         $account = new Account();

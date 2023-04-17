@@ -150,8 +150,6 @@ final class ApiController extends Controller
             $response->set('news_create', new FormValidation($val));
             $response->header->status = RequestStatusCode::R_400;
 
-            var_dump($val);
-
             return;
         }
 
