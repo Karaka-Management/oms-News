@@ -37,6 +37,6 @@ final class NullNewsArticleTest extends \PHPUnit\Framework\TestCase
     public function testId() : void
     {
         $null = new NullNewsArticle(2);
-        self::assertEquals(2, $null->getId());
+        self::assertEquals(2, $null->id);
     }
 }

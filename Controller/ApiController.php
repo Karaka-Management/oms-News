@@ -198,22 +198,22 @@ final class ApiController extends Controller
             foreach ($uploaded as $media) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $news->getId(),
-                    $media->getId(),
+                    $news->id,
+                    $media->id,
                     NewsArticleMapper::class,
                     'media',
                     '',
                     $request->getOrigin()
                 );
 
-                $accountPath = '/Accounts/' . $account->getId() . ' ' . $account->login
+                $accountPath = '/Accounts/' . $account->id . ' ' . $account->login
                     . '/News/'
                     . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m')
-                    . '/' . $news->getId();
+                    . '/' . $news->id;
 
                 $ref            = new Reference();
                 $ref->name      = $media->name;
-                $ref->source    = new NullMedia($media->getId());
+                $ref->source    = new NullMedia($media->id);
                 $ref->createdBy = new NullAccount($request->header->account);
                 $ref->setVirtualPath($accountPath);
 
@@ -222,19 +222,19 @@ final class ApiController extends Controller
                 if ($collection === null) {
                     $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
 
-                    if ($collection instanceof NullCollection) {
+                    if ($collection->id === 0) {
                         $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
                             $accountPath,
                             $request->header->account,
-                            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->getId() . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->getId()
+                            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->id . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->id
                         );
                     }
                 }
 
                 $this->createModelRelation(
                     $request->header->account,
-                    $collection->getId(),
-                    $ref->getId(),
+                    $collection->id,
+                    $ref->id,
                     CollectionMapper::class,
                     'sources',
                     '',
@@ -249,7 +249,7 @@ final class ApiController extends Controller
             foreach ($mediaFiles as $media) {
                 $this->createModelRelation(
                     $request->header->account,
-                    $news->getId(),
+                    $news->id,
                     (int) $media,
                     NewsArticleMapper::class,
                     'media',
@@ -273,7 +273,7 @@ final class ApiController extends Controller
                 if ($collection === null) {
                     $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
 
-                    if ($collection instanceof NullCollection) {
+                    if ($collection->id === 0) {
                         $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
                             $path,
                             $request->header->account,
@@ -284,8 +284,8 @@ final class ApiController extends Controller
 
                 $this->createModelRelation(
                     $request->header->account,
-                    $collection->getId(),
-                    $ref->getId(),
+                    $collection->id,
+                    $ref->id,
                     CollectionMapper::class,
                     'sources',
                     '',
@@ -310,7 +310,7 @@ final class ApiController extends Controller
             . $news->createdAt->format('Y') . '/'
             . $news->createdAt->format('m') . '/'
             . $news->createdAt->format('d') . '/'
-            . $news->getId();
+            . $news->id;
     }
 
     /**
@@ -337,7 +337,7 @@ final class ApiController extends Controller
 
         // allow comments
         if ($request->hasData('allow_comments')
-            && !(($commentApi = $this->app->moduleManager->get('Comments')) instanceof NullModule)
+            && ($commentApi = $this->app->moduleManager->get('Comments'))::ID > 0
         ) {
             /** @var \Modules\Comments\Controller\ApiController $commentApi */
             $commnetList           = $commentApi->createCommentList();

@@ -91,7 +91,7 @@ final class BackendController extends Controller implements DashboardElementInte
 
         $ids = [];
         foreach ($objs as $news) {
-            $ids[] = $news->getId();
+            $ids[] = $news->id;
         }
 
         /** @var \Modules\News\Models\NewsSeen[] $seenObjects */
@@ -171,9 +171,9 @@ final class BackendController extends Controller implements DashboardElementInte
 
         $accountId = $request->header->account;
 
-        if ($article->createdBy->getId() !== $accountId
+        if ($article->createdBy->id !== $accountId
             && !$this->app->accountManager->get($accountId)->hasPermission(
-                PermissionType::READ, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->getId())
+                PermissionType::READ, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->id)
         ) {
             $view->setTemplate('/Web/Backend/Error/403_inline');
             $response->header->status = RequestStatusCode::R_403;
@@ -186,7 +186,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('seenBy', $request->header->account)
             ->execute();
 
-        if ($seen instanceof NullNewsSeen) {
+        if ($seen->id === 0) {
             $seen         = new NewsSeen();
             $seen->seenBy = (int) $request->header->account;
             $seen->news   = (int) $request->getData('id');
@@ -199,12 +199,12 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
         $view->addData('news', $article);
         $view->addData('editable', $this->app->accountManager->get($accountId)->hasPermission(
-            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->getId())
+            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->id)
         );
 
         // allow comments
         if (!$article->comments !== null
-            && !($this->app->moduleManager->get('Comments') instanceof NullModule)
+            && $this->app->moduleManager->get('Comments')::ID > 0
         ) {
             $commentCreateView = new \Modules\Comments\Theme\Backend\Components\Comment\CreateView($this->app->l11nManager, $request, $response);
             $commentListView   = new \Modules\Comments\Theme\Backend\Components\Comment\ListView($this->app->l11nManager, $request, $response);

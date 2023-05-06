@@ -50,12 +50,12 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         $news->setType(NewsType::HEADLINE);
 
         $id = NewsArticleMapper::create()->execute($news);
-        self::assertGreaterThan(0, $news->getId());
-        self::assertEquals($id, $news->getId());
+        self::assertGreaterThan(0, $news->id);
+        self::assertEquals($id, $news->id);
 
-        $newsR = NewsArticleMapper::get()->where('id', $news->getId())->execute();
+        $newsR = NewsArticleMapper::get()->where('id', $news->id)->execute();
         self::assertEquals($news->createdAt->format('Y-m-d'), $newsR->createdAt->format('Y-m-d'));
-        self::assertEquals($news->createdBy->getId(), $newsR->createdBy->getId());
+        self::assertEquals($news->createdBy->id, $newsR->createdBy->id);
         self::assertEquals($news->content, $newsR->content);
         self::assertEquals($news->plain, $newsR->plain);
         self::assertEquals($news->title, $newsR->title);

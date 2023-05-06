@@ -46,8 +46,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->news->getId());
-        self::assertEquals(0, $this->news->createdBy->getId());
+        self::assertEquals(0, $this->news->id);
+        self::assertEquals(0, $this->news->createdBy->id);
         self::assertEquals('', $this->news->title);
         self::assertEquals('', $this->news->content);
         self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->createdAt->format('Y-m-d'));
@@ -68,7 +68,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
     public function testCreatorInputOutput() : void
     {
         $this->news->createdBy = new NullAccount(1);
-        self::assertEquals(1, $this->news->createdBy->getId());
+        self::assertEquals(1, $this->news->createdBy->id);
     }
 
     /**

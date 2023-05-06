@@ -24,7 +24,7 @@ $editable = $this->getData('editable');
 /** @var \Modules\Tag\Models\Tag[] $tags */
 $tags = $news->getTags();
 
-$profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->getId());
+$profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->id);
 
 /** @var \phpOMS\Views\View $this */
 echo $this->getData('nav')->render(); ?>
@@ -44,12 +44,12 @@ echo $this->getData('nav')->render(); ?>
                         <?php endforeach; ?>
 
                         <?php $files = $news->getMedia(); foreach ($files as $file) : ?>
-                            <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->getId());?>"><?= $file->name; ?></a></span>
+                            <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                         <?php endforeach; ?>
                     </div>
                     <?php if ($editable) : ?>
                     <div class="col-xs-6 end-xs plain-grid">
-                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/base}/news/edit?id=' . $news->getId()); ?>"><?= $this->getHtml('Edit'); ?></a>
+                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/base}/news/edit?id=' . $news->id); ?>"><?= $this->getHtml('Edit'); ?></a>
                     </div>
                     <?php endif; ?>
                 </div>

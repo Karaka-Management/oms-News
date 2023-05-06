@@ -39,7 +39,7 @@ final class NewsSeenTest extends \PHPUnit\Framework\TestCase
      */
     public function testDefault() : void
     {
-        self::assertEquals(0, $this->seen->getId());
+        self::assertEquals(0, $this->seen->id);
         self::assertEquals(0, $this->seen->seenBy);
         self::assertInstanceOf('\DateTime', $this->seen->seenAt);
     }

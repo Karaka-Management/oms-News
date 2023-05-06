@@ -65,7 +65,7 @@ trait ApiControllerNewsArticleTrait
         $this->module->apiNewsCreate($request, $response);
 
         self::assertEquals('Controller Test Title', $response->get('')['response']->title);
-        self::assertGreaterThan(0, $response->get('')['response']->getId());
+        self::assertGreaterThan(0, $response->get('')['response']->id);
     }
 
     /**
@@ -99,7 +99,7 @@ trait ApiControllerNewsArticleTrait
 
         $this->module->apiNewsGet($request, $response);
 
-        self::assertGreaterThan(0, $response->get('')['response']->getId());
+        self::assertGreaterThan(0, $response->get('')['response']->id);
     }
 
     /**
@@ -137,7 +137,7 @@ trait ApiControllerNewsArticleTrait
         $request->setData('id', 1);
         $this->module->apiNewsDelete($request, $response);
 
-        self::assertEquals(1, $response->get('')['response']->getId());
+        self::assertEquals(1, $response->get('')['response']->id);
         self::assertInstanceOf(NullNewsArticle::class, NewsArticleMapper::get()->where('id', 1)->execute());
     }
 }

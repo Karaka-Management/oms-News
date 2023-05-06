@@ -35,7 +35,7 @@ $newsList = $this->getData('news') ?? [];
             <?php
             $count = 0;
             foreach ($newsList as $key => $news) : ++$count;
-            $url    = UriFactory::build('{/base}/news/article?{?}&id=' . $news->getId());
+            $url    = UriFactory::build('{/base}/news/article?{?}&id=' . $news->id);
             $color  = 'darkred';
 
             if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }

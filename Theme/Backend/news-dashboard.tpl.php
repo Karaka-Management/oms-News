@@ -20,19 +20,19 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 $newsList = $this->getData('news');
 $seen     = $this->getData('seen') ?? [];
 
-$previous = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \reset($newsList)->getId() . '&ptype=p';
-$next     = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \end($newsList)->getId() . '&ptype=n';
+$previous = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \reset($newsList)->id . '&ptype=p';
+$next     = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \end($newsList)->id . '&ptype=n';
 
 echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) :
-            $url     = UriFactory::build('{/base}/news/article?id=' . $news->getId());
-            $profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->getId());
+            $url     = UriFactory::build('{/base}/news/article?id=' . $news->id);
+            $profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->id);
         ?>
         <div class="portlet">
             <div class="portlet-head">
-                <?= !($isSeen = \in_array($news->getId(), $seen)) ? '<strong>' : ''; ?>
+                <?= !($isSeen = \in_array($news->id, $seen)) ? '<strong>' : ''; ?>
                     <a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
                     <span class="floatRight">
                         <a class="content" href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?>

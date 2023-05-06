@@ -19,7 +19,7 @@ use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle $news */
 $news         = $this->getData('news') ?? new NullNewsArticle();
-$isNewArticle = $news instanceof NullNewsArticle;
+$isNewArticle = $news->id === 0;
 $languages    = \phpOMS\Localization\ISO639Enum::getConstants();
 
 /** @var \phpOMS\Views\View $this */

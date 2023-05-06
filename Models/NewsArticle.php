@@ -39,7 +39,7 @@ class NewsArticle implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    protected int $id = 0;
+    public int $id = 0;
 
     /**
      * Title.
@@ -71,7 +71,7 @@ class NewsArticle implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private int $type = NewsType::ARTICLE;
+    public int $type = NewsType::ARTICLE;
 
     /**
      * News status.
@@ -79,7 +79,7 @@ class NewsArticle implements \JsonSerializable
      * @var int
      * @since 1.0.0
      */
-    private int $status = NewsStatus::DRAFT;
+    public int $status = NewsStatus::DRAFT;
 
     /**
      * Language.
@@ -87,7 +87,7 @@ class NewsArticle implements \JsonSerializable
      * @var string
      * @since 1.0.0
      */
-    private string $language = ISO639x1Enum::_EN;
+    public string $language = ISO639x1Enum::_EN;
 
     /**
      * Unit
