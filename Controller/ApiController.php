@@ -18,7 +18,6 @@ use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
-use Modules\Media\Models\NullCollection;
 use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
 use Modules\Media\Models\Reference;
@@ -35,7 +34,6 @@ use phpOMS\Message\NotificationLevel;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
 use phpOMS\Model\Message\FormValidation;
-use phpOMS\Module\NullModule;
 use phpOMS\Utils\Parser\Markdown\Markdown;
 
 /**
