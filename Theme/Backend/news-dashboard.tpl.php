@@ -32,9 +32,9 @@ echo $this->getData('nav')->render(); ?>
         ?>
         <div class="portlet">
             <div class="portlet-head">
-                <?= !($isSeen = \in_array($news->id, $seen)) ? '<strong>' : ''; ?>
+                <?= ($isSeen = \in_array($news->id, $seen)) ? '' : '<strong>'; ?>
                     <a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
-                <?= !$isSeen ? '</strong>' : ''; ?>
+                <?= $isSeen ? '' : '</strong>'; ?>
                 <span class="end-xs">
                     <a class="content" href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?>
                     </a> - <?= $news->publish->format('Y-m-d'); ?>
@@ -44,7 +44,7 @@ echo $this->getData('nav')->render(); ?>
             <div class="portlet-body">
                 <article><?= Markdown::parse(\substr($news->plain, 0, 500)); ?></article>
                 <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
-                    <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= !empty($tag->icon) ? '<i class="' . $this->printHtml($tag->icon) . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                    <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= empty($tag->icon) ? '' : '<i class="' . $this->printHtml($tag->icon) . '"></i>'; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                 <?php endforeach; ?>
             </div>
             <div class="portlet-foot">
