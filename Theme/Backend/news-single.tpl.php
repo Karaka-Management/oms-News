@@ -31,28 +31,25 @@ echo $this->getData('nav')->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <section class="portlet">
-            <article>
-                <h1><?= $this->printHtml($news->title); ?><span class="floatRight"><a href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?></a> - <?= $news->publish->format('Y-m-d'); ?></span></h1>
-                <?= $news->content; ?>
-            </article>
-            <?php if ($editable || !empty($tags)) : ?>
-            <div class="portlet-foot">
-                <div class="row">
-                    <div class="col-xs-6 overflowfix">
-                        <?php foreach ($tags as $tag) : ?>
-                            <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= !empty($tag->icon) ? '<i class="' . $this->printHtml($tag->icon) . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
-                        <?php endforeach; ?>
-
-                        <?php $files = $news->getMedia(); foreach ($files as $file) : ?>
-                            <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
-                        <?php endforeach; ?>
-                    </div>
-                    <?php if ($editable) : ?>
-                    <div class="col-xs-6 end-xs plain-grid">
-                        <a tabindex="0" class="button" href="<?= UriFactory::build('{/base}/news/edit?id=' . $news->id); ?>"><?= $this->getHtml('Edit'); ?></a>
-                    </div>
-                    <?php endif; ?>
+            <div class="portlet-body">
+                <article>
+                    <h1><?= $this->printHtml($news->title); ?><span class="floatRight"><a href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?></a> - <?= $news->publish->format('Y-m-d'); ?></span></h1>
+                    <?= $news->content; ?>
+                </article>
+                <div>
+                    <?php $files = $news->getMedia(); foreach ($files as $file) : ?>
+                        <span><a class="content" href="<?= UriFactory::build('{/base}/media/single?id=' . $file->id);?>"><?= $file->name; ?></a></span>
+                    <?php endforeach; ?>
                 </div>
+                <div>
+                    <?php foreach ($tags as $tag) : ?>
+                        <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= !empty($tag->icon) ? '<i class="' . $this->printHtml($tag->icon) . '"></i>' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php if ($editable) : ?>
+            <div class="portlet-foot">
+                <a tabindex="0" class="button" href="<?= UriFactory::build('{/base}/news/edit?id=' . $news->id); ?>"><?= $this->getHtml('Edit'); ?></a>
             </div>
             <?php endif; ?>
         </section>

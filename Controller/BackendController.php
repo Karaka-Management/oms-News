@@ -19,14 +19,12 @@ use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsSeen;
 use Modules\News\Models\NewsSeenMapper;
 use Modules\News\Models\NewsStatus;
-use Modules\News\Models\NullNewsSeen;
 use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
-use phpOMS\Module\NullModule;
 use phpOMS\Views\View;
 
 /**
@@ -160,6 +158,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('comments/comments')
             ->with('comments/comments/createdBy')
             ->with('comments/comments/media')
+            ->with('media')
             ->with('tags')
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
