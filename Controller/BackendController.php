@@ -54,7 +54,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-dashboard');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         $mapperQuery = NewsArticleMapper::getAll()
             ->with('createdBy')
@@ -62,8 +62,8 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->getLanguage())
-            ->where('tags/title/language', $response->getLanguage());
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language);
 
         /** @var \Modules\News\Models\NewsArticle[] $objs */
         $objs = [];
@@ -72,19 +72,19 @@ final class BackendController extends Controller implements DashboardElementInte
             $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
                     ->limit(25)->execute();
 
-            $view->setData('news', $objs);
+            $view->data['news'] = $objs;
         } elseif ($request->getData('ptype') === 'n') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
             $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
                     ->limit(25)->execute();
 
-            $view->setData('news', $objs);
+            $view->data['news'] = $objs;
         } else {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
             $objs = $mapperQuery->where('id', 0, '>')
                     ->limit(25)->execute();
 
-            $view->setData('news', $objs);
+            $view->data['news'] = $objs;
         }
 
         $ids = [];
@@ -103,7 +103,7 @@ final class BackendController extends Controller implements DashboardElementInte
             $seen[] = $seenObject->news;
         }
 
-        $view->setData('seen', $seen);
+        $view->data['seen'] = $seen;
 
         return $view;
     }
@@ -124,13 +124,13 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->getLanguage())
-            ->where('tags/title/language', $response->getLanguage())
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language)
             ->where('id', 0, '>')
             ->limit(5)
             ->execute();
 
-        $view->addData('news', $news);
+        $view->data['news'] = $news;
 
         return $view;
     }
@@ -163,8 +163,8 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->getLanguage())
-            ->where('tags/title/language', $response->getLanguage())
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language)
             ->where('id', (int) $request->getData('id'))
             ->execute();
 
@@ -195,11 +195,10 @@ final class BackendController extends Controller implements DashboardElementInte
         }
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-single');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
-        $view->addData('news', $article);
-        $view->addData('editable', $this->app->accountManager->get($accountId)->hasPermission(
-            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->id)
-        );
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
+        $view->data['news'] = $article;
+        $view->data['editable'] = $this->app->accountManager->get($accountId)->hasPermission(
+            PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->id);
 
         // allow comments
         if (!$article->comments !== null
@@ -208,8 +207,8 @@ final class BackendController extends Controller implements DashboardElementInte
             $commentCreateView = new \Modules\Comments\Theme\Backend\Components\Comment\CreateView($this->app->l11nManager, $request, $response);
             $commentListView   = new \Modules\Comments\Theme\Backend\Components\Comment\ListView($this->app->l11nManager, $request, $response);
 
-            $view->addData('commentCreate', $commentCreateView);
-            $view->addData('commentList', $commentListView);
+            $view->data['commentCreate'] = $commentCreateView;
+            $view->data['commentList'] = $commentListView;
         }
 
         return $view;
@@ -232,7 +231,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-archive');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         $mapperQuery =  NewsArticleMapper::getAll()
         ->with('createdBy')
@@ -240,24 +239,18 @@ final class BackendController extends Controller implements DashboardElementInte
         ->with('tags/title')
         ->where('status', NewsStatus::VISIBLE)
         ->where('publish', new \DateTime('now'), '<=')
-        ->where('language', $response->getLanguage())
-        ->where('tags/title/language', $response->getLanguage());
+        ->where('language', $response->header->l11n->language)
+        ->where('tags/title/language', $response->header->l11n->language);
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('news',
-                $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
-                    ->limit(25)->execute()
-            );
+            $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
+                    ->limit(25)->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('news',
-                $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
-                    ->limit(25)->execute()
-            );
+            $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
+                    ->limit(25)->execute();
         } else {
-            $view->setData('news',
-                $mapperQuery->where('id', 0, '>')
-                    ->limit(25)->execute()
-            );
+            $view->data['news'] = $mapperQuery->where('id', 0, '>')
+                    ->limit(25)->execute();
         }
 
         return $view;
@@ -280,18 +273,14 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-draft');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         if ($request->getData('ptype') === 'p') {
-            $view->setData('news',
-                NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '<')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
-            );
+            $view->data['news'] = NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '<')->where('status', NewsStatus::DRAFT)->limit(25)->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->setData('news',
-                NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute()
-            );
+            $view->data['news'] = NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute();
         } else {
-            $view->setData('news', NewsArticleMapper::getAll()->where('id', 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute());
+            $view->data['news'] = NewsArticleMapper::getAll()->where('id', 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute();
         }
 
         return $view;
@@ -314,16 +303,16 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-create');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('editor', $editor);
+        $view->data['editor'] = $editor;
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('accGrpSelector', $accGrpSelector);
+        $view->data['accGrpSelector'] = $accGrpSelector;
 
         $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('tagSelector', $tagSelector);
+        $view->data['tagSelector'] = $tagSelector;
 
         return $view;
     }
@@ -345,18 +334,18 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-create');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('editor', $editor);
+        $view->data['editor'] = $editor;
 
         $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('accGrpSelector', $accGrpSelector);
+        $view->data['accGrpSelector'] = $accGrpSelector;
 
         $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
-        $view->addData('tagSelector', $tagSelector);
+        $view->data['tagSelector'] = $tagSelector;
 
-        $view->addData('news', NewsArticleMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute());
+        $view->data['news'] = NewsArticleMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
 
         return $view;
     }
@@ -378,7 +367,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view = new View($this->app->l11nManager, $request, $response);
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-analysis');
-        $view->addData('nav', $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response));
+        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         return $view;
     }
