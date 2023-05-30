@@ -16,10 +16,10 @@ use Modules\Comments\Models\CommentListStatus;
 use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle $news */
-$news = $this->getData('news');
+$news = $this->data['news'];
 
 /** @var bool $editable */
-$editable = $this->getData('editable');
+$editable = $this->data['editable'];
 
 /** @var \Modules\Tag\Models\Tag[] $tags */
 $tags = $news->getTags();
@@ -27,7 +27,7 @@ $tags = $news->getTags();
 $profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->id);
 
 /** @var \phpOMS\Views\View $this */
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <section class="portlet">

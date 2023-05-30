@@ -19,7 +19,7 @@ use phpOMS\Uri\UriFactory;
  * @var \phpOMS\Views\View $this
  */
 
-$newsList = $this->getData('news') ?? [];
+$newsList = $this->data['news'] ?? [];
 ?>
 <div id="news-dashboard" class="col-xs-12 col-md-6" draggable="true">
     <div class="portlet">

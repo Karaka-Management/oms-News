@@ -17,13 +17,13 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
-$newsList = $this->getData('news');
-$seen     = $this->getData('seen') ?? [];
+$newsList = $this->data['news'];
+$seen     = $this->data['seen'] ?? [];
 
 $previous = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \reset($newsList)->id . '&ptype=p';
 $next     = empty($newsList) ? 'news/dashboard' : 'news/dashboard?{?}&id=' . \end($newsList)->id . '&ptype=n';
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 <div class="row">
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) :

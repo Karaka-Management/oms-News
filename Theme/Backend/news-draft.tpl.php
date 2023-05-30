@@ -16,12 +16,12 @@ use phpOMS\Uri\UriFactory;
 
 /** @var \phpOMS\Views\View $this */
 /** @var \Modules\News\Models\NewsArticle[] $newsList */
-$newsList = $this->getData('news') ?? [];
+$newsList = $this->data['news'] ?? [];
 
 $previous = empty($newsList) ? 'news/archive' : 'news/archive?{?}&id=' . \reset($newsList)->id . '&ptype=p';
 $next     = empty($newsList) ? 'news/archive' : 'news/archive?{?}&id=' . \end($newsList)->id . '&ptype=n';
 
-echo $this->getData('nav')->render(); ?>
+echo $this->data['nav']->render(); ?>
 
 <div class="row">
     <div class="col-xs-12">
