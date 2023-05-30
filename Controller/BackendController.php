@@ -62,8 +62,8 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->getLanguage())
-            ->where('tags/title/language', $response->getLanguage());
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language);
 
         /** @var \Modules\News\Models\NewsArticle[] $objs */
         $objs = [];
@@ -124,8 +124,8 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->getLanguage())
-            ->where('tags/title/language', $response->getLanguage())
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language)
             ->where('id', 0, '>')
             ->limit(5)
             ->execute();
@@ -163,8 +163,8 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->getLanguage())
-            ->where('tags/title/language', $response->getLanguage())
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language)
             ->where('id', (int) $request->getData('id'))
             ->execute();
 
@@ -240,8 +240,8 @@ final class BackendController extends Controller implements DashboardElementInte
         ->with('tags/title')
         ->where('status', NewsStatus::VISIBLE)
         ->where('publish', new \DateTime('now'), '<=')
-        ->where('language', $response->getLanguage())
-        ->where('tags/title/language', $response->getLanguage());
+        ->where('language', $response->header->l11n->language)
+        ->where('tags/title/language', $response->header->l11n->language);
 
         if ($request->getData('ptype') === 'p') {
             $view->setData('news',
