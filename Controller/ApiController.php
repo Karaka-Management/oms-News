@@ -145,7 +145,7 @@ final class ApiController extends Controller
     public function apiNewsCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
     {
         if (!empty($val = $this->validateNewsCreate($request))) {
-            $response->set('news_create', new FormValidation($val));
+            $response->data['news_create'] = new FormValidation($val);
             $response->header->status = RequestStatusCode::R_400;
 
             return;
@@ -154,7 +154,7 @@ final class ApiController extends Controller
         $newsArticle = $this->createNewsArticleFromRequest($request);
         $this->createModel($request->header->account, $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
 
-        if (!empty($request->getFiles())
+        if (!empty($request->files)
             || !empty($request->getDataJson('media'))
         ) {
             $this->createNewsMedia($newsArticle, $request);
@@ -180,7 +180,7 @@ final class ApiController extends Controller
         /** @var \Modules\Admin\Models\Account $account */
         $account = AccountMapper::get()->where('id', $request->header->account)->execute();
 
-        if (!empty($uploadedFiles = $request->getFiles())) {
+        if (!empty($uploadedFiles = $request->files)) {
             $uploaded = $this->app->moduleManager->get('Media')->uploadFiles(
                 names: [],
                 fileNames: [],
