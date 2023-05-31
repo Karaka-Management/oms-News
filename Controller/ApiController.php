@@ -146,7 +146,7 @@ final class ApiController extends Controller
     {
         if (!empty($val = $this->validateNewsCreate($request))) {
             $response->data['news_create'] = new FormValidation($val);
-            $response->header->status = RequestStatusCode::R_400;
+            $response->header->status      = RequestStatusCode::R_400;
 
             return;
         }

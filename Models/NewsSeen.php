@@ -47,5 +47,4 @@ class NewsSeen
     {
         $this->seenAt = new \DateTime('now');
     }
-
 }

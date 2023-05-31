@@ -195,8 +195,8 @@ final class BackendController extends Controller implements DashboardElementInte
         }
 
         $view->setTemplate('/Modules/News/Theme/Backend/news-single');
-        $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
-        $view->data['news'] = $article;
+        $view->data['nav']      = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
+        $view->data['news']     = $article;
         $view->data['editable'] = $this->app->accountManager->get($accountId)->hasPermission(
             PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->id);
 
@@ -208,7 +208,7 @@ final class BackendController extends Controller implements DashboardElementInte
             $commentListView   = new \Modules\Comments\Theme\Backend\Components\Comment\ListView($this->app->l11nManager, $request, $response);
 
             $view->data['commentCreate'] = $commentCreateView;
-            $view->data['commentList'] = $commentListView;
+            $view->data['commentList']   = $commentListView;
         }
 
         return $view;
@@ -305,13 +305,13 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
-        $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
+        $accGrpSelector               = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->data['accGrpSelector'] = $accGrpSelector;
 
-        $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
+        $tagSelector               = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->data['tagSelector'] = $tagSelector;
 
         return $view;
@@ -336,13 +336,13 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-create');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
-        $editor = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
+        $editor               = new \Modules\Editor\Theme\Backend\Components\Editor\BaseView($this->app->l11nManager, $request, $response);
         $view->data['editor'] = $editor;
 
-        $accGrpSelector = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
+        $accGrpSelector               = new \Modules\Profile\Theme\Backend\Components\AccountGroupSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->data['accGrpSelector'] = $accGrpSelector;
 
-        $tagSelector = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
+        $tagSelector               = new \Modules\Tag\Theme\Backend\Components\TagSelector\BaseView($this->app->l11nManager, $request, $response);
         $view->data['tagSelector'] = $tagSelector;
 
         $view->data['news'] = NewsArticleMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
