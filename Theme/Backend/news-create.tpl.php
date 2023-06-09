@@ -40,9 +40,11 @@ echo $this->data['nav']->render(); ?>
                 </div>
             </section>
 
-            <div class="box wf-100">
-            <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
-            </div>
+            <section class="portlet">
+                <div class="portlet-body">
+                    <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
+                </div>
+            </section>
         </div>
     </div>
 

@@ -38,9 +38,9 @@ $newsList = $this->data['news'] ?? [];
             $url    = UriFactory::build('{/base}/news/article?{?}&id=' . $news->id);
             $color  = 'darkred';
 
-            if ($news->getType() === NewsType::ARTICLE) { $color      = 'green'; }
-            elseif ($news->getType() === NewsType::HEADLINE) { $color = 'purple'; }
-            elseif ($news->getType() === NewsType::LINK) { $color     = 'yellow'; }
+            if ($news->type === NewsType::ARTICLE) { $color      = 'green'; }
+            elseif ($news->type === NewsType::HEADLINE) { $color = 'purple'; }
+            elseif ($news->type === NewsType::LINK) { $color     = 'yellow'; }
             ?>
             <tr data-href="<?= $url; ?>">
                 <td data-label="">
@@ -52,7 +52,7 @@ $newsList = $this->data['news'] ?? [];
                 <td data-label="<?= $this->getHtml('Type', 'News'); ?>">
                     <a href="<?= $url; ?>">
                         <span class="tag <?= $this->printHtml($color); ?>">
-                            <?= $this->getHtml('TYPE' . $news->getType(), 'News'); ?>
+                            <?= $this->getHtml('TYPE' . $news->type, 'News'); ?>
                         </span>
                     </a>
                 <td data-label="<?= $this->getHtml('Title', 'News'); ?>">
