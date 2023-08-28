@@ -192,6 +192,8 @@ class NewsArticle implements \JsonSerializable
      *
      * @return void
      *
+     * @throws InvalidEnumValue
+     *
      * @since 1.0.0
      */
     public function setLanguage(string $language) : void
@@ -221,6 +223,8 @@ class NewsArticle implements \JsonSerializable
      * @param int $type News article type
      *
      * @return void
+     *
+     * @throws InvalidEnumValue
      *
      * @since 1.0.0
      */

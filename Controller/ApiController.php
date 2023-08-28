@@ -111,7 +111,7 @@ final class ApiController extends Controller
      */
     private function updateNewsFromRequest(RequestAbstract $request, NewsArticle $new) : NewsArticle
     {
-        $new->publish = new \DateTime((string) ($request->getData('publish') ?? $new->publish->format('Y-m-d H:i:s')));
+        $new->publish = $request->hasData('publish') ? new \DateTime($request->getDataString('publish') ?? 'now') : $new->publish;
         $new->title   = $request->getDataString('title') ?? $new->title;
         $new->plain   = $request->getDataString('plain') ?? $new->plain;
         $new->content = Markdown::parse($request->getDataString('plain') ?? $new->plain);
@@ -322,7 +322,7 @@ final class ApiController extends Controller
     {
         $newsArticle            = new NewsArticle();
         $newsArticle->createdBy = new NullAccount($request->header->account);
-        $newsArticle->publish   = new \DateTime((string) ($request->getData('publish') ?? 'now'));
+        $newsArticle->publish   = new \DateTime($request->getDataString('publish') ?? 'now');
         $newsArticle->title     = $request->getDataString('title') ?? '';
         $newsArticle->plain     = $request->getDataString('plain') ?? '';
         $newsArticle->content   = Markdown::parse($request->getDataString('plain') ?? '');
