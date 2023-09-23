@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => '記事',
     'TYPE1'           => 'リンク',
     'TYPE2'           => '見出し',
+    'TYPE3'           => '',
     'Title'           => 'タイトル',
     'Type'            => 'タイプ',
     'Visible'         => '見える',

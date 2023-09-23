@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => 'Artykuł',
     'TYPE1'           => 'Połączyć',
     'TYPE2'           => 'Nagłówek',
+    'TYPE3'           => '',
     'Title'           => 'Tytuł',
     'Type'            => 'Rodzaj',
     'Visible'         => 'Widoczny',

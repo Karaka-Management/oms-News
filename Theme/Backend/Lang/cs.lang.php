@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => 'Článek',
     'TYPE1'           => 'Odkaz',
     'TYPE2'           => 'Titulek',
+    'TYPE3'           => '',
     'Title'           => 'Titul',
     'Type'            => 'Typ',
     'Visible'         => 'Viditelný',

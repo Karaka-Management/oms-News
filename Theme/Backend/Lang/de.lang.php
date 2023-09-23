@@ -34,6 +34,7 @@ return ['News' => [
     'Publish'         => 'Veröffentlichen',
     'Settings'        => 'Einstellungen',
     'Status'          => 'Status',
+    'TYPE0'           => '',
     'TYPE1'           => 'Artikel',
     'TYPE2'           => 'Verknüpfung',
     'TYPE3'           => 'Überschrift',

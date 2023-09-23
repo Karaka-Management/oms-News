@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => 'Artikla',
     'TYPE1'           => 'Linkki',
     'TYPE2'           => 'Otsikko',
+    'TYPE3'           => '',
     'Title'           => 'Otsikko',
     'Type'            => 'Tyyppi',
     'Visible'         => 'Näkyvä',

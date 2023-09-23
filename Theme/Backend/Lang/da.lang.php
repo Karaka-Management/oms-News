@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => 'Artikel',
     'TYPE1'           => 'Link',
     'TYPE2'           => 'Overskrift',
+    'TYPE3'           => '',
     'Title'           => 'Titel',
     'Type'            => 'Type',
     'Visible'         => 'Synlig',

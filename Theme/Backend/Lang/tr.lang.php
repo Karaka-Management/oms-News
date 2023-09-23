@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => 'Madde',
     'TYPE1'           => 'Bağlantı',
     'TYPE2'           => 'Başlık',
+    'TYPE3'           => '',
     'Title'           => 'Başlık',
     'Type'            => 'Tip',
     'Visible'         => 'Görünür',

@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => '기사',
     'TYPE1'           => '링크',
     'TYPE2'           => '표제',
+    'TYPE3'           => '',
     'Title'           => '제목',
     'Type'            => '유형',
     'Visible'         => '보이는',

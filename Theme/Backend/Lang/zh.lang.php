@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => '文章',
     'TYPE1'           => '关联',
     'TYPE2'           => '标题',
+    'TYPE3'           => '',
     'Title'           => '标题',
     'Type'            => '类型',
     'Visible'         => '可见的',

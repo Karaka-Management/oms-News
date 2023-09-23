@@ -34,6 +34,7 @@ return ['News' => [
     'Publish'         => 'Publish',
     'Settings'        => 'Settings',
     'Status'          => 'Status',
+    'TYPE0'           => '',
     'TYPE1'           => 'Article',
     'TYPE2'           => 'Link',
     'TYPE3'           => 'Headline',

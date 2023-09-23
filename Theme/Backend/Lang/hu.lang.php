@@ -37,6 +37,7 @@ return ['News' => [
     'TYPE0'           => 'Cikk',
     'TYPE1'           => 'Link',
     'TYPE2'           => 'Fejléc',
+    'TYPE3'           => '',
     'Title'           => 'Cím',
     'Type'            => 'típus',
     'Visible'         => 'Látható',
