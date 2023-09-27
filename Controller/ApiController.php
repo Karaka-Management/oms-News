@@ -82,7 +82,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -90,7 +90,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\News\Models\NewsArticle $old */
         $old = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
@@ -130,7 +130,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -138,7 +138,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNewsCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         if (!empty($val = $this->validateNewsCreate($request))) {
             $response->header->status = RequestStatusCode::R_400;
@@ -370,7 +370,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -378,7 +378,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsGet(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNewsGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $news = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
         $this->createStandardReturnResponse($request, $response, $news);
@@ -389,7 +389,7 @@ final class ApiController extends Controller
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return void
      *
@@ -397,7 +397,7 @@ final class ApiController extends Controller
      *
      * @since 1.0.0
      */
-    public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : void
+    public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         $news = NewsArticleMapper::get()->with('media')->with('tags')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $news, NewsArticleMapper::class, 'news', $request->getOrigin());

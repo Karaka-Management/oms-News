@@ -42,14 +42,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsDashboard(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsDashboard(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -112,7 +112,7 @@ final class BackendController extends Controller implements DashboardElementInte
      * {@inheritdoc}
      * @codeCoverageIgnore
      */
-    public function viewDashboard(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewDashboard(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
         $view->setTemplate('/Modules/News/Theme/Backend/dashboard-news');
@@ -140,14 +140,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsArticle(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsArticle(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -219,14 +219,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsArchive(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsArchive(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -261,14 +261,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsDraftList(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsDraftList(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -291,14 +291,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsCreate(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsCreate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -322,14 +322,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsEdit(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsEdit(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
@@ -355,14 +355,14 @@ final class BackendController extends Controller implements DashboardElementInte
      *
      * @param RequestAbstract  $request  Request
      * @param ResponseAbstract $response Response
-     * @param mixed            $data     Generic data
+     * @param array            $data     Generic data
      *
      * @return RenderableInterface
      *
      * @since 1.0.0
      * @codeCoverageIgnore
      */
-    public function viewNewsAnalysis(RequestAbstract $request, ResponseAbstract $response, mixed $data = null) : RenderableInterface
+    public function viewNewsAnalysis(RequestAbstract $request, ResponseAbstract $response, array $data = []) : RenderableInterface
     {
         $view = new View($this->app->l11nManager, $request, $response);
 
