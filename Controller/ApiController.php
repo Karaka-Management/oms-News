@@ -333,7 +333,7 @@ final class ApiController extends Controller
 
         // allow comments
         if ($request->hasData('allow_comments')
-            && ($commentApi = $this->app->moduleManager->get('Comments'))::ID > 0
+            && ($commentApi = $this->app->moduleManager->get('Comments', 'Api'))::ID > 0
         ) {
             /** @var \Modules\Comments\Controller\ApiController $commentApi */
             $commnetList           = $commentApi->createCommentList();
