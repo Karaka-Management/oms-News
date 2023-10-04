@@ -143,7 +143,7 @@ class NewsArticle implements \JsonSerializable
      * @var Tag[]
      * @since 1.0.0
      */
-    private array $tags = [];
+    public array $tags = [];
 
     /**
      * Comments
@@ -159,7 +159,7 @@ class NewsArticle implements \JsonSerializable
      * @var array
      * @since 1.0.0
      */
-    protected array $media = [];
+    public array $media = [];
 
     /**
      * Constructor.
