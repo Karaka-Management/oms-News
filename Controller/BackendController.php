@@ -21,6 +21,7 @@ use Modules\News\Models\NewsSeenMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
+use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
@@ -204,6 +205,9 @@ final class BackendController extends Controller implements DashboardElementInte
         if (!$article->comments !== null
             && $this->app->moduleManager->get('Comments')::ID > 0
         ) {
+            $head = $response->data['Content']->head;
+            $head->addAsset(AssetType::CSS, 'Modules/Comments/Theme/Backend/css/styles.css');
+
             $commentCreateView = new \Modules\Comments\Theme\Backend\Components\Comment\CreateView($this->app->l11nManager, $request, $response);
             $commentListView   = new \Modules\Comments\Theme\Backend\Components\Comment\ListView($this->app->l11nManager, $request, $response);
 

@@ -89,7 +89,9 @@ echo $this->data['nav']->render(); ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
                         <td><span class="tag"><?= $this->getHtml('TYPE' . $news->getType()); ?></span></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
-                        <td><a class="content" href="<?= UriFactory::build('{/base}/profile/single?{?}&for=' . $news->createdBy->id); ?>"><?= $this->printHtml($news->createdBy->name2 . ', ' . $news->createdBy->name1); ?></a>
+                        <td><a class="content" href="<?= UriFactory::build('{/base}/profile/single?{?}&for=' . $news->createdBy->id); ?>">
+                                <?= $this->printHtml($news->createdBy->name2 . ', ' . $news->createdBy->name1); ?>
+                            </a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->publish->format('Y-m-d')); ?></a>
                 <?php endforeach; ?>
                 <?php if ($count === 0) : ?>

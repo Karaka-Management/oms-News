@@ -33,7 +33,17 @@ echo $this->data['nav']->render(); ?>
         <section class="portlet">
             <div class="portlet-body">
                 <article>
-                    <h1><?= $this->printHtml($news->title); ?><span class="floatRight"><a href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?></a> - <?= $news->publish->format('Y-m-d'); ?></span></h1>
+                    <h1>
+                        <span class="floatRight">
+                            <a href="<?= $profile; ?>">
+                                <?= $this->printHtml($this->renderUserName(
+                                    '%3$s %2$s %1$s',
+                                    [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? '']
+                                )); ?>
+                            </a> - <?= $news->publish->format('Y-m-d'); ?>
+                        </span><?= $this->printHtml($news->title); ?>
+                    </h1>
+
                     <?= $news->content; ?>
                 </article>
                 <div>
@@ -59,7 +69,7 @@ echo $this->data['nav']->render(); ?>
 <?php
 $commentList = $news->comments;
 if (!empty($commentList) && $commentList->status !== CommentListStatus::INACTIVE) :
-    /* @todo: check if user has permission to create a comment here, maybe he is only allowed to read comments */
-    echo $this->getData('commentCreate')->render(1);
-    echo $this->getData('commentList')->render($commentList);
-endif; ?>
+  /* @todo: check if user has permission to create a comment here, maybe he is only allowed to read comments */
+  echo $this->getData('commentCreate')->render(1);
+  echo $this->getData('commentList')->render($commentList);
+endif;
