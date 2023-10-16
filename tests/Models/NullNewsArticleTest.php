@@ -39,4 +39,14 @@ final class NullNewsArticleTest extends \PHPUnit\Framework\TestCase
         $null = new NullNewsArticle(2);
         self::assertEquals(2, $null->id);
     }
+
+    /**
+     * @covers Modules\News\Models\NullNewsArticle
+     * @group module
+     */
+    public function testJsonSerialize() : void
+    {
+        $null = new NullNewsArticle(2);
+        self::assertEquals(['id' => 2], $null);
+    }
 }
