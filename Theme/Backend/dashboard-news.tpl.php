@@ -46,7 +46,7 @@ $newsList = $this->data['news'] ?? [];
                 <td data-label="">
                     <?php if ($news->isFeatured) : ?>
                         <a href="<?= $url; ?>">
-                            <i class="fa fa-star favorite"></i>
+                            <i class="g-icon favorite">star</i>
                         </a>
                     <?php endif; ?>
                 <td data-label="<?= $this->getHtml('Type', 'News'); ?>">
