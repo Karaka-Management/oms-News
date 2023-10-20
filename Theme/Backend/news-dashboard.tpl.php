@@ -44,7 +44,7 @@ echo $this->data['nav']->render(); ?>
             <div class="portlet-body">
                 <article><?= Markdown::parse(\substr($news->plain, 0, 500)); ?></article>
                 <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
-                    <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= empty($tag->icon) ? '' : '<i class="g-icon">' . $this->printHtml($tag->icon) . '</i>'; ?><?= $this->printHtml($tag->getL11n()); ?></span>
+                    <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= empty($tag->icon) ? '' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                 <?php endforeach; ?>
             </div>
             <div class="portlet-foot">

@@ -54,7 +54,7 @@ echo $this->data['nav']->render(); ?>
                 <div>
                     <?php foreach ($tags as $tag) : ?>
                         <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>">
-                            <?= empty($tag->icon) ? '' : '<i class="g-icon">' . $this->printHtml($tag->icon) . '</i>'; ?>
+                            <?= empty($tag->icon) ? '' : ''; ?>
                             <?= $this->printHtml($tag->getL11n()); ?>
                         </span>
                     <?php endforeach; ?>
