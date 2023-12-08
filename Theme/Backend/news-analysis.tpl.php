@@ -12,7 +12,7 @@
  */
 declare(strict_types=1);
 
-// @todo: stats: published timeline, published by tags, published by author
+// @todo stats: published timeline, published by tags, published by author
 
 echo $this->data['nav']->render(); ?>
 
