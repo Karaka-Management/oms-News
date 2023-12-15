@@ -71,8 +71,12 @@ echo $this->data['nav']->render(); ?>
 
 <?php
 $commentList = $news->comments;
-if (!empty($commentList) && $commentList->status !== CommentListStatus::INACTIVE) :
-  /* @todo check if user has permission to create a comment here, maybe he is only allowed to read comments */
+if ($this->data['commentPermissions']['write'] && $commentList->status === CommentListStatus::ACTIVE) :
   echo $this->getData('commentCreate')->render(1);
-  echo $this->getData('commentList')->render($commentList);
+endif;
+
+if ($this->data['commentPermissions']['list_modify']
+    || ($this->data['commentPermissions']['list_read'] && $commentList->status !== CommentListStatus::INACTIVE)
+) :
+    echo $this->getData('commentList')->render($commentList);
 endif;

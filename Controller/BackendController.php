@@ -20,6 +20,7 @@ use Modules\News\Models\NewsSeen;
 use Modules\News\Models\NewsSeenMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\PermissionCategory;
+use Modules\Comments\Models\PermissionCategory as NewsPermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
@@ -201,10 +202,9 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->data['editable'] = $this->app->accountManager->get($accountId)->hasPermission(
             PermissionType::MODIFY, $this->app->unitId, $this->app->appId, self::NAME, PermissionCategory::NEWS, $article->id);
 
-        // allow comments
-        if (!$article->comments !== null
-            && $this->app->moduleManager->get('Comments')::ID > 0
-        ) {
+        // Comments module available
+        $commentModule = $this->app->moduleManager->get('Comments');
+        if ($commentModule::ID > 0) {
             $head = $response->data['Content']->head;
             $head->addAsset(AssetType::CSS, 'Modules/Comments/Theme/Backend/css/styles.css');
 
@@ -213,6 +213,21 @@ final class BackendController extends Controller implements DashboardElementInte
 
             $view->data['commentCreate'] = $commentCreateView;
             $view->data['commentList']   = $commentListView;
+
+            $view->data['commentPermissions'] = [
+                'moderation' => $this->app->accountManager->get($request->header->account)->hasPermission(
+                    PermissionType::MODIFY, $this->app->unitId, $this->app->appId, $commentModule::NAME, NewsPermissionCategory::MODERATION, $article->comments->id ?? null
+                ),
+                'list_modify' => $this->app->accountManager->get($request->header->account)->hasPermission(
+                    PermissionType::MODIFY, $this->app->unitId, $this->app->appId, $commentModule::NAME, NewsPermissionCategory::LIST, $article->comments->id ?? null
+                ),
+                'list_read' => $this->app->accountManager->get($request->header->account)->hasPermission(
+                    PermissionType::READ, $this->app->unitId, $this->app->appId, $commentModule::NAME, NewsPermissionCategory::LIST, $article->comments->id ?? null
+                ),
+                'write' => $this->app->accountManager->get($request->header->account)->hasPermission(
+                    PermissionType::READ, $this->app->unitId, $this->app->appId, $commentModule::NAME, NewsPermissionCategory::COMMENT, null
+                ),
+            ];
         }
 
         return $view;
