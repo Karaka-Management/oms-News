@@ -25,7 +25,7 @@ $newsList = $this->data['news'] ?? [];
     <div class="portlet">
         <div class="portlet-head"><?= $this->getHtml('News', 'News'); ?></div>
         <div class="slider">
-        <table class="default">
+        <table class="default sticky">
             <thead>
             <tr>
                 <td>

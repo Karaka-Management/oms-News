@@ -17,7 +17,7 @@ namespace Modules\News\Models;
 use phpOMS\Stdlib\Base\Enum;
 
 /**
- * Permision state enum.
+ * Permission category enum.
  *
  * @package Modules\News\Models
  * @license OMS License 2.0
