@@ -52,7 +52,7 @@ $newsList = $this->data['news'] ?? [];
                 <td data-label="<?= $this->getHtml('Type', 'News'); ?>">
                     <a href="<?= $url; ?>">
                         <span class="tag <?= $this->printHtml($color); ?>">
-                            <?= $this->getHtml('TYPE' . $news->type, 'News'); ?>
+                            <?= $this->getHtml(':TYPE' . $news->type, 'News'); ?>
                         </span>
                     </a>
                 <td data-label="<?= $this->getHtml('Title', 'News'); ?>">
