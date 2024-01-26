@@ -22,7 +22,6 @@ use phpOMS\Message\Http\HttpRequest;
 use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\System\MimeType;
-use phpOMS\Uri\HttpUri;
 use phpOMS\Utils\TestUtils;
 
 trait ApiControllerNewsArticleTrait
@@ -35,7 +34,7 @@ trait ApiControllerNewsArticleTrait
     public function testApiNewsCreate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('title', 'Controller Test Title');
@@ -75,7 +74,7 @@ trait ApiControllerNewsArticleTrait
     public function testApiNewsCreateInvalidData() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('invalid', '1');
@@ -92,7 +91,7 @@ trait ApiControllerNewsArticleTrait
     public function testApiNewsGet() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', '1');
@@ -110,7 +109,7 @@ trait ApiControllerNewsArticleTrait
     public function testApiNewsUpdate() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', 1);
@@ -131,7 +130,7 @@ trait ApiControllerNewsArticleTrait
     public function testApiNewsDelete() : void
     {
         $response = new HttpResponse();
-        $request  = new HttpRequest(new HttpUri(''));
+        $request  = new HttpRequest();
 
         $request->header->account = 1;
         $request->setData('id', 1);

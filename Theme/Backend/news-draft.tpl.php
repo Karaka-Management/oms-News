@@ -84,12 +84,12 @@ echo $this->data['nav']->render(); ?>
                     $count = 0;
 
                     foreach ($newsList as $key => $news) : ++$count;
-                    $url   = UriFactory::build('{/base}/news/edit?{?}&id=' . $news->id);
+                    $url = UriFactory::build('{/base}/news/edit?{?}&id=' . $news->id);
                 ?>
                     <tr tabindex="0" data-href="<?= $url; ?>">
-                        <td><span class="tag"><?= $this->getHtml(':TYPE' . $news->getType()); ?></span></a>
+                        <td><span class="tag"><?= $this->getHtml(':TYPE' . $news->type); ?></span></a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
-                        <td><a class="content" href="<?= UriFactory::build('{/base}/profile/single?{?}&for=' . $news->createdBy->id); ?>">
+                        <td><a class="content" href="<?= UriFactory::build('{/base}/profile/view?{?}&for=' . $news->createdBy->id); ?>">
                                 <?= $this->printHtml($news->createdBy->name2 . ', ' . $news->createdBy->name1); ?>
                             </a>
                         <td><a href="<?= $url; ?>"><?= $this->printHtml($news->publish->format('Y-m-d')); ?></a>

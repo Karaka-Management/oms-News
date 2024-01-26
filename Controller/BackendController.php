@@ -14,13 +14,13 @@ declare(strict_types=1);
 
 namespace Modules\News\Controller;
 
+use Modules\Comments\Models\PermissionCategory as NewsPermissionCategory;
 use Modules\Dashboard\Models\DashboardElementInterface;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsSeen;
 use Modules\News\Models\NewsSeenMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\PermissionCategory;
-use Modules\Comments\Models\PermissionCategory as NewsPermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
@@ -160,7 +160,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('comments/comments')
             ->with('comments/comments/createdBy')
             ->with('comments/comments/media')
-            ->with('media')
+            ->with('files')
             ->with('tags')
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
@@ -196,7 +196,7 @@ final class BackendController extends Controller implements DashboardElementInte
             NewsSeenMapper::create()->execute($seen);
         }
 
-        $view->setTemplate('/Modules/News/Theme/Backend/news-single');
+        $view->setTemplate('/Modules/News/Theme/Backend/news-view');
         $view->data['nav']      = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
         $view->data['news']     = $article;
         $view->data['editable'] = $this->app->accountManager->get($accountId)->hasPermission(
@@ -252,7 +252,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->setTemplate('/Modules/News/Theme/Backend/news-archive');
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
-        $mapperQuery =  NewsArticleMapper::getAll()
+        $mapperQuery = NewsArticleMapper::getAll()
         ->with('createdBy')
         ->with('tags')
         ->with('tags/title')

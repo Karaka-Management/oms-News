@@ -18,7 +18,7 @@ use phpOMS\Account\PermissionType;
 use phpOMS\Router\RouteVerb;
 
 return [
-    '^.*/news/dashboard.*$' => [
+    '^.*/news/dashboard(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsDashboard',
             'verb'       => RouteVerb::GET,
@@ -29,7 +29,7 @@ return [
             ],
         ],
     ],
-    '^.*/news/article.*$' => [
+    '^.*/news/article(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsArticle',
             'verb'       => RouteVerb::GET,
@@ -40,7 +40,7 @@ return [
             ],
         ],
     ],
-    '^.*/news/archive.*$' => [
+    '^.*/news/archive(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsArchive',
             'verb'       => RouteVerb::GET,
@@ -51,7 +51,7 @@ return [
             ],
         ],
     ],
-    '^.*/news/draft/list.*$' => [
+    '^.*/news/draft/list(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsDraftList',
             'verb'       => RouteVerb::GET,
@@ -62,7 +62,7 @@ return [
             ],
         ],
     ],
-    '^.*/news/create.*$' => [
+    '^.*/news/create(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsCreate',
             'verb'       => RouteVerb::GET,
@@ -73,7 +73,7 @@ return [
             ],
         ],
     ],
-    '^.*/news/edit.*$' => [
+    '^.*/news/edit(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsEdit',
             'verb'       => RouteVerb::GET,
@@ -84,7 +84,7 @@ return [
             ],
         ],
     ],
-    '^.*/news/analysis.*$' => [
+    '^.*/news/analysis(\?.*$|$)' => [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsAnalysis',
             'verb'       => RouteVerb::GET,

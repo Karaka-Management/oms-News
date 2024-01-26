@@ -35,12 +35,12 @@ $newsList = $this->data['news'] ?? [];
             <?php
             $count = 0;
             foreach ($newsList as $key => $news) : ++$count;
-            $url    = UriFactory::build('{/base}/news/article?{?}&id=' . $news->id);
-            $color  = 'darkred';
+            $url   = UriFactory::build('{/base}/news/article?{?}&id=' . $news->id);
+            $color = 'darkred';
 
-            if ($news->type === NewsType::ARTICLE) { $color      = 'green'; }
+            if ($news->type === NewsType::ARTICLE) { $color = 'green'; }
             elseif ($news->type === NewsType::HEADLINE) { $color = 'purple'; }
-            elseif ($news->type === NewsType::LINK) { $color     = 'yellow'; }
+            elseif ($news->type === NewsType::LINK) { $color = 'yellow'; }
             ?>
             <tr data-href="<?= $url; ?>">
                 <td data-label="">

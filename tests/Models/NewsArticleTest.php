@@ -15,11 +15,9 @@ declare(strict_types=1);
 namespace Modules\News\tests\Models;
 
 use Modules\Admin\Models\NullAccount;
-use Modules\Media\Models\Media;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
-use Modules\Tag\Models\Tag;
 use phpOMS\Localization\ISO639x1Enum;
 
 /**
@@ -53,10 +51,10 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
         self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->createdAt->format('Y-m-d'));
         self::assertEquals((new \DateTime('now'))->format('Y-m-d'), $this->news->publish->format('Y-m-d'));
         self::assertFalse($this->news->isFeatured);
-        self::assertEquals(ISO639x1Enum::_EN, $this->news->getLanguage());
-        self::assertEquals(NewsStatus::DRAFT, $this->news->getStatus());
-        self::assertEquals(NewsType::ARTICLE, $this->news->getType());
-        self::assertEquals([], $this->news->getTags());
+        self::assertEquals(ISO639x1Enum::_EN, $this->news->language);
+        self::assertEquals(NewsStatus::DRAFT, $this->news->status);
+        self::assertEquals(NewsType::ARTICLE, $this->news->type);
+        self::assertEquals([], $this->news->tags);
         self::assertEquals('', $this->news->plain);
     }
 
@@ -127,39 +125,6 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @testdox The language can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testLanguageInputOutput() : void
-    {
-        $this->news->setLanguage(ISO639x1Enum::_DE);
-        self::assertEquals(ISO639x1Enum::_DE, $this->news->getLanguage());
-    }
-
-    /**
-     * @testdox The langague can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testStatusInputOutput() : void
-    {
-        $this->news->setStatus(NewsStatus::VISIBLE);
-        self::assertEquals(NewsStatus::VISIBLE, $this->news->getStatus());
-    }
-
-    /**
-     * @testdox The type can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testTypeInputOutput() : void
-    {
-        $this->news->setType(NewsType::HEADLINE);
-        self::assertEquals(NewsType::HEADLINE, $this->news->getType());
-    }
-
-    /**
      * @testdox The model can be correctly serialized
      * @covers Modules\News\Models\NewsArticle
      * @group module
@@ -172,102 +137,24 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
         $this->news->plain      = 'Plain';
         $this->news->publish    = new \DateTime('2001-05-07');
         $this->news->isFeatured = true;
-        $this->news->setLanguage(ISO639x1Enum::_DE);
-        $this->news->setStatus(NewsStatus::VISIBLE);
-        $this->news->setType(NewsType::HEADLINE);
+        $this->news->language   = ISO639x1Enum::_DE;
+        $this->news->status     = NewsStatus::VISIBLE;
+        $this->news->type       = NewsType::HEADLINE;
 
         $arr = [
-            'id'          => 0,
-            'title'       => $this->news->title,
-            'plain'       => $this->news->plain,
-            'content'     => $this->news->content,
-            'type'        => $this->news->getType(),
-            'status'      => $this->news->getStatus(),
-            'isFeatured'  => $this->news->isFeatured,
-            'publish'     => $this->news->publish,
-            'createdAt'   => $this->news->createdAt,
-            'createdBy'   => $this->news->createdBy,
+            'id'         => 0,
+            'title'      => $this->news->title,
+            'plain'      => $this->news->plain,
+            'content'    => $this->news->content,
+            'type'       => $this->news->type,
+            'status'     => $this->news->status,
+            'isFeatured' => $this->news->isFeatured,
+            'publish'    => $this->news->publish,
+            'createdAt'  => $this->news->createdAt,
+            'createdBy'  => $this->news->createdBy,
         ];
 
         self::assertEquals($arr, $this->news->toArray());
         self::assertEquals($arr, $this->news->jsonSerialize());
-    }
-
-    /**
-     * @testdox A invalid status throws a InvalidEnumValue exception
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testInvalidStatus() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $news = new NewsArticle();
-        $news->setStatus(9999);
-    }
-
-    /**
-     * @testdox A invalid type throws a InvalidEnumValue exception
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testInvalidType() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $news = new NewsArticle();
-        $news->setType(9999);
-    }
-
-    /**
-     * @testdox A invalid language throws a InvalidEnumValue exception
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testInvalidLanguage() : void
-    {
-        $this->expectException(\phpOMS\Stdlib\Base\Exception\InvalidEnumValue::class);
-
-        $news = new NewsArticle();
-        $news->setLanguage('9999');
-    }
-
-    /**
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testTagInputOutput() : void
-    {
-        $tag = new Tag();
-        $tag->setL11n('Tag');
-
-        $this->news->addTag($tag);
-        self::assertEquals($tag, $this->news->getTag(0));
-        self::assertCount(1, $this->news->getTags());
-    }
-
-    /**
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testTagRemove() : void
-    {
-        $tag = new Tag();
-        $tag->setL11n('Tag');
-
-        $this->news->addTag($tag);
-        self::assertTrue($this->news->removeTag(0));
-        self::assertCount(0, $this->news->getTags());
-        self::assertFalse($this->news->removeTag(0));
-    }
-
-    /**
-     * @covers Modules\News\Models\NewsArticle
-     * @group module
-     */
-    public function testMediaInputOutput() : void
-    {
-        $this->news->addMedia(new Media());
-        self::assertCount(1, $this->news->getMedia());
     }
 }

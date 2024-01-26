@@ -28,7 +28,7 @@ echo $this->data['nav']->render(); ?>
     <div class="col-xs-12">
         <?php foreach ($newsList as $news) :
             $url     = UriFactory::build('{/base}/news/article?id=' . $news->id);
-            $profile = UriFactory::build('profile/single?{?}&id=' . $news->createdBy->id);
+            $profile = UriFactory::build('profile/view?{?}&id=' . $news->createdBy->id);
         ?>
         <div class="portlet">
             <div class="portlet-head">
@@ -43,7 +43,7 @@ echo $this->data['nav']->render(); ?>
             </div>
             <div class="portlet-body">
                 <article><?= Markdown::parse(\substr($news->plain, 0, 500)); ?></article>
-                <?php $tags = $news->getTags(); foreach ($tags as $tag) : ?>
+                <?php foreach ($news->tags as $tag) : ?>
                     <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>"><?= empty($tag->icon) ? '' : ''; ?><?= $this->printHtml($tag->getL11n()); ?></span>
                 <?php endforeach; ?>
             </div>

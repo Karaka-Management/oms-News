@@ -26,9 +26,7 @@ use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
-use Modules\Tag\Models\NullTag;
 use phpOMS\Localization\ISO639x1Enum;
-use phpOMS\Message\Http\HttpResponse;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -111,13 +109,13 @@ final class ApiController extends Controller
      */
     private function updateNewsFromRequest(RequestAbstract $request, NewsArticle $new) : NewsArticle
     {
-        $new->publish = $request->hasData('publish') ? new \DateTime($request->getDataString('publish') ?? 'now') : $new->publish;
-        $new->title   = $request->getDataString('title') ?? $new->title;
-        $new->plain   = $request->getDataString('plain') ?? $new->plain;
-        $new->content = Markdown::parse($request->getDataString('plain') ?? $new->plain);
-        $new->setLanguage(\strtolower($request->getDataString('lang') ?? $new->getLanguage()));
-        $new->setType($request->getDataInt('type') ?? $new->getType());
-        $new->setStatus($request->getDataInt('status') ?? $new->getStatus());
+        $new->publish    = $request->hasData('publish') ? new \DateTime($request->getDataString('publish') ?? 'now') : $new->publish;
+        $new->title      = $request->getDataString('title') ?? $new->title;
+        $new->plain      = $request->getDataString('plain') ?? $new->plain;
+        $new->content    = Markdown::parse($request->getDataString('plain') ?? $new->plain);
+        $new->language   = ISO639x1Enum::tryFromValue($request->getDataString('lang')) ?? $new->language;
+        $new->type       = NewsType::tryFromValue($request->getDataInt('type')) ?? $new->type;
+        $new->status     = NewsStatus::tryFromValue($request->getDataInt('status')) ?? $new->status;
         $new->isFeatured = $request->getDataBool('featured') ?? $new->isFeatured;
         $new->unit       = $request->getDataInt('unit');
         $new->app        = $request->getDataInt('app');
@@ -320,15 +318,15 @@ final class ApiController extends Controller
      */
     private function createNewsArticleFromRequest(RequestAbstract $request) : NewsArticle
     {
-        $newsArticle            = new NewsArticle();
-        $newsArticle->createdBy = new NullAccount($request->header->account);
-        $newsArticle->publish   = new \DateTime($request->getDataString('publish') ?? 'now');
-        $newsArticle->title     = $request->getDataString('title') ?? '';
-        $newsArticle->plain     = $request->getDataString('plain') ?? '';
-        $newsArticle->content   = Markdown::parse($request->getDataString('plain') ?? '');
-        $newsArticle->setLanguage(\strtolower($request->getDataString('lang') ?? $request->header->l11n->language));
-        $newsArticle->setType($request->getDataInt('type') ?? NewsType::ARTICLE);
-        $newsArticle->setStatus($request->getDataInt('status') ?? NewsStatus::VISIBLE);
+        $newsArticle             = new NewsArticle();
+        $newsArticle->createdBy  = new NullAccount($request->header->account);
+        $newsArticle->publish    = new \DateTime($request->getDataString('publish') ?? 'now');
+        $newsArticle->title      = $request->getDataString('title') ?? '';
+        $newsArticle->plain      = $request->getDataString('plain') ?? '';
+        $newsArticle->content    = Markdown::parse($request->getDataString('plain') ?? '');
+        $newsArticle->language   = ISO639x1Enum::tryFromValue($request->getDataString('lang')) ?? $request->header->l11n->language;
+        $newsArticle->type       = NewsType::tryFromValue($request->getDataInt('type')) ?? NewsType::ARTICLE;
+        $newsArticle->status     = NewsStatus::tryFromValue($request->getDataInt('status')) ?? NewsStatus::VISIBLE;
         $newsArticle->isFeatured = $request->getDataBool('featured') ?? true;
 
         // allow comments
@@ -340,26 +338,8 @@ final class ApiController extends Controller
             $newsArticle->comments = $commnetList;
         }
 
-        if (!empty($tags = $request->getDataJson('tags'))) {
-            foreach ($tags as $tag) {
-                if (!isset($tag['id'])) {
-                    $request->setData('title', $tag['title'], true);
-                    $request->setData('color', $tag['color'], true);
-                    $request->setData('icon', $tag['icon'] ?? null, true);
-                    $request->setData('language', $tag['language'], true);
-
-                    $internalResponse = new HttpResponse();
-                    $this->app->moduleManager->get('Tag')->apiTagCreate($request, $internalResponse);
-
-                    if (!\is_array($data = $internalResponse->getDataArray($request->uri->__toString()))) {
-                        continue;
-                    }
-
-                    $newsArticle->addTag($data['response']);
-                } else {
-                    $newsArticle->addTag(new NullTag((int) $tag['id']));
-                }
-            }
+        if ($request->hasData('tags')) {
+            $newsArticle->tags = $this->app->moduleManager->get('Tag', 'Api')->createTagsFromRequest($request);
         }
 
         return $newsArticle;
@@ -399,7 +379,7 @@ final class ApiController extends Controller
      */
     public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        $news = NewsArticleMapper::get()->with('media')->with('tags')->where('id', (int) $request->getData('id'))->execute();
+        $news = NewsArticleMapper::get()->with('files')->with('tags')->where('id', (int) $request->getData('id'))->execute();
         $this->deleteModel($request->header->account, $news, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $news);
     }

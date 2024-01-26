@@ -95,7 +95,7 @@ final class NewsArticleMapper extends DataMapperFactory
             'self'     => 'news_tag_dst',
             'external' => 'news_tag_src',
         ],
-        'media'        => [
+        'files' => [
             'mapper'   => MediaMapper::class,
             'table'    => 'news_media',
             'external' => 'news_media_dst',
