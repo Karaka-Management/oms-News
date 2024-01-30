@@ -193,7 +193,7 @@ final class ApiController extends Controller
                     $news->id,
                     $media->id,
                     NewsArticleMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
@@ -245,7 +245,7 @@ final class ApiController extends Controller
                     $news->id,
                     (int) $media,
                     NewsArticleMapper::class,
-                    'media',
+                    'files',
                     '',
                     $request->getOrigin()
                 );
