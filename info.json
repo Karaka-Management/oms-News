@@ -27,7 +27,8 @@
         "Navigation": "*",
         "Comments": "*",
         "Dashboard": "*",
-        "Media": "*"
+        "Media": "*",
+        "Search": "*"
     },
     "load": [
         {

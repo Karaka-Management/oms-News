@@ -1,0 +1,7 @@
+{
+    "id": "{id}",
+    "title": "{title}",
+    "content": "{content}",
+    "language": "{language}",
+    "tags": ["{tags}"]
+}
