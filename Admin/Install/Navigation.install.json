@@ -79,7 +79,7 @@
                 "type": 3,
                 "subtype": 1,
                 "name": "Analysis",
-                "uri": "{/base}/news/analysis",
+                "uri": "{/base}/news/analysis?{?}",
                 "target": "self",
                 "icon": null,
                 "order": 15,

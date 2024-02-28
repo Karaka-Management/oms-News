@@ -36,8 +36,7 @@ echo $this->data['nav']->render(); ?>
                     <a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
                 <?= $isSeen ? '' : '</strong>'; ?>
                 <span class="end-xs">
-                    <a class="content" href="<?= $profile; ?>"><?= $this->printHtml($this->renderUserName('%3$s %2$s %1$s', [$news->createdBy->name1, $news->createdBy->name2, $news->createdBy->name3, $news->createdBy->login ?? ''])); ?>
-                    </a> - <?= $news->publish->format('Y-m-d'); ?>
+                    <?= $news->publish->format('Y-m-d'); ?>
                 </span>
 
             </div>

@@ -31,7 +31,7 @@ echo $this->data['nav']->render(); ?>
             <div class="portlet-body">
                 <article>
                     <h1>
-                        <span class="floatRight">
+                        <span class="rf">
                             <a href="<?= $profile; ?>">
                                 <?= $this->printHtml($this->renderUserName(
                                     '%3$s %2$s %1$s',

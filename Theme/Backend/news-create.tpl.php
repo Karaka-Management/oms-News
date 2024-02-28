@@ -93,7 +93,7 @@ echo $this->data['nav']->render(); ?>
                                 <?php else : ?>
                                     <input type="submit" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
                                 <?php endif; ?>
-                            <td class="rightText">
+                            <td class="rT">
                                 <input type="submit" name="saveButton" id="iSaveButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
                     </table>
                 </div>

@@ -31,7 +31,7 @@ echo $this->data['nav']->render(); ?>
             <div class="portlet-body">
                 <article>
                     <h1>
-                        <span class="floatRight">
+                        <span class="rf">
                             <a href="<?= $profile; ?>">
                                 <?= $this->printHtml($this->renderUserName(
                                     '%3$s %2$s %1$s',
@@ -67,7 +67,7 @@ echo $this->data['nav']->render(); ?>
 
 <?php
 $commentList = $news->comments;
-if ($this->data['commentPermissions']['write'] && $commentList->status === CommentListStatus::ACTIVE) :
+if ($this->data['commentPermissions']['write'] && $commentList?->status === CommentListStatus::ACTIVE) :
   echo $this->getData('commentCreate')->render(1);
 endif;
 

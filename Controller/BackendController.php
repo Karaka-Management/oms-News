@@ -24,6 +24,7 @@ use Modules\News\Models\PermissionCategory;
 use phpOMS\Account\PermissionType;
 use phpOMS\Asset\AssetType;
 use phpOMS\Contract\RenderableInterface;
+use phpOMS\DataStorage\Database\Query\OrderType;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -65,26 +66,28 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
             ->where('language', $response->header->l11n->language)
-            ->where('tags/title/language', $response->header->l11n->language);
+            ->where('tags/title/language', $response->header->l11n->language)
+            ->sort('publish', OrderType::DESC)
+            ->limit(25);
 
         /** @var \Modules\News\Models\NewsArticle[] $objs */
         $objs = [];
         if ($request->getData('ptype') === 'p') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
             $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
-                    ->limit(25)->execute();
+                    ->execute();
 
             $view->data['news'] = $objs;
         } elseif ($request->getData('ptype') === 'n') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
             $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
-                    ->limit(25)->execute();
+                    ->execute();
 
             $view->data['news'] = $objs;
         } else {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
             $objs = $mapperQuery->where('id', 0, '>')
-                    ->limit(25)->execute();
+                    ->execute();
 
             $view->data['news'] = $objs;
         }
@@ -128,7 +131,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('publish', new \DateTime('now'), '<=')
             ->where('language', $response->header->l11n->language)
             ->where('tags/title/language', $response->header->l11n->language)
-            ->where('id', 0, '>')
+            ->sort('publish', OrderType::DESC)
             ->limit(5)
             ->execute();
 
@@ -165,7 +168,6 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('tags/title')
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
-            ->where('language', $response->header->l11n->language)
             ->where('tags/title/language', $response->header->l11n->language)
             ->where('id', (int) $request->getData('id'))
             ->execute();
@@ -206,7 +208,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $commentModule = $this->app->moduleManager->get('Comments');
         if ($commentModule::ID > 0) {
             $head = $response->data['Content']->head;
-            $head->addAsset(AssetType::CSS, 'Modules/Comments/Theme/Backend/css/styles.css');
+            $head->addAsset(AssetType::CSS, 'Modules/Comments/Theme/Backend/css/styles.css?v=' . self::VERSION);
 
             $commentCreateView = new \Modules\Comments\Theme\Backend\Components\Comment\CreateView($this->app->l11nManager, $request, $response);
             $commentListView   = new \Modules\Comments\Theme\Backend\Components\Comment\ListView($this->app->l11nManager, $request, $response);
@@ -258,18 +260,19 @@ final class BackendController extends Controller implements DashboardElementInte
         ->with('tags/title')
         ->where('status', NewsStatus::VISIBLE)
         ->where('publish', new \DateTime('now'), '<=')
-        ->where('language', $response->header->l11n->language)
-        ->where('tags/title/language', $response->header->l11n->language);
+        ->where('tags/title/language', $response->header->l11n->language)
+        ->sort('publish', OrderType::DESC)
+        ->limit(25);
 
         if ($request->getData('ptype') === 'p') {
             $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
-                    ->limit(25)->execute();
+                    ->execute();
         } elseif ($request->getData('ptype') === 'n') {
             $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
-                    ->limit(25)->execute();
+                    ->execute();
         } else {
             $view->data['news'] = $mapperQuery->where('id', 0, '>')
-                    ->limit(25)->execute();
+                    ->execute();
         }
 
         return $view;

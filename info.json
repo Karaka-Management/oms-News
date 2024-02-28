@@ -21,7 +21,8 @@
         "Home": "1.0.0",
         "Tag": "1.0.0",
         "Comments": "*",
-        "Media": "*"
+        "Media": "*",
+        "Notification": "1.0.0"
     },
     "providing": {
         "Navigation": "*",

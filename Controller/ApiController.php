@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\News\Controller;
 
 use Modules\Admin\Models\AccountMapper;
+use Modules\Admin\Models\AccountPermissionMapper;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
@@ -26,6 +27,10 @@ use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
+use Modules\News\Models\PermissionCategory;
+use Modules\Notification\Models\Notification;
+use Modules\Notification\Models\NotificationMapper;
+use Modules\Notification\Models\NotificationType;
 use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Message\Http\RequestStatusCode;
 use phpOMS\Message\RequestAbstract;
@@ -42,6 +47,31 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  */
 final class ApiController extends Controller
 {
+    private function createNotifications(NewsArticle $article, RequestAbstract $request) : void
+    {
+        $accounts = AccountMapper::findReadPermission(
+            $this->app->unitId,
+            self::NAME,
+            PermissionCategory::NEWS,
+            $article->id
+        );
+
+        foreach ($accounts as $account) {
+            $notification = new Notification();
+            $notification->module = self::NAME;
+            $notification->title = $article->title;
+            $notification->createdAt = \DateTimeImmutable::createFromMutable($article->publish);
+            $notification->createdBy = $article->createdBy;
+            $notification->createdFor = new NullAccount($account);
+            $notification->type = NotificationType::CREATE;
+            $notification->category = PermissionCategory::NEWS;
+            $notification->element = $article->id;
+            $notification->redirect = '{/base}/news/article?{?}&id=' . $article->id;
+
+            $this->createModel($request->header->account, $notification, NotificationMapper::class, 'notification', $request->getOrigin());
+        }
+    }
+
     /**
      * Validate news create request
      *
@@ -147,6 +177,8 @@ final class ApiController extends Controller
 
         $newsArticle = $this->createNewsArticleFromRequest($request);
         $this->createModel($request->header->account, $newsArticle, NewsArticleMapper::class, 'news', $request->getOrigin());
+
+        $this->createNotifications($newsArticle, $request);
 
         if (!empty($request->files)
             || !empty($request->getDataJson('media'))
@@ -325,6 +357,7 @@ final class ApiController extends Controller
         $newsArticle->type       = NewsType::tryFromValue($request->getDataInt('type')) ?? NewsType::ARTICLE;
         $newsArticle->status     = NewsStatus::tryFromValue($request->getDataInt('status')) ?? NewsStatus::VISIBLE;
         $newsArticle->isFeatured = $request->getDataBool('featured') ?? true;
+        $newsArticle->unit       = $request->getDataInt('unit') ?? null;
 
         // allow comments
         if ($request->hasData('allow_comments')

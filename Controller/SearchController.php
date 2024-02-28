@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Modules\News\Controller;
 
 use Modules\News\Models\NewsArticleMapper;
+use Modules\News\Models\NewsStatus;
 use phpOMS\DataStorage\Database\Query\OrderType;
 use phpOMS\Message\RequestAbstract;
 use phpOMS\Message\ResponseAbstract;
@@ -51,9 +52,11 @@ final class SearchController extends Controller
             ->with('tags/title')
             ->where('title', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE')
             ->where('plain', '%' . ($request->getDataString('search') ?? '') . '%', 'LIKE', 'OR')
+            ->where('status', NewsStatus::VISIBLE)
+            ->where('publish', new \DateTime('now'), '<=')
             ->where('language', $response->header->l11n->language)
             ->where('tags/title/language', $response->header->l11n->language)
-            ->sort('createdAt', OrderType::DESC)
+            ->sort('publish', OrderType::DESC)
             ->limit(8)
             ->execute();
 
