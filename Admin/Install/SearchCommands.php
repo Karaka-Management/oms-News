@@ -29,4 +29,15 @@ return [
             ],
         ],
     ],
+    '^:tag .*?' => [
+        [
+            'dest'       => '\Modules\News\Controller\SearchController:searchTag',
+            'verb'       => RouteVerb::ANY,
+            'permission' => [
+                'module' => SearchController::NAME,
+                'type'   => PermissionType::READ,
+                'state'  => PermissionCategory::NEWS,
+            ],
+        ],
+    ],
 ];

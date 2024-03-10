@@ -44,6 +44,62 @@ final class SearchController extends Controller
      *
      * @since 1.0.0
      */
+    public function searchTag(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
+    {
+        $search = $request->getDataString('search') ?? '';
+
+        $searchIdStartPos = \stripos($search, ':');
+        $patternStartPos  = $searchIdStartPos === false
+            ? -1
+            : \stripos($search, ' ', $searchIdStartPos);
+
+        $pattern = \substr($search, $patternStartPos + 1);
+
+        /** @var \Modules\News\Models\NewsArticle[] $news */
+        $news = NewsArticleMapper::getAll()
+            ->with('tags')
+            ->with('tags/title')
+            ->where('status', NewsStatus::VISIBLE)
+            ->where('publish', new \DateTime('now'), '<=')
+            ->where('language', $response->header->l11n->language)
+            ->where('tags/title/language', $response->header->l11n->language)
+            ->where('tags/title/content', $pattern)
+            ->sort('publish', OrderType::DESC)
+            ->limit(8)
+            ->execute();
+
+        $results = [];
+        foreach ($news as $article) {
+            $results[] = [
+                'title'     => $article->title,
+                'summary'   => '',
+                'link'      => '{/base}/news/article?id=' . $article->id,
+                'account'   => '',
+                'createdAt' => $article->createdAt,
+                'image' => '',
+                'tags'  => $article->tags,
+                'type'  => 'list_links',
+                'module'  => 'News',
+            ];
+        }
+
+        $response->header->set('Content-Type', MimeType::M_JSON . '; charset=utf-8', true);
+        $response->add($request->uri->__toString(), $results);
+    }
+
+    /**
+     * Api method to search for tags
+     *
+     * @param RequestAbstract  $request  Request
+     * @param ResponseAbstract $response Response
+     * @param array            $data     Generic data
+     *
+     * @return void
+     *
+     * @api
+     *
+     * @since 1.0.0
+     */
     public function searchGeneral(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\News\Models\NewsArticle[] $news */
