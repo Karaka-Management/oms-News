@@ -76,10 +76,10 @@ final class SearchController extends Controller
                 'link'      => '{/base}/news/article?id=' . $article->id,
                 'account'   => '',
                 'createdAt' => $article->createdAt,
-                'image' => '',
-                'tags'  => $article->tags,
-                'type'  => 'list_links',
-                'module'  => 'News',
+                'image'     => '',
+                'tags'      => $article->tags,
+                'type'      => 'list_links',
+                'module'    => 'News',
             ];
         }
 
@@ -124,10 +124,10 @@ final class SearchController extends Controller
                 'link'      => '{/base}/news/article?id=' . $article->id,
                 'account'   => '',
                 'createdAt' => $article->createdAt,
-                'image' => '',
-                'tags'  => $article->tags,
-                'type'  => 'list_links',
-                'module'  => 'News',
+                'image'     => '',
+                'tags'      => $article->tags,
+                'type'      => 'list_links',
+                'module'    => 'News',
             ];
         }
 

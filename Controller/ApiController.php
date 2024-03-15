@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Modules\News\Controller;
 
 use Modules\Admin\Models\AccountMapper;
-use Modules\Admin\Models\AccountPermissionMapper;
 use Modules\Admin\Models\NullAccount;
 use Modules\Media\Models\CollectionMapper;
 use Modules\Media\Models\MediaMapper;
@@ -47,6 +46,16 @@ use phpOMS\Utils\Parser\Markdown\Markdown;
  */
 final class ApiController extends Controller
 {
+    /**
+     * Create notification for new articles
+     *
+     * @param NewsArticle     $article News article
+     * @param RequestAbstract $request Request
+     *
+     * @return void
+     *
+     * @since 1.0.0
+     */
     private function createNotifications(NewsArticle $article, RequestAbstract $request) : void
     {
         $accounts = AccountMapper::findReadPermission(
@@ -57,16 +66,16 @@ final class ApiController extends Controller
         );
 
         foreach ($accounts as $account) {
-            $notification = new Notification();
-            $notification->module = self::NAME;
-            $notification->title = $article->title;
-            $notification->createdAt = \DateTimeImmutable::createFromMutable($article->publish);
-            $notification->createdBy = $article->createdBy;
+            $notification             = new Notification();
+            $notification->module     = self::NAME;
+            $notification->title      = $article->title;
+            $notification->createdAt  = \DateTimeImmutable::createFromMutable($article->publish);
+            $notification->createdBy  = $article->createdBy;
             $notification->createdFor = new NullAccount($account);
-            $notification->type = NotificationType::CREATE;
-            $notification->category = PermissionCategory::NEWS;
-            $notification->element = $article->id;
-            $notification->redirect = '{/base}/news/article?{?}&id=' . $article->id;
+            $notification->type       = NotificationType::CREATE;
+            $notification->category   = PermissionCategory::NEWS;
+            $notification->element    = $article->id;
+            $notification->redirect   = '{/base}/news/article?{?}&id=' . $article->id;
 
             $this->createModel($request->header->account, $notification, NotificationMapper::class, 'notification', $request->getOrigin());
         }
