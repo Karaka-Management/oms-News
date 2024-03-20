@@ -2,7 +2,7 @@
 /**
  * Jingga
  *
- * PHP Version 8.1
+ * PHP Version 8.2
  *
  * @package   Modules\News\Admin\Install
  * @copyright Dennis Eichhorn
