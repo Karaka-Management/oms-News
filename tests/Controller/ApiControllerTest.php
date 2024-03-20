@@ -29,11 +29,10 @@ use phpOMS\Router\WebRouter;
 use phpOMS\Utils\TestUtils;
 
 /**
- * @testdox Modules\News\tests\Controller\ApiControllerTest: News api controller
- *
  * @internal
  */
-final class ControllerTest extends \PHPUnit\Framework\TestCase
+#[\PHPUnit\Framework\Attributes\TestDox('Modules\News\tests\Controller\ApiControllerTest: News api controller')]
+final class ApiControllerTest extends \PHPUnit\Framework\TestCase
 {
     protected $app = null;
 

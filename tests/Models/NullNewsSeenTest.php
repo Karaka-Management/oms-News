@@ -19,31 +19,23 @@ use Modules\News\Models\NullNewsSeen;
 /**
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\News\Models\NullNewsSeen::class)]
 final class NullNewsSeenTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \Modules\News\Models\NullNewsSeen
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testNull() : void
     {
         self::assertInstanceOf('\Modules\News\Models\NewsSeen', new NullNewsSeen());
     }
 
-    /**
-     * @covers \Modules\News\Models\NullNewsSeen
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testId() : void
     {
         $null = new NullNewsSeen(2);
         self::assertEquals(2, $null->id);
     }
 
-    /**
-     * @covers \Modules\News\Models\NullNewsSeen
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testJsonSerialize() : void
     {
         $null = new NullNewsSeen(2);

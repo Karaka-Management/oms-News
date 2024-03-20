@@ -17,10 +17,10 @@ namespace Modules\News\tests\Models;
 use Modules\News\Models\NewsSeen;
 
 /**
- * @testdox Modules\News\tests\Models\NewsSeenTest: News article
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\News\Models\NewsSeen::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('Modules\News\tests\Models\NewsSeenTest: News article')]
 final class NewsSeenTest extends \PHPUnit\Framework\TestCase
 {
     protected NewsSeen $seen;
@@ -33,10 +33,7 @@ final class NewsSeenTest extends \PHPUnit\Framework\TestCase
         $this->seen = new NewsSeen();
     }
 
-    /**
-     * @covers \Modules\News\Models\NewsSeen
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->seen->id);

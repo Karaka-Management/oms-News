@@ -27,10 +27,10 @@ use phpOMS\Utils\TestUtils;
 trait ApiControllerNewsArticleTrait
 {
     /**
-     * @testdox A news article can be created
      * @covers \Modules\News\Controller\ApiController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A news article can be created')]
     public function testApiNewsCreate() : void
     {
         $response = new HttpResponse();
@@ -69,8 +69,8 @@ trait ApiControllerNewsArticleTrait
 
     /**
      * @covers \Modules\News\Controller\ApiController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
     public function testApiNewsCreateInvalidData() : void
     {
         $response = new HttpResponse();
@@ -84,10 +84,10 @@ trait ApiControllerNewsArticleTrait
     }
 
     /**
-     * @testdox A news article can be returned
      * @covers \Modules\News\Controller\ApiController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A news article can be returned')]
     public function testApiNewsGet() : void
     {
         $response = new HttpResponse();
@@ -102,10 +102,10 @@ trait ApiControllerNewsArticleTrait
     }
 
     /**
-     * @testdox A news article can be updated
      * @covers \Modules\News\Controller\ApiController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A news article can be updated')]
     public function testApiNewsUpdate() : void
     {
         $response = new HttpResponse();
@@ -123,10 +123,10 @@ trait ApiControllerNewsArticleTrait
     }
 
     /**
-     * @testdox A news article can be deleted
      * @covers \Modules\News\Controller\ApiController
-     * @group module
      */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('A news article can be deleted')]
     public function testApiNewsDelete() : void
     {
         $response = new HttpResponse();

@@ -23,17 +23,14 @@ use phpOMS\Localization\ISO639x1Enum;
 use phpOMS\Utils\RnG\Text;
 
 /**
- * @testdox Modules\News\tests\Models\NewsArticleMapperTest: News article mapper
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\News\Models\NewsArticleMapper::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('Modules\News\tests\Models\NewsArticleMapperTest: News article mapper')]
 final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @testdox The model can be created and read from the database
-     * @covers \Modules\News\Models\NewsArticleMapper
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model can be created and read from the database')]
     public function testCRUD() : void
     {
         $text = new Text();
@@ -66,11 +63,9 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
         self::assertEquals($news->publish->format('Y-m-d'), $newsR->publish->format('Y-m-d'));
     }
 
-    /**
-     * @group volume
-     * @group module
-     * @coversNothing
-     */
+    #[\PHPUnit\Framework\Attributes\Group('volume')]
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\CoversNothing]
     public function testVolume() : void
     {
         $text = new Text();

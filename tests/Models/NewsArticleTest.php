@@ -21,10 +21,10 @@ use Modules\News\Models\NewsType;
 use phpOMS\Localization\ISO639x1Enum;
 
 /**
- * @testdox Modules\News\tests\Models\NewsArticleTest: News article
- *
  * @internal
  */
+#[\PHPUnit\Framework\Attributes\CoversClass(\Modules\News\Models\NewsArticle::class)]
+#[\PHPUnit\Framework\Attributes\TestDox('Modules\News\tests\Models\NewsArticleTest: News article')]
 final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 {
     protected NewsArticle $news;
@@ -37,11 +37,8 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
         $this->news = new NewsArticle();
     }
 
-    /**
-     * @testdox The model has the expected default values after initialization
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model has the expected default values after initialization')]
     public function testDefault() : void
     {
         self::assertEquals(0, $this->news->id);
@@ -58,77 +55,56 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
         self::assertEquals('', $this->news->plain);
     }
 
-    /**
-     * @testdox The creator can be correctly set and returned
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The creator can be correctly set and returned')]
     public function testCreatorInputOutput() : void
     {
         $this->news->createdBy = new NullAccount(1);
         self::assertEquals(1, $this->news->createdBy->id);
     }
 
-    /**
-     * @testdox The title can be correctly set and returned
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The title can be correctly set and returned')]
     public function testTitleInputOutput() : void
     {
         $this->news->title = 'Title';
         self::assertEquals('Title', $this->news->title);
     }
 
-    /**
-     * @testdox The content can be correctly set and returned
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The content can be correctly set and returned')]
     public function testContentInputOutput() : void
     {
         $this->news->content = 'Content';
         self::assertEquals('Content', $this->news->content);
     }
 
-    /**
-     * @testdox The plain content can be correctly set and returned
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The plain content can be correctly set and returned')]
     public function testPlainInputOutput() : void
     {
         $this->news->plain = 'Plain';
         self::assertEquals('Plain', $this->news->plain);
     }
 
-    /**
-     * @testdox The publish date can be correctly set and returned
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The publish date can be correctly set and returned')]
     public function testPublishInputOutput() : void
     {
         $this->news->publish = $data = new \DateTime('2001-05-07');
         self::assertEquals($data, $this->news->publish);
     }
 
-    /**
-     * @testdox The featured flag can be correctly set and returned
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The featured flag can be correctly set and returned')]
     public function testFeaturedInputOutput() : void
     {
         $this->news->isFeatured = true;
         self::assertTrue($this->news->isFeatured);
     }
 
-    /**
-     * @testdox The model can be correctly serialized
-     * @covers \Modules\News\Models\NewsArticle
-     * @group module
-     */
+    #[\PHPUnit\Framework\Attributes\Group('module')]
+    #[\PHPUnit\Framework\Attributes\TestDox('The model can be correctly serialized')]
     public function testSerialization() : void
     {
         $this->news->title      = 'Title';
