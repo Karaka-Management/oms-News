@@ -34,7 +34,7 @@ final class NewsSeenTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\News\Models\NewsSeen
+     * @covers \Modules\News\Models\NewsSeen
      * @group module
      */
     public function testDefault() : void

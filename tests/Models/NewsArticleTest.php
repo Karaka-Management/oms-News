@@ -39,7 +39,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model has the expected default values after initialization
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testDefault() : void
@@ -60,7 +60,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The creator can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testCreatorInputOutput() : void
@@ -71,7 +71,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The title can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testTitleInputOutput() : void
@@ -82,7 +82,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The content can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testContentInputOutput() : void
@@ -93,7 +93,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The plain content can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testPlainInputOutput() : void
@@ -104,7 +104,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The publish date can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testPublishInputOutput() : void
@@ -115,7 +115,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The featured flag can be correctly set and returned
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testFeaturedInputOutput() : void
@@ -126,7 +126,7 @@ final class NewsArticleTest extends \PHPUnit\Framework\TestCase
 
     /**
      * @testdox The model can be correctly serialized
-     * @covers Modules\News\Models\NewsArticle
+     * @covers \Modules\News\Models\NewsArticle
      * @group module
      */
     public function testSerialization() : void

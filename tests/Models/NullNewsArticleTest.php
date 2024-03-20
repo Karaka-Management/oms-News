@@ -22,7 +22,7 @@ use Modules\News\Models\NullNewsArticle;
 final class NullNewsArticleTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers Modules\News\Models\NullNewsArticle
+     * @covers \Modules\News\Models\NullNewsArticle
      * @group module
      */
     public function testNull() : void
@@ -31,7 +31,7 @@ final class NullNewsArticleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\News\Models\NullNewsArticle
+     * @covers \Modules\News\Models\NullNewsArticle
      * @group module
      */
     public function testId() : void
@@ -41,7 +41,7 @@ final class NullNewsArticleTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers Modules\News\Models\NullNewsArticle
+     * @covers \Modules\News\Models\NullNewsArticle
      * @group module
      */
     public function testJsonSerialize() : void

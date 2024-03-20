@@ -31,7 +31,7 @@ final class NewsArticleMapperTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @testdox The model can be created and read from the database
-     * @covers Modules\News\Models\NewsArticleMapper
+     * @covers \Modules\News\Models\NewsArticleMapper
      * @group module
      */
     public function testCRUD() : void

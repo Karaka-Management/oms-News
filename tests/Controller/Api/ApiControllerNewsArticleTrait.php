@@ -28,7 +28,7 @@ trait ApiControllerNewsArticleTrait
 {
     /**
      * @testdox A news article can be created
-     * @covers Modules\News\Controller\ApiController
+     * @covers \Modules\News\Controller\ApiController
      * @group module
      */
     public function testApiNewsCreate() : void
@@ -68,7 +68,7 @@ trait ApiControllerNewsArticleTrait
     }
 
     /**
-     * @covers Modules\News\Controller\ApiController
+     * @covers \Modules\News\Controller\ApiController
      * @group module
      */
     public function testApiNewsCreateInvalidData() : void
@@ -85,7 +85,7 @@ trait ApiControllerNewsArticleTrait
 
     /**
      * @testdox A news article can be returned
-     * @covers Modules\News\Controller\ApiController
+     * @covers \Modules\News\Controller\ApiController
      * @group module
      */
     public function testApiNewsGet() : void
@@ -103,7 +103,7 @@ trait ApiControllerNewsArticleTrait
 
     /**
      * @testdox A news article can be updated
-     * @covers Modules\News\Controller\ApiController
+     * @covers \Modules\News\Controller\ApiController
      * @group module
      */
     public function testApiNewsUpdate() : void
@@ -124,7 +124,7 @@ trait ApiControllerNewsArticleTrait
 
     /**
      * @testdox A news article can be deleted
-     * @covers Modules\News\Controller\ApiController
+     * @covers \Modules\News\Controller\ApiController
      * @group module
      */
     public function testApiNewsDelete() : void
