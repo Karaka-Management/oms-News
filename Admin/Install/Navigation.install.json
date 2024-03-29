@@ -82,11 +82,12 @@
                 "uri": "{/base}/news/analysis?{?}",
                 "target": "self",
                 "icon": null,
-                "order": 15,
+                "order": 20,
                 "from": "News",
                 "permission": { "permission": 4, "category": null, "element": null },
                 "parent": 1000601001,
-                "children": []
+                "children": [],
+                "status": 3
             }
         ]
     }
