@@ -74,13 +74,13 @@ final class BackendController extends Controller implements DashboardElementInte
         $objs = [];
         if ($request->getData('ptype') === 'p') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
-            $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
+            $objs = $mapperQuery->where('id', $request->getDataInt('offset') ?? 0, '<')
                     ->execute();
 
             $view->data['news'] = $objs;
         } elseif ($request->getData('ptype') === 'n') {
             /** @var \Modules\News\Models\NewsArticle[] $objs */
-            $objs = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
+            $objs = $mapperQuery->where('id', $request->getDataInt('offset') ?? 0, '>')
                     ->execute();
 
             $view->data['news'] = $objs;
@@ -101,7 +101,7 @@ final class BackendController extends Controller implements DashboardElementInte
         $seenObjects = NewsSeenMapper::getAll()
             ->where('seenBy', $request->header->account)
             ->where('news', $ids, 'in')
-            ->execute();
+            ->executeGetArray();
 
         $seen = [];
         foreach ($seenObjects as $seenObject) {
@@ -133,7 +133,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('tags/title/language', $response->header->l11n->language)
             ->sort('publish', OrderType::DESC)
             ->limit(5)
-            ->execute();
+            ->executeGetArray();
 
         $view->data['news'] = $news;
 
@@ -265,10 +265,10 @@ final class BackendController extends Controller implements DashboardElementInte
         ->limit(25);
 
         if ($request->getData('ptype') === 'p') {
-            $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '<')
+            $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('offset') ?? 0, '<')
                     ->execute();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('id') ?? 0, '>')
+            $view->data['news'] = $mapperQuery->where('id', $request->getDataInt('offset') ?? 0, '>')
                     ->execute();
         } else {
             $view->data['news'] = $mapperQuery->where('id', 0, '>')
@@ -298,11 +298,11 @@ final class BackendController extends Controller implements DashboardElementInte
         $view->data['nav'] = $this->app->moduleManager->get('Navigation')->createNavigationMid(1000601001, $request, $response);
 
         if ($request->getData('ptype') === 'p') {
-            $view->data['news'] = NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '<')->where('status', NewsStatus::DRAFT)->limit(25)->execute();
+            $view->data['news'] = NewsArticleMapper::getAll()->where('id', $request->getDataInt('offset') ?? 0, '<')->where('status', NewsStatus::DRAFT)->limit(25)->executeGetArray();
         } elseif ($request->getData('ptype') === 'n') {
-            $view->data['news'] = NewsArticleMapper::getAll()->where('id', $request->getDataInt('id') ?? 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute();
+            $view->data['news'] = NewsArticleMapper::getAll()->where('id', $request->getDataInt('offset') ?? 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->executeGetArray();
         } else {
-            $view->data['news'] = NewsArticleMapper::getAll()->where('id', 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->execute();
+            $view->data['news'] = NewsArticleMapper::getAll()->where('id', 0, '>')->where('status', NewsStatus::DRAFT)->limit(25)->executeGetArray();
         }
 
         return $view;

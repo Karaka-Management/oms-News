@@ -66,7 +66,7 @@ final class SearchController extends Controller
             ->where('tags/title/content', $pattern)
             ->sort('publish', OrderType::DESC)
             ->limit(8)
-            ->execute();
+            ->executeGetArray();
 
         $results = [];
         foreach ($news as $article) {
@@ -114,7 +114,7 @@ final class SearchController extends Controller
             ->where('tags/title/language', $response->header->l11n->language)
             ->sort('publish', OrderType::DESC)
             ->limit(8)
-            ->execute();
+            ->executeGetArray();
 
         $results = [];
         foreach ($news as $article) {
