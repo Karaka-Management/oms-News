@@ -48,7 +48,7 @@ echo $this->data['nav']->render(); ?>
                         <span><a class="content" href="<?= UriFactory::build('{/base}/media/view?id=' . $file->id);?>"><?= $file->name; ?></a></span>
                     <?php endforeach; ?>
                 </div>
-                <div>
+                <div class="tag-list">
                     <?php foreach ($news->tags as $tag) : ?>
                         <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>">
                             <?= $this->printHtml($tag->getL11n()); ?>

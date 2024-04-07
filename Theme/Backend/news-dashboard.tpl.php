@@ -42,12 +42,14 @@ echo $this->data['nav']->render(); ?>
             </div>
             <div class="portlet-body">
                 <article><?= Markdown::parse(\substr($news->plain, 0, 500)); ?></article>
+                <div class="tag-list">
                 <?php foreach ($news->tags as $tag) : ?>
                     <span class="tag" style="background: <?= $this->printHtml($tag->color); ?>">
                         <?= empty($tag->icon) ? '' : '<i class="g-icon">' . $this->printHtml($tag->icon) . '</i>'; ?>
                         <?= $this->printHtml($tag->getL11n()); ?>
                     </span>
                 <?php endforeach; ?>
+                </div>
             </div>
             <div class="portlet-foot">
                 <div class="overflowfix">
