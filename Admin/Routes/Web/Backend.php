@@ -22,7 +22,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsDashboard',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -34,7 +34,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsArticle',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -46,7 +46,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsArchive',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::READ,
@@ -58,7 +58,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsDraftList',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -70,7 +70,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsCreate',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -82,7 +82,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsEdit',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -94,7 +94,7 @@ return [
         [
             'dest'       => '\Modules\News\Controller\BackendController:viewNewsAnalysis',
             'verb'       => RouteVerb::GET,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => BackendController::NAME,
                 'type'   => PermissionType::MODIFY,

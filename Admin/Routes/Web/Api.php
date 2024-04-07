@@ -23,7 +23,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsCreate',
             'verb'       => RouteVerb::PUT,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::CREATE,
@@ -34,7 +34,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsUpdate',
             'verb'       => RouteVerb::SET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::MODIFY,
@@ -45,7 +45,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsGet',
             'verb'       => RouteVerb::GET,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::READ,
@@ -56,7 +56,7 @@ return [
             'dest'       => '\Modules\News\Controller\ApiController:apiNewsDelete',
             'verb'       => RouteVerb::DELETE,
             'csrf'       => true,
-            'active' => true,
+            'active'     => true,
             'permission' => [
                 'module' => ApiController::NAME,
                 'type'   => PermissionType::DELETE,
