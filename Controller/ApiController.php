@@ -16,12 +16,7 @@ namespace Modules\News\Controller;
 
 use Modules\Admin\Models\AccountMapper;
 use Modules\Admin\Models\NullAccount;
-use Modules\Media\Models\CollectionMapper;
-use Modules\Media\Models\MediaMapper;
-use Modules\Media\Models\NullMedia;
 use Modules\Media\Models\PathSettings;
-use Modules\Media\Models\Reference;
-use Modules\Media\Models\ReferenceMapper;
 use Modules\News\Models\NewsArticle;
 use Modules\News\Models\NewsArticleMapper;
 use Modules\News\Models\NewsStatus;
@@ -212,117 +207,29 @@ final class ApiController extends Controller
     {
         $path = $this->createNewsDir($news);
 
-        /** @var \Modules\Admin\Models\Account $account */
-        $account = AccountMapper::get()->where('id', $request->header->account)->execute();
-
-        $collection = null;
-
-        if (!empty($uploadedFiles = $request->files)) {
-            $uploaded = $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
+        if (!empty($request->files)) {
+            $this->app->moduleManager->get('Media', 'Api')->uploadFiles(
                 names: [],
                 fileNames: [],
-                files: $uploadedFiles,
+                files: $request->files,
                 account: $request->header->account,
                 basePath: __DIR__ . '/../../../Modules/Media/Files' . $path,
                 virtualPath: $path,
-                pathSettings: PathSettings::FILE_PATH
+                pathSettings: PathSettings::FILE_PATH,
+                rel: $news->id,
+                mapper: NewsArticleMapper::class,
+                field: 'files'
             );
-
-            foreach ($uploaded as $media) {
-                $this->createModelRelation(
-                    $request->header->account,
-                    $news->id,
-                    $media->id,
-                    NewsArticleMapper::class,
-                    'files',
-                    '',
-                    $request->getOrigin()
-                );
-
-                $accountPath = '/Accounts/' . $account->id . ' ' . $account->login
-                    . '/News/'
-                    . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m')
-                    . '/' . $news->id;
-
-                $ref            = new Reference();
-                $ref->name      = $media->name;
-                $ref->source    = new NullMedia($media->id);
-                $ref->createdBy = new NullAccount($request->header->account);
-                $ref->setVirtualPath($accountPath);
-
-                $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
-
-                if ($collection === null) {
-                    /** @var \Modules\Media\Models\Collection $collection */
-                    $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
-
-                    if ($collection->id === 0) {
-                        $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                            $accountPath,
-                            $request->header->account,
-                            __DIR__ . '/../../../Modules/Media/Files/Accounts/' . $account->id . '/News/' . $news->createdAt->format('Y') . '/' . $news->createdAt->format('m') . '/' . $news->id
-                        );
-                    }
-                }
-
-                $this->createModelRelation(
-                    $request->header->account,
-                    $collection->id,
-                    $ref->id,
-                    CollectionMapper::class,
-                    'sources',
-                    '',
-                    $request->getOrigin()
-                );
-            }
         }
 
-        $mediaFiles = $request->getDataJson('media');
-        foreach ($mediaFiles as $media) {
-            $this->createModelRelation(
+        if (!empty($media = $request->getDataJson('media'))) {
+            $this->app->moduleManager->get('Media', 'Api')->addMediaToCollectionAndModel(
                 $request->header->account,
+                $media,
                 $news->id,
-                (int) $media,
                 NewsArticleMapper::class,
                 'files',
-                '',
-                $request->getOrigin()
-            );
-
-            /** @var \Modules\Media\Models\Media $mediaObject */
-            $mediaObject = MediaMapper::get()
-                ->where('id', (int) $media)
-                ->execute();
-
-            $ref            = new Reference();
-            $ref->source    = new NullMedia((int) $media);
-            $ref->name      = $mediaObject->name;
-            $ref->createdBy = new NullAccount($request->header->account);
-            $ref->setVirtualPath($path);
-
-            $this->createModel($request->header->account, $ref, ReferenceMapper::class, 'media_reference', $request->getOrigin());
-
-            if ($collection === null) {
-                /** @var \Modules\Media\Models\Collection $collection */
-                $collection = MediaMapper::getParentCollection($path)->limit(1)->execute();
-
-                if ($collection->id === 0) {
-                    $collection = $this->app->moduleManager->get('Media')->createRecursiveMediaCollection(
-                        $path,
-                        $request->header->account,
-                        __DIR__ . '/../../../Modules/Media/Files' . $path
-                    );
-                }
-            }
-
-            $this->createModelRelation(
-                $request->header->account,
-                $collection->id,
-                $ref->id,
-                CollectionMapper::class,
-                'sources',
-                '',
-                $request->getOrigin()
+                $path
             );
         }
     }
