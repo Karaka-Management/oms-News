@@ -36,13 +36,13 @@ echo $this->data['nav']->render(); ?>
 
             <section class="portlet">
                 <div class="portlet-body">
-                    <?= $this->getData('editor')->render('iNews'); ?>
+                    <?= $this->data['editor']->render('iNews'); ?>
                 </div>
             </section>
 
             <section class="portlet">
                 <div class="portlet-body">
-                    <?= $this->getData('editor')->getData('text')->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
+                    <?= $this->data['editor']->getData('text')->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
                 </div>
             </section>
         </div>
