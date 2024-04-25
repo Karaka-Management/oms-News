@@ -150,7 +150,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->with('comments')
             ->with('comments/comments')
             ->with('comments/comments/createdBy')
-            ->with('comments/comments/media')
+            ->with('comments/comments/files')
             ->with('files')
             ->with('tags')
             ->with('tags/title')
