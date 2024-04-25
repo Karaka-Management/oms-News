@@ -71,12 +71,14 @@ final class BackendController extends Controller implements DashboardElementInte
             ->limit(25)
             ->paginate(
                 'id',
-                $request->getData('ptype'),
+                $request->getDataString('ptype'),
                 $request->getDataInt('offset')
             )
             ->executeGetArray();
 
         $ids = [];
+
+        /** @var \Modules\News\Models\NewsArticle $news */
         foreach ($view->data['news'] as $news) {
             $ids[] = $news->id;
         }
@@ -88,6 +90,8 @@ final class BackendController extends Controller implements DashboardElementInte
             ->executeGetArray();
 
         $seen = [];
+
+        /** @var \Modules\News\Models\NewsSeen $seenObject */
         foreach ($seenObjects as $seenObject) {
             $seen[] = $seenObject->news;
         }
@@ -257,7 +261,7 @@ final class BackendController extends Controller implements DashboardElementInte
         ->limit(25)
         ->paginate(
             'id',
-            $request->getData('ptype'),
+            $request->getDataString('ptype'),
             $request->getDataInt('offset')
         )
         ->executeGetArray();
@@ -289,7 +293,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->limit(25)
             ->paginate(
                 'id',
-                $request->getData('ptype'),
+                $request->getDataString('ptype'),
                 $request->getDataInt('offset')
             )
             ->executeGetArray();
