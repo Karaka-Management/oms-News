@@ -286,9 +286,11 @@ final class ApiController extends Controller
             $newsArticle->comments = $commnetList;
         }
 
+        /*
         if ($request->hasData('tags')) {
             $newsArticle->tags = $this->app->moduleManager->get('Tag', 'Api')->createTagsFromRequest($request);
         }
+        */
 
         return $newsArticle;
     }

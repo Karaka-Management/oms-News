@@ -23,6 +23,7 @@ return [
             'dest'       => '\Modules\News\Controller\SearchController:searchGeneral',
             'verb'       => RouteVerb::ANY,
             'active'     => true,
+            'order'      => 6,
             'permission' => [
                 'module' => SearchController::NAME,
                 'type'   => PermissionType::READ,

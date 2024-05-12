@@ -30,7 +30,7 @@ echo $this->data['nav']->render(); ?>
             $url     = UriFactory::build('{/base}/news/article?id=' . $news->id);
             $profile = UriFactory::build('profile/view?{?}&id=' . $news->createdBy->id);
         ?>
-        <div class="portlet">
+        <section class="portlet">
             <div class="portlet-head">
                 <?= ($isSeen = \in_array($news->id, $seen)) ? '' : '<strong>'; ?>
                     <a href="<?= $url; ?>"><?= $this->printHtml($news->title); ?></a>
@@ -56,7 +56,7 @@ echo $this->data['nav']->render(); ?>
                     <a tabindex="0" href="<?= $url; ?>" class="button"><?= $this->getHtml('More', '0', '0'); ?></a>
                 </div>
             </div>
-        </div>
+        </section>
         <?php endforeach; ?>
     </div>
     <?php if (empty($newsList)) : ?>

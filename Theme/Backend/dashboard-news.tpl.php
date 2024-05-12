@@ -22,7 +22,7 @@ use phpOMS\Uri\UriFactory;
 $newsList = $this->data['news'] ?? [];
 ?>
 <div id="news-dashboard" class="col-xs-12 col-md-6" draggable="true">
-    <div class="portlet">
+    <section class="portlet">
         <div class="portlet-head"><?= $this->getHtml('News', 'News'); ?></div>
         <div class="slider">
         <table class="default sticky">
@@ -68,5 +68,5 @@ $newsList = $this->data['news'] ?? [];
         <div class="portlet-foot">
             <a class="button" href="<?= UriFactory::build('{/base}/news/dashboard?{?}'); ?>"><?= $this->getHtml('More', '0', '0'); ?></a>
         </div>
-    </div>
+    </section>
 </div>
