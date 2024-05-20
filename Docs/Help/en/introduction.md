@@ -10,41 +10,19 @@ The target groups for this module are intranet users that want to inform other p
 
 The module can be installed through the integrated module downloader and installer or by uploading the module into the `Modules/` directory and executing the installation through the module installer. 
 
-The module is depending on the **Editor** module which provides most of the writing features.
-
 # Features
 
 ## Timed Release
 
 Articles can be written in advanced and stored as a draft for further adjustments. In case an article should be released at a specific date/time this can also be configured.
 
-## Permissions & Groups
-
-By assigning permissions and groups to articles it's possible to only make them visible to intended audiences and different pages (e.g. intranet, website, blog etc.).
-
 ## Localization
 
-News articles can get assigned to a language upon which it will be visible only to those who have the same language configuration. This allows organizations to target news articles not only by groups and permissions but also by localization.
+News articles can get assigned to a language upon which it will be visible only to those who have the same language configuration. 
 
 ## Markdown
 
-The module makes use of an extended markdown version for easy writing and modifications. 
-
-### Extendability
-
-Modules can provide custom elements which allows them to provide elemnts that normal markdown doesn't support. Some modules that already provide custom elements for articles:
-
-* Media
-* Charts
-* Spreadsheets
-* Calendar/Events
-* Tasks
-* Checklists
-* Profiles/Contacts
-
-## Version Control
-
-Articles can be version controlled which enables to easily see changes made by collaborators.
+The module makes use of an extended markdown version for easy writing and modifications. A cheatsheet for markdown can be found in the [Editor]({/}?id=Editor&page=Help/cheatsheet) module 
 
 ## Comments
 
@@ -54,5 +32,5 @@ One important module that is not required but can be used for better user intera
 
 Other modules that work great with this one together are:
 
-* [Editor](Editor)
-* [Comments](Comments)
+* [Editor]({/}?id=Editor)
+* [Comments]({/}?id=Comments)
