@@ -50,12 +50,13 @@ class Comments
             throw new \Exception('Couldn\'t parse mapper');
         }
 
-        $mapper = \str_replace([
-            '// @Module Comments ',
-            '/* @Module Comments ',
-            ' @Module Comments */',
-            ], '', $mapper);
-        \file_put_contents(__DIR__ . '/../../Models/NewsArticleMapper.php', $mapper);
+        // @todo removed until modular mapper extension is implemented
+        // $mapper = \str_replace([
+        //     '// @Module Comments ',
+        //     '/* @Module Comments ',
+        //     ' @Module Comments */',
+        //     ], '', $mapper);
+        // \file_put_contents(__DIR__ . '/../../Models/NewsArticleMapper.php', $mapper);
 
         Autoloader::invalidate(__DIR__ . '/../../Models/NewsArticleMapper.php');
     }
