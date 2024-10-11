@@ -12,6 +12,7 @@
  */
 declare(strict_types=1);
 
+use Modules\Comments\Models\CommentListStatus;
 use Modules\News\Models\NewsStatus;
 use Modules\News\Models\NewsType;
 use Modules\News\Models\NullNewsArticle;
@@ -78,7 +79,7 @@ echo $this->data['nav']->render(); ?>
 
                     <div class="form-group">
                         <label class="checkbox" for="iComment">
-                            <input id="iComment" type="checkbox" name="allow_comments" value="1">
+                            <input id="iComment" type="checkbox" name="allow_comments" value="1"<?= $news->comments?->status === CommentListStatus::ACTIVE ? ' checked' : ''; ?>>
                             <span class="checkmark"></span>
                             <?= $this->getHtml('AllowComments'); ?>
                         </label>
@@ -88,10 +89,8 @@ echo $this->data['nav']->render(); ?>
                     <table class="layout wf-100">
                         <tr>
                             <td>
-                                <?php if ($isNewArticle) : ?>
-                                    <a href="<?= UriFactory::build('{/base}/news/dashboard'); ?>" class="button"><?= $this->getHtml('Delete', '0', '0'); ?></a>
-                                <?php else : ?>
-                                    <input type="submit" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
+                                <?php if (!$isNewArticle) : ?>
+                                    <input type="submit" formmethod="DELETE" name="deleteButton" id="iDeleteButton" value="<?= $this->getHtml('Delete', '0', '0'); ?>">
                                 <?php endif; ?>
                             <td class="rT">
                                 <input type="submit" name="saveButton" id="iSaveButton" value="<?= $this->getHtml('Save', '0', '0'); ?>">
@@ -126,22 +125,28 @@ echo $this->data['nav']->render(); ?>
                     </label>
                 </div>
 
+                <!--
+                @todo Implement Tags for news
                 <div class="form-group">
                     <?= $this->getHtml('Tags', 'Tag'); ?>
                     <?= $this->getData('tagSelector')->render('iTag', 'tag', 'fEditor', false); ?>
                 </div>
+                -->
             </div>
         </section>
+        <!--
+        @todo implement permission/visibilities
         <section class="portlet">
             <div class="portlet-head"><?= $this->getHtml('Accounts/Groups'); ?></div>
             <div class="portlet-body">
                 <div class="form-group">
-                    <!-- @todo add form this belongs to -->
-                    <!-- @todo make auto save on change for already created news article -->
-                    <!-- @todo add default values (some can be removed/overwritten and some not?) -->
-                    <?= $this->getData('accGrpSelector')->render('iReceiver', 'receiver', false); ?>
+                    @todo add form this belongs to
+                    @todo make auto save on change for already created news article
+                    @todo add default values (some can be removed/overwritten and some not?)
+                    <?= ''; //$this->getData('accGrpSelector')->render('iReceiver', 'receiver', false); ?>
                 </div>
             </div>
         </section>
+         -->
     </div>
 </div>
