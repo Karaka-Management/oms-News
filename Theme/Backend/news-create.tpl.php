@@ -19,7 +19,7 @@ use Modules\News\Models\NullNewsArticle;
 use phpOMS\Uri\UriFactory;
 
 /** @var \Modules\News\Models\NewsArticle $news */
-$news         = $this->getData('news') ?? new NullNewsArticle();
+$news         = $this->data['news'] ?? new NullNewsArticle();
 $isNewArticle = $news->id === 0;
 $languages    = \phpOMS\Localization\ISO639Enum::getConstants();
 
@@ -43,7 +43,7 @@ echo $this->data['nav']->render(); ?>
 
             <section class="portlet">
                 <div class="portlet-body">
-                    <?= $this->data['editor']->getData('text')->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
+                    <?= $this->data['editor']->data['text']->render('iNews', 'plain', 'docForm', $news->plain, $news->content); ?>
                 </div>
             </section>
         </div>
@@ -129,7 +129,7 @@ echo $this->data['nav']->render(); ?>
                 @todo Implement Tags for news
                 <div class="form-group">
                     <?= $this->getHtml('Tags', 'Tag'); ?>
-                    <?= $this->getData('tagSelector')->render('iTag', 'tag', 'fEditor', false); ?>
+                    <?= $this->data['tagSelector']->render('iTag', 'tag', 'fEditor', false); ?>
                 </div>
                 -->
             </div>
@@ -143,7 +143,7 @@ echo $this->data['nav']->render(); ?>
                     @todo add form this belongs to
                     @todo make auto save on change for already created news article
                     @todo add default values (some can be removed/overwritten and some not?)
-                    <?= ''; //$this->getData('accGrpSelector')->render('iReceiver', 'receiver', false); ?>
+                    <?= ''; //$this->data['accGrpSelector']->render('iReceiver', 'receiver', false); ?>
                 </div>
             </div>
         </section>

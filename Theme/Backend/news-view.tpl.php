@@ -68,11 +68,11 @@ echo $this->data['nav']->render(); ?>
 <?php
 $commentList = $news->comments;
 if ($this->data['commentPermissions']['write'] && $commentList?->status === CommentListStatus::ACTIVE) :
-  echo $this->getData('commentCreate')->render(1);
+  echo $this->data['commentCreate']->render(1);
 endif;
 
 if ($this->data['commentPermissions']['list_modify']
     || ($this->data['commentPermissions']['list_read'] && $commentList->status !== CommentListStatus::INACTIVE)
 ) :
-    echo $this->getData('commentList')->render($commentList);
+    echo $this->data['commentList']->render($commentList);
 endif;

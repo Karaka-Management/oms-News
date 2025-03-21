@@ -127,7 +127,7 @@ final class ApiController extends Controller
     public function apiNewsUpdate(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
         /** @var \Modules\News\Models\NewsArticle $old */
-        $old = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $old = NewsArticleMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $new = $this->updateNewsFromRequest($request, clone $old);
 
         $this->updateModel($request->header->account, $old, $new, NewsArticleMapper::class, 'news', $request->getOrigin());
@@ -310,7 +310,7 @@ final class ApiController extends Controller
      */
     public function apiNewsGet(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        $news = NewsArticleMapper::get()->where('id', (int) $request->getData('id'))->execute();
+        $news = NewsArticleMapper::get()->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->createStandardReturnResponse($request, $response, $news);
     }
 
@@ -329,7 +329,7 @@ final class ApiController extends Controller
      */
     public function apiNewsDelete(RequestAbstract $request, ResponseAbstract $response, array $data = []) : void
     {
-        $news = NewsArticleMapper::get()->with('files')->with('tags')->where('id', (int) $request->getData('id'))->execute();
+        $news = NewsArticleMapper::get()->with('files')->with('tags')->where('id', $request->getDataInt('id') ?? 0)->execute();
         $this->deleteModel($request->header->account, $news, NewsArticleMapper::class, 'news', $request->getOrigin());
         $this->createStandardDeleteResponse($request, $response, $news);
     }

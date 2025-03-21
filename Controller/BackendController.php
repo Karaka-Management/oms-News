@@ -157,7 +157,7 @@ final class BackendController extends Controller implements DashboardElementInte
             ->where('status', NewsStatus::VISIBLE)
             ->where('publish', new \DateTime('now'), '<=')
             ->where('tags/title/language', $response->header->l11n->language)
-            ->where('id', (int) $request->getData('id'))
+            ->where('id', $request->getDataInt('id') ?? 0)
             ->execute();
 
         $accountId = $request->header->account;
@@ -181,14 +181,14 @@ final class BackendController extends Controller implements DashboardElementInte
 
         /** @var \Modules\News\Models\NewsSeen $seen */
         $seen = NewsSeenMapper::get()
-            ->where('news', (int) $request->getData('id'))
+            ->where('news', $request->getDataInt('id') ?? 0)
             ->where('seenBy', $request->header->account)
             ->execute();
 
         if ($seen->id === 0) {
             $seen         = new NewsSeen();
             $seen->seenBy = (int) $request->header->account;
-            $seen->news   = (int) $request->getData('id');
+            $seen->news   = $request->getDataInt('id') ?? 0;
             $seen->seenAt = new \DateTime('now');
 
             NewsSeenMapper::create()->execute($seen);
